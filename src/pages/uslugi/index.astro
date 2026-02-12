@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { services, serviceCategories } from '../../data/services';
+
+const categoryLabels: Record<string, string> = {
+  copywriting: 'Copywriting & strony',
+  content: 'Content marketing',
+  publikacje: 'Publikacje & DTP',
+  specjalistyczne: 'Specjalistyczne'
+};
+
+const categoryDescs: Record<string, string> = {
+  copywriting: 'Teksty sprzedażowe, SEO, strony www, opisy produktów, landing page — treści, które konwertują i pozycjonują.',
+  content: 'Strategia, artykuły, email marketing, social media — content, który buduje autorytet i generuje leady.',
+  publikacje: 'Ebooki, katalogi, white papers, materiały szkoleniowe, prezentacje — od tekstu po gotowy produkt wydawniczy.',
+  specjalistyczne: 'Dokumentacja techniczna, redakcja i korekta — specjalistyczne usługi dla wymagających projektów.'
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/",
+      "name": "Usługi copywriterskie — iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": "16 usług copywriterskich: copywriting sprzedażowy, SEO, teksty na stronę, artykuły, ebooki, katalogi, dokumentacja, redakcja. Od słowa po gotowy produkt.",
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Usługi copywriterskie — copywriting, SEO, content, skład | iCopywriter.pl"
+  description="16 usług copywriterskich: copywriting sprzedażowy, SEO copywriting, teksty na stronę, artykuły, ebooki, katalogi, materiały szkoleniowe, dokumentacja, redakcja. Od słowa po gotowy produkt."
+  keywords="usługi copywriting, copywriter usługi, cennik copywriter, oferta copywriter, copywriting oferta, usługi copywriterskie"
+  schema={schema}
+  canonical="https://www.icopywriter.pl/uslugi/"
+>
+
+  <!-- BREADCRUMBS -->
+  <nav class="breadcrumbs" aria-label="Ścieżka nawigacji">
+    <div class="container">
+      <ol class="breadcrumbs__list">
+        <li><a href="/">Strona główna</a></li>
+        <li aria-current="page">Usługi</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hub-hero" aria-labelledby="hub-hero-title">
+    <div class="hub-hero__bg" aria-hidden="true"><div class="hub-hero__grain"></div><div class="hub-hero__gradient"></div></div>
+    <div class="container hub-hero__inner">
+      <div class="hub-hero__badge"><span class="hub-hero__badge-dot"></span>16 usług</div>
+      <h1 id="hub-hero-title" class="hub-hero__title">
+        Usługi copywriterskie —<br><em>od słowa po gotowy produkt</em>
+      </h1>
+      <p class="hub-hero__subtitle">
+        Copywriting, SEO, content marketing, skład typograficzny, redakcja, dokumentacja
+        techniczna. Wszystko, czego potrzebujesz, żeby Twoje treści pracowały na biznes.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES BY CATEGORY -->
+  {serviceCategories.map((cat, ci) => {
+    const catServices = cat.slugs.map(s => services.find(srv => srv.slug === s)!);
+    return (
+      <section class={`hub-cat ${ci % 2 === 1 ? 'hub-cat--alt' : ''}`} id={cat.id}>
+        <div class="container">
+          <div class="reveal">
+            <div class="hub-cat__header">
+              <span class="hub-cat__num">{String(ci + 1).padStart(2, '0')}</span>
+              <div>
+                <h2 class="hub-cat__title">{categoryLabels[cat.id]}</h2>
+                <p class="hub-cat__desc">{categoryDescs[cat.id]}</p>
+              </div>
+            </div>
+          </div>
+          <div class="hub-cat__grid">
+            {catServices.map((srv, si) => (
+              <a href={`/uslugi/${srv.slug}/`} class={`hub-card reveal`} style={`--delay: ${si * 0.06}s`}>
+                <div class="hub-card__top">
+                  <span class="hub-card__badge">{srv.badge}</span>
+                  <h3 class="hub-card__title">{srv.title}</h3>
+                  <p class="hub-card__desc">{srv.heroSubtitle}</p>
+                </div>
+                <span class="hub-card__link">
+                  Dowiedz się więcej
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- CTA -->
+  <section class="hub-cta" aria-labelledby="hub-cta-title">
+    <div class="hub-cta__bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hub-cta__inner reveal">
+        <h2 id="hub-cta-title" class="hub-cta__title">Nie wiesz, czego <em>potrzebujesz</em>?</h2>
+        <p class="hub-cta__desc">
+          Opisz swój cel — ja dobiorę usługi. Wycena w&nbsp;24h,
+          bezpłatnie i&nbsp;bez zobowiązań.
+        </p>
+        <a href="/#kontakt" class="hub-cta__button">
+          Porozmawiajmy
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Breadcrumbs */
+  .breadcrumbs { padding-top: calc(72px + var(--space-6)); padding-bottom: var(--space-4); }
+  .breadcrumbs__list { display: flex; align-items: center; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.03em; color: var(--ink-faint); flex-wrap: wrap; }
+  .breadcrumbs__list li { display: flex; align-items: center; }
+  .breadcrumbs__list li:not(:last-child)::after { content: '/'; margin: 0 0.5rem; color: var(--rule); }
+  .breadcrumbs__list a { color: var(--ink-faint); text-decoration: none; transition: color var(--transition-fast); }
+  .breadcrumbs__list a:hover { color: var(--accent); }
+  .breadcrumbs__list [aria-current="page"] { color: var(--ink-muted); }
+
+  /* Hero */
+  .hub-hero { position: relative; padding: var(--space-10) 0 var(--space-14); overflow: hidden; }
+  .hub-hero__bg { position: absolute; inset: 0; z-index: 0; }
+  .hub-hero__gradient { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 20% 80%, rgba(26,107,71,0.05) 0%, transparent 55%); }
+  .hub-hero__grain { position: absolute; inset: 0; opacity: 0.02; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .hub-hero__inner { position: relative; z-index: 1; max-width: 700px; }
+  .hub-hero__badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-5); opacity: 0; animation: hubFade 0.8s ease 0.1s forwards; }
+  .hub-hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .hub-hero__title { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: var(--fw-bold); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); opacity: 0; animation: hubFade 0.9s ease 0.2s forwards; }
+  .hub-hero__title em { font-style: italic; color: var(--accent); }
+  .hub-hero__subtitle { font-size: clamp(0.95rem, 1.4vw, 1.05rem); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-top: var(--space-4); opacity: 0; animation: hubFade 0.9s ease 0.35s forwards; }
+  @keyframes hubFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Categories */
+  .hub-cat { padding: var(--space-16) 0; }
+  .hub-cat--alt { background: var(--paper-warm); }
+
+  .hub-cat__header { display: flex; gap: var(--space-5); align-items: flex-start; margin-bottom: var(--space-8); padding-bottom: var(--space-5); border-bottom: 2px solid var(--ink); }
+  .hub-cat__num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); padding-top: 6px; flex-shrink: 0; }
+  .hub-cat__title { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); }
+  .hub-cat__desc { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-relaxed); max-width: 560px; }
+
+  .hub-cat__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4); }
+
+  /* Cards */
+  .hub-card {
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: var(--space-5); background: var(--card-bg);
+    border: 1px solid var(--rule-light); border-radius: var(--radius-md);
+    text-decoration: none; transition: all var(--transition-base);
+    transition-delay: var(--delay, 0s);
+  }
+  .hub-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+  .hub-card__badge { display: inline-block; font-family: var(--font-mono); font-size: 0.52rem; font-weight: var(--fw-semibold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .hub-card__title { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); margin-bottom: var(--space-2); }
+  .hub-card__desc { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-relaxed); margin-bottom: var(--space-4); }
+
+  .hub-card__link { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--accent); margin-top: auto; transition: gap var(--transition-fast); }
+  .hub-card:hover .hub-card__link { gap: 10px; }
+
+  /* CTA */
+  .hub-cta { padding: var(--space-24) 0; position: relative; overflow: hidden; }
+  .hub-cta__bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(26,107,71,0.04) 0%, transparent 60%); }
+  .hub-cta__inner { max-width: 540px; margin: 0 auto; text-align: center; position: relative; }
+  .hub-cta__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: var(--fw-bold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-3); }
+  .hub-cta__title em { font-style: italic; color: var(--accent); }
+  .hub-cta__desc { font-size: var(--fs-base); color: var(--ink-muted); line-height: var(--lh-relaxed); margin-bottom: var(--space-8); }
+  .hub-cta__button { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--accent); color: #fff; font-size: var(--fs-base); font-weight: var(--fw-semibold); border-radius: var(--radius-sm); transition: all var(--transition-base); }
+  .hub-cta__button:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,107,71,0.25); }
+  .hub-cta__button svg { transition: transform var(--transition-fast); }
+  .hub-cta__button:hover svg { transform: translateX(3px); }
+</style>

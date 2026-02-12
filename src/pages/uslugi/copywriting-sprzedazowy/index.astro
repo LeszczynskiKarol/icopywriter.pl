@@ -1,0 +1,588 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('copywriting-sprzedazowy')!;
+
+// ── What's included ──
+const scope = [
+  {
+    title: 'Landing page',
+    desc: 'Strony lądowania, które konwertują — od nagłówka, przez argumentację, po CTA. Copy-first approach: najpierw tekst, potem design. Każdy element ma uzasadnienie w danych i psychologii decyzji.',
+    tags: ['Nagłówki i subheadline', 'Sekcje korzyści', 'Social proof', 'CTA i mikrocopy', 'Warianty A/B']
+  },
+  {
+    title: 'Oferty i propozycje wartości',
+    desc: 'Teksty ofertowe, które tłumaczą skomplikowane usługi prostym językiem korzyści. Nie opisuję, co robisz — pokazuję, dlaczego to ma znaczenie dla klienta. Struktura, która prowadzi przez proces decyzyjny.',
+    tags: ['Propozycja wartości', 'Język korzyści', 'Obiekcje i kontr-argumenty', 'Pricing copy']
+  },
+  {
+    title: 'Strony usługowe i produktowe',
+    desc: 'Podstrony, które sprzedają i jednocześnie pozycjonują. Wireframe tekstowy, nagłówki, opisy usług, FAQ, trust signals. Każda podstrona to samodzielna jednostka perswazji — bo nie wiesz, na którą stronę trafi klient z Google.',
+    tags: ['Wireframe tekstowy', 'Sekcje usługowe', 'FAQ', 'Trust signals', 'Wewnętrzne CTA']
+  },
+  {
+    title: 'Mailingi i sekwencje sprzedażowe',
+    desc: 'Emaile, które otwierają, czytają i klikają. Tematy, preheadery, copy, CTA — każdy element zoptymalizowany pod konwersję. Sekwencje powitalne, nurturing, launch, follow-up, reaktywacja.',
+    tags: ['Temat i preheader', 'Body copy', 'Sekwencje', 'Follow-up', 'A/B warianty']
+  },
+  {
+    title: 'Teksty reklamowe i slogany',
+    desc: 'Krótkie formy, które wymagają więcej pracy niż długie. Slogany, tagline, headline reklamowe, copy do Google Ads i Meta Ads, teksty na ulotki i banery. Maksimum przekazu w minimum słów.',
+    tags: ['Slogany', 'Tagline', 'Google Ads', 'Meta Ads', 'Ulotki']
+  }
+];
+
+// ── Why my copywriting works ──
+const whyWorks = [
+  {
+    title: 'Zaczynam od celu, nie od tekstu',
+    desc: 'Każdy projekt zaczyna się od pytania: co ten tekst ma osiągnąć? Więcej leadów? Wyższa konwersja? Krótszy cykl sprzedaży? Cel determinuje strukturę, ton, długość i sposób argumentacji. Bez celu nie ma dobrego copywritingu — jest tylko pisanie.'
+  },
+  {
+    title: 'Piszę dla ludzi, nie dla siebie',
+    desc: 'Nie piszę, żeby się podobało mnie. Piszę, żeby działało na Twoich klientów. Dlatego zaczynam od researchu — kim są, czego szukają, co ich blokuje, jakim językiem mówią. Dopiero potem piszę teksty w ich języku, nie w moim.'
+  },
+  {
+    title: 'Struktura przed słowami',
+    desc: 'Zanim napiszę pierwsze zdanie, mam gotowy wireframe tekstowy — nagłówki, sekcje, flow argumentacji, rozmieszczenie CTA. To jak szkielet budynku: jeśli jest solidny, tekst się napisze. Jeśli go nie ma, nawet najładniejsze zdania nie uratują konwersji.'
+  },
+  {
+    title: 'Redaguję brutalnie',
+    desc: 'Pierwszy draft to surowiec, nie produkt. Każdy mój tekst przechodzi minimum dwie rundy wewnętrznej redakcji: wycinam zbędne, upraszczam złożone, zaostrzam przekaz. Łatwiej napisać 5000 słów niż 500 — prostota wymaga więcej pracy.'
+  },
+  {
+    title: 'Dostarczam gotowy produkt',
+    desc: 'Nie oddaję tekstu w Google Docs i nie życzę powodzenia. Jeśli potrzebujesz: składam typograficznie, koduję stronę, wdrażam, konfiguruję A/B testy. Jeden copywriter zamiast łańcucha freelancerów: strategia → copy → redakcja → skład → wdrożenie.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Brief i cel biznesowy', desc: 'Definiujemy cel (leady, sprzedaż, konwersja), grupę docelową, ton komunikacji, USP, obiekcje klientów. Im bardziej szczegółowy brief, tym celniejszy tekst.' },
+  { step: 'Research i analiza', desc: 'Analizuję konkurencję, SERP, język klientów (recenzje, fora, social media). Identyfikuję luki w argumentacji konkurencji i szanse na wyróżnienie się.' },
+  { step: 'Wireframe tekstowy', desc: 'Tworzę szkielet tekstu — nagłówki, sekcje, flow argumentacji, rozmieszczenie CTA, struktura social proof. Akceptujesz strukturę zanim napiszę pierwsze zdanie.' },
+  { step: 'Copywriting', desc: 'Piszę tekst zgodnie z zatwierdzonym wireframe. Nagłówki, body copy, CTA, mikrocopy, alt texty. Każda sekcja z zaznaczonym celem i intencją.' },
+  { step: 'Redakcja wewnętrzna', desc: 'Minimum dwie rundy: redakcja stylistyczna (upraszczam, wycinam, zaostrzam), korekta językowa (ortografia, interpunkcja, spójność). Dostajesz dopracowany tekst, nie pierwszy draft.' },
+  { step: 'Feedback i finalizacja', desc: 'Przesyłam do akceptacji, zbieram feedback, wprowadzam poprawki. Opcjonalnie: skład typograficzny, kodowanie, wdrożenie na stronę, konfiguracja A/B testów.' }
+];
+
+// ── For whom ──
+const forWhom = [
+  { label: 'Startupy i SaaS', desc: 'Potrzebujecie landing page, strony produktowej i sekwencji onboardingowej, które jasno tłumaczą wartość produktu i konwertują trial na paying user.' },
+  { label: 'E-commerce', desc: 'Szukacie copywritera, który napisze opisy produktów, strony kategorii, emaile posprzedażowe i treści, które zwiększą AOV i konwersję koszyka.' },
+  { label: 'Firmy usługowe', desc: 'Macie usługi, ale strona nie tłumaczy, dlaczego ktoś ma wybrać was. Potrzebujecie tekstów, które budują zaufanie i generują zapytania.' },
+  { label: 'B2B i enterprise', desc: 'Sprzedajecie złożone rozwiązania i potrzebujecie treści, które tłumaczą wartość po ludzku — oferty, case studies, landing page, prezentacje.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Copywriting sprzedażowy (strona A4 / 1800 zzs)', price: '150–350 zł' },
+  { item: 'Landing page (copy + wireframe tekstowy)', price: '2 000–6 000 zł' },
+  { item: 'Podstrona usługowa', price: '500–2 000 zł' },
+  { item: 'Kompletna strona (5–8 podstron)', price: '4 000–12 000 zł' },
+  { item: 'Sekwencja emailowa (5–7 emaili)', price: '1 500–4 000 zł' },
+  { item: 'Slogan / tagline', price: '500–2 000 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Co to jest copywriting sprzedażowy?',
+    a: 'Copywriting sprzedażowy to tworzenie tekstów, których głównym celem jest skłonienie odbiorcy do konkretnego działania — zakupu, zapisu, kontaktu, pobrania. W odróżnieniu od content marketingu (który buduje autorytet i widoczność w czasie), copywriting sprzedażowy celuje w bezpośrednią konwersję. To teksty na landing page, oferty, strony usługowe, mailingi sprzedażowe, reklamy.'
+  },
+  {
+    q: 'Czym różni się copywriting od content writingu?',
+    a: 'Copywriting to teksty nastawione na konwersję — sprzedaż, leady, kliknięcia. Content writing to teksty nastawione na budowanie autorytetu, edukację, SEO. W praktyce najlepsze rezultaty daje połączenie obu: content marketing przyciąga ruch, copywriting konwertuje go w klientów. Robię jedno i drugie.'
+  },
+  {
+    q: 'Czy dostaję tylko tekst, czy gotowy landing page?',
+    a: 'To zależy od Twoich potrzeb. Mogę dostarczyć sam tekst (Google Docs / Word z wireframe), ale mogę też zaprojektować i zakodować stronę — piszę w Astro, Next.js, React. Copy-first approach: tekst przed designem, bo to treść sprzedaje, nie pixel.'
+  },
+  {
+    q: 'Jak mierzysz skuteczność copywritingu?',
+    a: 'KPI zależą od projektu: conversion rate na landing page, CTR emaili, bounce rate podstron, liczba leadów, czas na stronie. Jeśli wdrażam stronę — konfiguruję analitykę (GA4, GTM) i A/B testy. Jeśli dostarczam sam tekst — doradzam, co mierzyć i jak.'
+  },
+  {
+    q: 'Ile trwa napisanie landing page?',
+    a: 'Typowy landing page (research + wireframe + copywriting + 2 rundy redakcji): 5–10 dni roboczych. Ekspres (+50%): 3–5 dni. Czas zależy od złożoności produktu/usługi i ilości potrzebnego researchu. Im lepsze materiały źródłowe dostarczysz, tym szybciej.'
+  },
+  {
+    q: 'Czy piszesz po angielsku?',
+    a: 'Piszę głównie po polsku — tu mam 15+ lat doświadczenia i naturalną biegłość stylistyczną. Teksty po angielsku realizuję w formule: draft PL → tłumaczenie → native proofreading, lub jako polskojęzyczne wsparcie dla zespołów z EN copywriterem.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/copywriting-sprzedazowy/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/copywriting-sprzedazowy/",
+      "name": "Copywriting sprzedażowy — teksty, które konwertują | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/copywriting-sprzedazowy/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/copywriting-sprzedazowy/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Copywriting sprzedażowy", "item": "https://www.icopywriter.pl/uslugi/copywriting-sprzedazowy/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Copywriting sprzedażowy",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Copywriting sprzedażowy: landing page, oferty, strony usługowe, mailingi, teksty reklamowe. Teksty, które konwertują.",
+      "serviceType": "Copywriting",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO — Co to jest copywriting
+       ════════════════════════════════════════ -->
+  <section class="cp-intro" id="zakres" aria-labelledby="cp-intro-title">
+    <div class="container">
+      <div class="cp-intro__inner reveal">
+        <div class="cp-intro__eyebrow">Czym jest copywriting sprzedażowy?</div>
+        <h2 id="cp-intro-title" class="cp-intro__title">
+          <strong>Copywriting</strong> to nie „pisanie tekstów".<br>
+          To <em>architektura perswazji</em> w&nbsp;formie słów.
+        </h2>
+        <div class="cp-intro__columns">
+          <div class="cp-intro__col">
+            <p>
+              Dobry <strong>copywriting</strong> zaczyna się od pytania, które większość
+              copywriterów pomija: <em>co ten tekst ma osiągnąć?</em> Odpowiedź determinuje
+              wszystko — strukturę, ton, długość, dobór argumentów, rozmieszczenie CTA.
+              Bez jasnego celu nawet najładniejsze zdania są tylko dekoracją.
+            </p>
+            <p>
+              Każdy tekst, który piszę, ma za zadanie przeprowadzić czytelnika przez
+              ścieżkę: <strong>uwaga → zainteresowanie → zaufanie → działanie</strong>.
+              Nie chodzi o „ładne słowa" ani o „kreatywne nagłówki". Chodzi o to,
+              żeby ktoś po przeczytaniu Twojej strony kliknął przycisk, wypełnił formularz,
+              zadzwonił, kupił.
+            </p>
+          </div>
+          <div class="cp-intro__col">
+            <p>
+              <strong>Copywriting sprzedażowy</strong> to dyscyplina, w&nbsp;której mierzalny
+              efekt liczy się bardziej niż literacki styl. Konwertujący tekst na landing page
+              jest więcej wart niż piękna proza, której nikt nie czyta do końca. Dlatego
+              testuję nagłówki, optymalizuję CTA, analizuję heatmapy i mierzę konwersję.
+            </p>
+            <p>
+              Ale — i to ważne — <strong>skuteczność nie wyklucza jakości</strong>.
+              Tekst może konwertować <em>i</em> czytać się dobrze. Może sprzedawać
+              <em>i</em> budować zaufanie. Może być zwięzły <em>i</em> wyczerpujący.
+              To nie jest kompromis — to standard, do którego dążę w&nbsp;każdym projekcie.
+              Bo długoterminowo najlepiej konwertują treści, którym ludzie ufają.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE — What's included
+       ════════════════════════════════════════ -->
+  <section class="cp-scope" aria-labelledby="cp-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zakres"
+          title="Co obejmuje mój <em>copywriting</em>?"
+          subtitle="Pięć obszarów, w&nbsp;których piszę teksty sprzedażowe. Każdy obejmuje research, wireframe, copywriting, redakcję i&nbsp;opcjonalnie skład lub wdrożenie."
+        />
+      </div>
+      <div class="cp-scope__list">
+        {scope.map((item, i) => (
+          <div class="cp-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="cp-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="cp-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="cp-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="cp-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       WHY IT WORKS (dark)
+       ════════════════════════════════════════ -->
+  <section class="cp-why" aria-labelledby="cp-why-title">
+    <div class="cp-why__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego to działa"
+          title="Mój copywriting konwertuje, bo <em>ma&nbsp;system</em>"
+          subtitle="Nie polegam na talencie. Polegam na procesie, danych i&nbsp;redakcji. Oto pięć zasad, które stoją za każdym moim tekstem."
+          inverted
+        />
+      </div>
+      <div class="cp-why__grid">
+        {whyWorks.map((item, i) => (
+          <div class="cp-why__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="cp-why__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="cp-proc" aria-labelledby="cp-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>tekst sprzedażowy</em>?"
+          subtitle="Sześć etapów od briefu po gotowy tekst. Przejrzysty proces, w&nbsp;którym masz kontrolę na każdym kroku."
+        />
+      </div>
+      <div class="cp-proc__timeline">
+        {process.map((item, i) => (
+          <div class="cp-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="cp-proc__step-marker">
+              <span class="cp-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="cp-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="cp-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FOR WHOM
+       ════════════════════════════════════════ -->
+  <section class="cp-whom" aria-labelledby="cp-whom-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dla kogo"
+          title="Dla kogo piszę <em>teksty sprzedażowe</em>?"
+          subtitle="Pracuję z&nbsp;firmami, które rozumieją, że&nbsp;treści na stronie to nie koszt — to inwestycja w&nbsp;konwersję."
+        />
+      </div>
+      <div class="cp-whom__grid">
+        {forWhom.map((item, i) => (
+          <div class="cp-whom__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="cp-whom__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="cp-price" aria-labelledby="cp-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>copywriting</em>?"
+          subtitle="Widełki cenowe dla typowych projektów. Dokładną wycenę przygotowuję w&nbsp;24h — bezpłatnie i&nbsp;bez zobowiązań."
+        />
+      </div>
+      <div class="cp-price__table reveal">
+        <div class="cp-price__header">
+          <span>Usługa</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="cp-price__row">
+            <span class="cp-price__item">{row.item}</span>
+            <span class="cp-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="cp-price__footer">
+          <p>Ceny netto. Stała współpraca (min. 3 mies.): rabat 15–20%. Tryb ekspresowy: +50%. Wycena zawsze bezpłatna.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="cp-faq" aria-labelledby="cp-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>copywriting</em>"
+          subtitle="Najczęstsze pytania o&nbsp;copywriting sprzedażowy, proces, ceny i&nbsp;formaty dostarczenia."
+        />
+      </div>
+      <div class="cp-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="cp-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="cp-faq__question">
+              <span>{faq.q}</span>
+              <svg class="cp-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="cp-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="cp-seo" aria-label="Copywriting — informacje">
+    <div class="container-narrow">
+      <article class="cp-seo__article">
+        <h2>Copywriting — czym jest i&nbsp;dlaczego Twoja firma go potrzebuje</h2>
+        <p>
+          <strong>Copywriting</strong> to sztuka pisania tekstów, które realizują cele marketingowe
+          i&nbsp;sprzedażowe. W&nbsp;odróżnieniu od pisarstwa literackiego czy dziennikarstwa,
+          <strong>copywriting</strong> mierzy się konkretnymi wskaźnikami: conversion rate,
+          click-through rate, liczba leadów, przychód. Dobry <strong>copywriter</strong> nie pisze,
+          żeby zachwycić — pisze, żeby przekonać, wyjaśnić, zbudować zaufanie i&nbsp;skłonić
+          do działania.
+        </p>
+
+        <h3>Copywriting sprzedażowy a&nbsp;content marketing — dwie strony tej samej monety</h3>
+        <p>
+          <strong>Copywriting sprzedażowy</strong> i&nbsp;<strong>content marketing</strong> to
+          komplementarne dyscypliny. Copywriting celuje w&nbsp;bezpośrednią konwersję — landing page,
+          oferty, mailingi, reklamy. Content marketing buduje widoczność i&nbsp;autorytet w&nbsp;czasie —
+          artykuły blogowe, bazy wiedzy, ebooki, social media. Najskuteczniejsze strategie łączą oba
+          podejścia: content przyciąga ruch organiczny, a&nbsp;<strong>copywriting</strong> konwertuje
+          go w&nbsp;klientów.
+        </p>
+
+        <h3>Jak dobrze napisany tekst wpływa na konwersję?</h3>
+        <p>
+          Według badań zmiana samego nagłówka na landing page może podnieść konwersję o&nbsp;20–50%.
+          Zmiana CTA — o&nbsp;10–30%. Uproszczenie tekstu oferty — o&nbsp;15–40%. To dlatego profesjonalny
+          <strong>copywriting</strong> nie jest kosztem, lecz inwestycją z&nbsp;mierzalnym zwrotem.
+          Tekst to jedyny element strony, który wprost odpowiada na pytania, rozwiewa wątpliwości
+          i&nbsp;buduje zaufanie potrzebne do podjęcia decyzji.
+        </p>
+
+        <h3>Czego szukać u&nbsp;dobrego copywritera?</h3>
+        <p>
+          Dobry <strong>copywriter</strong> zaczyna od researchu, nie od pisania. Rozumie grupę
+          docelową, zna język korzyści, potrafi uprościć skomplikowany temat i&nbsp;prowadzić
+          czytelnika przez argumentację. Najlepsi copywriterzy łączą umiejętność pisania
+          z&nbsp;wiedzą o&nbsp;UX, SEO, psychologii decyzji i&nbsp;analityce. Im szersze kompetencje
+          <strong>copywritera</strong>, tym lepszy tekst — bo rozumie kontekst, w&nbsp;którym
+          jego słowa będą żyć: stronę, email, reklamę, lejek sprzedażowy.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ════════════════════════════════════════
+     INTRO
+     ════════════════════════════════════════ */
+  .cp-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+
+  .cp-intro__eyebrow {
+    font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold);
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4);
+  }
+
+  .cp-intro__title {
+    font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink);
+    margin-bottom: var(--space-8); max-width: 680px;
+  }
+  .cp-intro__title strong { font-weight: var(--fw-bold); }
+  .cp-intro__title em { font-style: italic; color: var(--accent); }
+
+  .cp-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .cp-intro__columns { grid-template-columns: 1fr; } }
+
+  .cp-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .cp-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .cp-intro__col em { font-style: italic; }
+
+  /* ════════════════════════════════════════
+     SCOPE
+     ════════════════════════════════════════ */
+  .cp-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+
+  .cp-scope__list { display: flex; flex-direction: column; }
+
+  .cp-scope__item {
+    display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5);
+    padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light);
+    transition-delay: var(--delay, 0s);
+  }
+  .cp-scope__item:first-child { border-top: 1px solid var(--rule); }
+
+  .cp-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+
+  .cp-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .cp-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+
+  .cp-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cp-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ════════════════════════════════════════
+     WHY (dark)
+     ════════════════════════════════════════ */
+  .cp-why { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .cp-why__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .cp-why__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .cp-why__grid { grid-template-columns: 1fr; } }
+
+  .cp-why__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .cp-why__card:hover { border-color: rgba(255,255,255,0.12); }
+  .cp-why__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  .cp-why__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .cp-why__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .cp-why__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ════════════════════════════════════════
+     PROCESS
+     ════════════════════════════════════════ */
+  .cp-proc { padding: var(--space-24) 0; }
+
+  .cp-proc__timeline { display: flex; flex-direction: column; }
+
+  .cp-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+
+  .cp-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .cp-proc__step-num {
+    font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold);
+    color: #fff; background: var(--accent); width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; flex-shrink: 0; z-index: 1;
+  }
+  .cp-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .cp-proc__step:last-child .cp-proc__step-line { display: none; }
+
+  .cp-proc__step-content { padding-bottom: var(--space-6); }
+  .cp-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .cp-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ════════════════════════════════════════
+     FOR WHOM
+     ════════════════════════════════════════ */
+  .cp-whom { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+
+  .cp-whom__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .cp-whom__grid { grid-template-columns: 1fr; } }
+
+  .cp-whom__card {
+    background: var(--card-bg); border: 1px solid var(--rule-light);
+    border-radius: var(--radius-md); padding: var(--space-5);
+    transition: border-color var(--transition-base); transition-delay: var(--delay, 0s);
+  }
+  .cp-whom__card:hover { border-color: var(--accent); }
+
+  .cp-whom__card-label {
+    display: inline-block; font-family: var(--font-mono); font-size: 0.58rem;
+    font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: var(--space-2);
+  }
+  .cp-whom__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ════════════════════════════════════════
+     PRICING
+     ════════════════════════════════════════ */
+  .cp-price { padding: var(--space-24) 0; }
+
+  .cp-price__table { max-width: 660px; }
+
+  .cp-price__header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: var(--space-3) 0; border-bottom: 2px solid var(--ink);
+    font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold);
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint);
+  }
+
+  .cp-price__row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4);
+  }
+  .cp-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .cp-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+
+  .cp-price__footer { padding-top: var(--space-4); }
+  .cp-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ════════════════════════════════════════
+     FAQ
+     ════════════════════════════════════════ */
+  .cp-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+
+  .cp-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .cp-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .cp-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .cp-faq__question {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+    padding: var(--space-5) 0; cursor: pointer;
+    font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold);
+    color: var(--ink); line-height: var(--lh-snug); list-style: none;
+    transition: color var(--transition-fast);
+  }
+  .cp-faq__question::-webkit-details-marker { display: none; }
+  .cp-faq__question::marker { display: none; content: ''; }
+  .cp-faq__question:hover { color: var(--accent); }
+  .cp-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .cp-faq__item[open] .cp-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .cp-faq__answer { padding: 0 0 var(--space-6); }
+  .cp-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ════════════════════════════════════════
+     SEO CONTENT
+     ════════════════════════════════════════ */
+  .cp-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .cp-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .cp-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .cp-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .cp-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

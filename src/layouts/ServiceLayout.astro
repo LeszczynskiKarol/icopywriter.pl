@@ -1,0 +1,212 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { getRelatedServices, type Service } from '../data/services';
+
+interface Props {
+  service: Service;
+  schema?: Record<string, any>;
+}
+
+const { service, schema } = Astro.props;
+const related = getRelatedServices(service.slug);
+
+// Default schema if not provided
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `https://www.icopywriter.pl/uslugi/${service.slug}/#webpage`,
+      "url": `https://www.icopywriter.pl/uslugi/${service.slug}/`,
+      "name": service.metaTitle,
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": `https://www.icopywriter.pl/uslugi/${service.slug}/#breadcrumb` }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `https://www.icopywriter.pl/uslugi/${service.slug}/#breadcrumb`,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": service.shortTitle, "item": `https://www.icopywriter.pl/uslugi/${service.slug}/` }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": service.title,
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": service.metaDescription,
+      "areaServed": "PL"
+    }
+  ]
+};
+
+const finalSchema = schema || defaultSchema;
+---
+
+<BaseLayout
+  title={service.metaTitle}
+  description={service.metaDescription}
+  keywords={service.keywords}
+  schema={finalSchema}
+  canonical={`https://www.icopywriter.pl/uslugi/${service.slug}/`}
+>
+
+  <!-- BREADCRUMBS -->
+  <nav class="breadcrumbs" aria-label="Ścieżka nawigacji">
+    <div class="container">
+      <ol class="breadcrumbs__list">
+        <li><a href="/">Strona główna</a></li>
+        <li><a href="/uslugi/">Usługi</a></li>
+        <li aria-current="page">{service.shortTitle}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="srv-hero" aria-labelledby="srv-hero-title">
+    <div class="srv-hero__bg" aria-hidden="true">
+      <div class="srv-hero__grain"></div>
+      <div class="srv-hero__gradient"></div>
+    </div>
+    <div class="container srv-hero__inner">
+      <div class="srv-hero__badge"><span class="srv-hero__badge-dot"></span>{service.badge}</div>
+      <h1 id="srv-hero-title" class="srv-hero__title" set:html={service.heroTitle} />
+      <p class="srv-hero__subtitle">{service.heroSubtitle}</p>
+      <div class="srv-hero__actions">
+        <a href="/#kontakt" class="srv-hero__cta-primary">
+          Zamów wycenę — bezpłatnie
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a href="#zakres" class="srv-hero__cta-secondary">Co obejmuje usługa?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT (injected by each page) -->
+  <slot />
+
+  <!-- RELATED SERVICES -->
+  {related.length > 0 && (
+    <section class="srv-related" aria-labelledby="srv-related-title">
+      <div class="container">
+        <div class="reveal">
+          <SectionHeading
+            label="Powiązane usługi"
+            title="Może Cię też <em>zainteresować</em>"
+          />
+        </div>
+        <div class="srv-related__grid">
+          {related.map((rel, i) => (
+            <a href={`/uslugi/${rel.slug}/`} class="srv-related__card reveal" style={`--delay: ${i * 0.08}s`}>
+              <span class="srv-related__card-badge">{rel.badge}</span>
+              <h3 class="srv-related__card-title">{rel.title}</h3>
+              <span class="srv-related__card-arrow">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="srv-cta" aria-labelledby="srv-cta-title">
+    <div class="srv-cta__bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="srv-cta__inner reveal">
+        <h2 id="srv-cta-title" class="srv-cta__title">Potrzebujesz <em>{service.shortTitle.toLowerCase()}</em>?</h2>
+        <p class="srv-cta__desc">
+          Opisz swój projekt — cel, zakres, format, termin. Odpowiem z&nbsp;wyceną,
+          propozycją podejścia i&nbsp;harmonogramem w&nbsp;ciągu 24&nbsp;godzin.
+          Bezpłatnie i&nbsp;bez&nbsp;zobowiązań.
+        </p>
+        <a href="/#kontakt" class="srv-cta__button">
+          Porozmawiajmy o Twoim projekcie
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <div class="srv-cta__meta">
+          <span>✓ Wycena w 24h</span>
+          <span>✓ Bez zobowiązań</span>
+          <span>✓ Faktura VAT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Breadcrumbs ── */
+  .breadcrumbs { padding-top: calc(72px + var(--space-6)); padding-bottom: var(--space-4); }
+  .breadcrumbs__list { display: flex; align-items: center; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.03em; color: var(--ink-faint); flex-wrap: wrap; }
+  .breadcrumbs__list li { display: flex; align-items: center; }
+  .breadcrumbs__list li:not(:last-child)::after { content: '/'; margin: 0 0.5rem; color: var(--rule); }
+  .breadcrumbs__list a { color: var(--ink-faint); text-decoration: none; transition: color var(--transition-fast); }
+  .breadcrumbs__list a:hover { color: var(--accent); }
+  .breadcrumbs__list [aria-current="page"] { color: var(--ink-muted); }
+
+  /* ── Hero ── */
+  .srv-hero { position: relative; padding: var(--space-10) 0 var(--space-16); overflow: hidden; }
+  .srv-hero__bg { position: absolute; inset: 0; z-index: 0; }
+  .srv-hero__gradient { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 20% 80%, rgba(26,107,71,0.05) 0%, transparent 55%), radial-gradient(ellipse 45% 45% at 80% 15%, rgba(12,31,45,0.03) 0%, transparent 50%); }
+  .srv-hero__grain { position: absolute; inset: 0; opacity: 0.02; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .srv-hero__inner { position: relative; z-index: 1; max-width: 720px; }
+
+  .srv-hero__badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-5); opacity: 0; animation: srvFadeUp 0.8s ease 0.1s forwards; }
+  .srv-hero__badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+  .srv-hero__title { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: var(--fw-bold); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); opacity: 0; animation: srvFadeUp 0.9s ease 0.2s forwards; }
+  .srv-hero__title :global(em) { font-style: italic; color: var(--accent); }
+
+  .srv-hero__subtitle { font-size: clamp(0.95rem, 1.4vw, 1.05rem); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-top: var(--space-4); max-width: 600px; opacity: 0; animation: srvFadeUp 0.9s ease 0.35s forwards; }
+
+  .srv-hero__actions { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; margin-top: var(--space-8); opacity: 0; animation: srvFadeUp 0.8s ease 0.5s forwards; }
+
+  .srv-hero__cta-primary { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; background: var(--accent); color: #fff; font-size: var(--fs-sm); font-weight: var(--fw-semibold); border-radius: var(--radius-sm); transition: all var(--transition-base); }
+  .srv-hero__cta-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,107,71,0.25); }
+  .srv-hero__cta-primary svg { transition: transform var(--transition-fast); }
+  .srv-hero__cta-primary:hover svg { transform: translateX(3px); }
+
+  .srv-hero__cta-secondary { font-size: var(--fs-sm); font-weight: var(--fw-medium); color: var(--ink-muted); border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: all var(--transition-fast); }
+  .srv-hero__cta-secondary:hover { color: var(--accent); border-color: var(--accent); }
+
+  @keyframes srvFadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Related ── */
+  .srv-related { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .srv-related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  @media (max-width: 768px) { .srv-related__grid { grid-template-columns: 1fr; } }
+
+  .srv-related__card {
+    display: flex; flex-direction: column; gap: var(--space-2);
+    padding: var(--space-5); background: var(--card-bg);
+    border: 1px solid var(--rule-light); border-radius: var(--radius-md);
+    text-decoration: none; transition: all var(--transition-base);
+    transition-delay: var(--delay, 0s); position: relative;
+  }
+  .srv-related__card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+  .srv-related__card-badge { font-family: var(--font-mono); font-size: 0.56rem; font-weight: var(--fw-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .srv-related__card-title { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); }
+  .srv-related__card-arrow { color: var(--ink-faint); transition: color var(--transition-fast), transform var(--transition-fast); margin-top: auto; }
+  .srv-related__card:hover .srv-related__card-arrow { color: var(--accent); transform: translateX(4px); }
+
+  /* ── CTA ── */
+  .srv-cta { padding: var(--space-24) 0; position: relative; overflow: hidden; }
+  .srv-cta__bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(26,107,71,0.04) 0%, transparent 60%); }
+  .srv-cta__inner { max-width: 600px; margin: 0 auto; text-align: center; position: relative; }
+  .srv-cta__title { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: var(--fw-bold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-4); }
+  .srv-cta__title em { font-style: italic; color: var(--accent); }
+  .srv-cta__desc { font-size: var(--fs-base); color: var(--ink-muted); line-height: var(--lh-relaxed); margin-bottom: var(--space-8); }
+  .srv-cta__button { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--accent); color: #fff; font-size: var(--fs-base); font-weight: var(--fw-semibold); border-radius: var(--radius-sm); transition: all var(--transition-base); }
+  .srv-cta__button:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,107,71,0.25); }
+  .srv-cta__button svg { transition: transform var(--transition-fast); }
+  .srv-cta__button:hover svg { transform: translateX(3px); }
+  .srv-cta__meta { display: flex; justify-content: center; gap: var(--space-5); flex-wrap: wrap; margin-top: var(--space-6); }
+  .srv-cta__meta span { font-family: var(--font-mono); font-size: 0.66rem; color: var(--ink-faint); }
+</style>

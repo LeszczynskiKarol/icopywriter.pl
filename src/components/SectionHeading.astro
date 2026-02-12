@@ -1,0 +1,45 @@
+---
+interface Props {
+  label?: string;
+  title: string;
+  subtitle?: string;
+  inverted?: boolean;
+  centered?: boolean;
+}
+
+const { label, title, subtitle, inverted = false, centered = false } = Astro.props;
+---
+
+<div class:list={['sh', { 'sh--inverted': inverted, 'sh--centered': centered }]}>
+  {label && <span class="sh__label">{label}</span>}
+  <h2 class="sh__title" set:html={title} />
+  {subtitle && <p class="sh__subtitle" set:html={subtitle} />}
+</div>
+
+<style>
+  .sh { margin-bottom: var(--space-10); max-width: 640px; }
+  .sh--centered { text-align: center; margin-left: auto; margin-right: auto; }
+
+  .sh__label {
+    display: inline-block; font-family: var(--font-mono); font-size: 0.62rem;
+    font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: var(--space-3);
+  }
+  .sh--inverted .sh__label { color: var(--accent-light); }
+
+  .sh__title {
+    font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: var(--fw-semibold); line-height: var(--lh-snug);
+    letter-spacing: -0.01em; color: var(--ink);
+  }
+  .sh__title :global(em) { font-style: italic; color: var(--accent); }
+  .sh--inverted .sh__title { color: #fff; }
+  .sh--inverted .sh__title :global(em) { color: var(--accent-light); }
+
+  .sh__subtitle {
+    font-size: var(--fs-base); line-height: var(--lh-relaxed);
+    color: var(--ink-muted); margin-top: var(--space-4); max-width: 560px;
+  }
+  .sh--inverted .sh__subtitle { color: rgba(255,255,255,0.5); }
+  .sh--centered .sh__subtitle { margin-left: auto; margin-right: auto; }
+</style>

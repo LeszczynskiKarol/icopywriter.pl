@@ -1,0 +1,64 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__logo-mark">K</span>
+        <div class="footer__brand-text">
+          <span class="footer__brand-name">Karol Leszczyński</span>
+          <span class="footer__brand-role">Copywriter · Content · Skład</span>
+        </div>
+      </div>
+      <div class="footer__links">
+        <a href="/#uslugi">Usługi</a>
+        <a href="/#portfolio">Portfolio</a>
+        <a href="/#o-mnie">O mnie</a>
+        <a href="/#kontakt">Kontakt</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; {year} Karol Leszczyński · iCopywriter.pl</span>
+      <span class="footer__legal">
+        <a href="/polityka-prywatnosci/">Polityka prywatności</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { padding: var(--space-12) 0 var(--space-8); border-top: 1px solid var(--rule-light); background: var(--paper-warm); }
+
+  .footer__top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: var(--space-8); flex-wrap: wrap; padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .footer__brand { display: flex; align-items: center; gap: var(--space-3); }
+  .footer__logo-mark {
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 0.95rem; font-weight: var(--fw-bold);
+    color: #fff; background: var(--accent); border-radius: var(--radius-sm);
+  }
+  .footer__brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .footer__brand-name { font-family: var(--font-display); font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--ink); }
+  .footer__brand-role { font-family: var(--font-mono); font-size: 0.56rem; color: var(--ink-faint); letter-spacing: 0.04em; }
+
+  .footer__links { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+  .footer__links a {
+    font-size: var(--fs-sm); color: var(--ink-muted);
+    transition: color var(--transition-fast);
+  }
+  .footer__links a:hover { color: var(--accent); }
+
+  .footer__bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-4); flex-wrap: wrap; padding-top: var(--space-6);
+  }
+  .footer__copy { font-size: var(--fs-xs); color: var(--ink-faint); }
+  .footer__legal a { font-size: var(--fs-xs); color: var(--ink-faint); transition: color var(--transition-fast); }
+  .footer__legal a:hover { color: var(--accent); }
+</style>

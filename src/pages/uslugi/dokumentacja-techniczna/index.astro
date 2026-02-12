@@ -1,0 +1,519 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('dokumentacja-techniczna')!;
+
+// ── Types ──
+const scope = [
+  {
+    title: 'Dokumentacja produktowa (SaaS / software)',
+    desc: 'Dokumentacja dla użytkowników: getting started, feature guides, FAQ, troubleshooting, release notes. Piszę dla ludzi, którzy chcą zacząć korzystać z produktu — nie dla ludzi, którzy chcą przeczytać specyfikację. Jasny język, screenshoty, step-by-step, searchable structure.',
+    tags: ['Getting started', 'Feature guides', 'FAQ', 'Release notes', 'Knowledge base']
+  },
+  {
+    title: 'Dokumentacja API i deweloperska',
+    desc: 'Docs dla developerów: API reference, SDK guides, code examples, authentication, error handling, webhooks. Piszę dokumentację, którą developer chce czytać — bo jest precyzyjna, ma działające przykłady kodu i nie zmusza do zgadywania. OpenAPI/Swagger, Markdown, Docusaurus.',
+    tags: ['API reference', 'SDK guides', 'Code examples', 'OpenAPI / Swagger', 'Docusaurus']
+  },
+  {
+    title: 'Instrukcje obsługi i podręczniki użytkownika',
+    desc: 'Instrukcje dla urządzeń, maszyn, systemów: krok po kroku, z ilustracjami, ostrzeżeniami bezpieczeństwa, specyfikacją techniczną. Zgodne z normami (IEC 82079, dyrektywa maszynowa). Piszę tak, żeby użytkownik znalazł odpowiedź w 30 sekund — nie w 30 minut.',
+    tags: ['Instrukcje obsługi', 'Podręcznik użytkownika', 'Normy IEC 82079', 'Bezpieczeństwo', 'Ilustracje']
+  },
+  {
+    title: 'Dokumentacja procesów i procedur',
+    desc: 'Opisy procesów biznesowych, procedury operacyjne (SOP), polityki wewnętrzne, workflow documentation. Format, który nowy pracownik rozumie bez tłumacza — bo jest napisany jasno, z diagramami procesów, checklistami i jednoznaczną terminologią.',
+    tags: ['SOP', 'Procedury operacyjne', 'Workflow', 'Diagramy procesów', 'Polityki wewnętrzne']
+  },
+  {
+    title: 'Bazy wiedzy i help center',
+    desc: 'Kompletne bazy wiedzy: architektura informacji, kategoryzacja, artykuły help, FAQ, troubleshooting guides. Struktura, która redukuje tickety supportu o 30–50% — bo klient znajduje odpowiedź sam. Setup w Notion, Confluence, Zendesk, GitBook, Docusaurus.',
+    tags: ['Knowledge base', 'Help center', 'Architektura informacji', 'Self-service support', 'Zendesk / Notion']
+  },
+  {
+    title: 'Dokumentacja techniczna z składem LaTeX',
+    desc: 'Dokumenty techniczne wymagające precyzyjnego składu: specyfikacje, white papers techniczne, instrukcje z wzorami, dokumentacja naukowa. LaTeX daje: wzory matematyczne, fragmenty kodu, tabele, diagramy TikZ, automatyczne referencje, bibliografię, indeks. PDF na poziomie wydawnictwa.',
+    tags: ['Skład LaTeX', 'Wzory matematyczne', 'Diagramy TikZ', 'Specyfikacje', 'PDF wydawniczy']
+  }
+];
+
+// ── Principles ──
+const principles = [
+  {
+    title: 'Piszę dla użytkownika, nie dla autora',
+    desc: 'Większość dokumentacji jest pisana z perspektywy twórcy produktu: „oto co zrobiliśmy". Dobra dokumentacja jest pisana z perspektywy użytkownika: „oto jak rozwiążesz swój problem". Każdy artykuł zaczyna się od pytania użytkownika — nie od opisu funkcji.'
+  },
+  {
+    title: 'Findability > completeness',
+    desc: 'Dokumentacja, w której nie da się nic znaleźć, jest bezwartościowa — nawet jeśli jest kompletna. Projektuję architekturę informacji: kategorie, nawigacja, search, cross-linking, breadcrumbs. Użytkownik ma znaleźć odpowiedź w 30 sekund, nie w 30 minut.'
+  },
+  {
+    title: 'Show, don\'t tell',
+    desc: 'Screenshoty, code examples, diagramy, GIF-y, video embeds. „Kliknij przycisk X w prawym górnym rogu" + screenshot jest 10× bardziej zrozumiałe niż „przejdź do ustawień i wybierz odpowiednią opcję". Wizualne wsparcie w każdym kroku, który tego wymaga.'
+  },
+  {
+    title: 'Docs as code',
+    desc: 'Dokumentacja w Markdown, wersjonowana w Git, budowana w CI/CD (Docusaurus, MkDocs, GitBook). Pull requesty, review, automatyczny deploy. Dokumentacja żyje razem z kodem — bo jest częścią produktu, nie afterthoughtem.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Audyt i analiza', desc: 'Analiza istniejącej dokumentacji: co jest, czego brakuje, co jest nieaktualne, co generuje tickety supportu. Wywiady z zespołem (product, engineering, support). Analiza pytań klientów — bo oni mówią Ci, czego nie rozumieją.' },
+  { step: 'Architektura informacji', desc: 'Projektuję strukturę: kategorie, hierarchia, nawigacja, search taxonomy. Information architecture to fundament — bez niej nawet najlepiej napisane artykuły są bezużyteczne, bo nikt ich nie znajdzie.' },
+  { step: 'Content plan', desc: 'Priorytetyzuję artykuły: najpierw te, które redukują najwięcej ticketów (quick wins), potem core docs, potem edge cases. Plan z tytułami, zakresem, odpowiedzialnością, deadlinem.' },
+  { step: 'Pisanie i wizualizacja', desc: 'Piszę artykuły: step-by-step, screenshoty, code examples, callouts (info, warning, tip). Ton: precyzyjny, zwięzły, bezpośredni. Bez korporacyjnego bełkotu, bez zbędnych wstępów, bez „w tej sekcji dowiesz się...".' },
+  { step: 'Review i QA', desc: 'Technical review z zespołem (poprawność), editorial review (język, spójność, style guide compliance). Testuję instrukcje: czy użytkownik może przejść od A do B korzystając wyłącznie z dokumentacji? Jeśli nie — poprawiam.' },
+  { step: 'Publikacja i maintenance', desc: 'Deploy w docelowym narzędziu (Docusaurus, Notion, Confluence, Zendesk, GitBook). Opcjonalnie: setup CI/CD dla docs-as-code. Plan maintenance: kto aktualizuje, kiedy, jak — bo dokumentacja bez utrzymania umiera.' }
+];
+
+// ── Tools ──
+const tools = [
+  { label: 'Docusaurus', desc: 'React-based, docs-as-code, wersjonowanie, search Algolia. Idealne dla dokumentacji produktów SaaS i API.' },
+  { label: 'Notion / Confluence', desc: 'Bazy wiedzy wewnętrzne, wiki firmowe, dokumentacja procesów. Łatwe w edycji przez zespół.' },
+  { label: 'Zendesk / Intercom', desc: 'Help center klienckie, FAQ, troubleshooting. Integracja z ticketami supportu.' },
+  { label: 'LaTeX', desc: 'Dokumentacja techniczna z wzorami, kodem, specyfikacjami. PDF na poziomie wydawnictwa naukowego.' },
+  { label: 'Markdown + Git', desc: 'Docs-as-code: wersjonowanie, PR review, CI/CD deploy. MkDocs, GitBook, Hugo.' },
+  { label: 'OpenAPI / Swagger', desc: 'Dokumentacja API: endpoints, parametry, responses, code examples. Auto-generacja + ludzki opis.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Dokumentacja produktowa (knowledge base, 20–50 artykułów)', price: '6 000–20 000 zł' },
+  { item: 'Dokumentacja API (reference + guides + examples)', price: '8 000–25 000 zł' },
+  { item: 'Instrukcja obsługi / podręcznik użytkownika', price: '4 000–15 000 zł' },
+  { item: 'Baza wiedzy / help center (setup + content)', price: '5 000–18 000 zł' },
+  { item: 'Dokumentacja procesów / SOP (pakiet)', price: '3 000–12 000 zł' },
+  { item: 'Dokumentacja techniczna z składem LaTeX', price: '4 000–15 000 zł' },
+  { item: 'Audyt istniejącej dokumentacji + rekomendacje', price: '2 000–6 000 zł' },
+  { item: 'Stała współpraca / maintenance (retainer)', price: 'od 3 000 zł/mies.' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Co obejmuje dokumentacja techniczna?',
+    a: 'Dokumentacja techniczna to szerokie pojęcie obejmujące: dokumentację produktową (knowledge base, help center), dokumentację API (reference, guides, examples), instrukcje obsługi, dokumentację procesów (SOP), bazy wiedzy wewnętrzne. Tworzę wszystkie te typy — od audytu i architektury informacji po pisanie, wizualizacje i publikację.'
+  },
+  {
+    q: 'Ile kosztuje dokumentacja techniczna?',
+    a: 'Knowledge base (20–50 artykułów): 6000–20 000 zł. Dokumentacja API: 8000–25 000 zł. Instrukcja obsługi: 4000–15 000 zł. Audyt istniejącej dokumentacji: 2000–6000 zł. Retainer (stała współpraca): od 3000 zł/mies. Cena zależy od objętości, złożoności i narzędzia docelowego.'
+  },
+  {
+    q: 'W jakich narzędziach pracujesz?',
+    a: 'Docusaurus (dokumentacja SaaS/API), Notion i Confluence (wiki firmowe), Zendesk i Intercom (help center), GitBook i MkDocs (docs-as-code), LaTeX (dokumentacja techniczna z składem), Markdown + Git (wersjonowanie). Dopasowuję narzędzie do Twojego stack i workflow.'
+  },
+  {
+    q: 'Czy piszesz dokumentację API?',
+    a: 'Tak — dokumentacja API to jedna z moich specjalizacji. Piszę: API reference (endpoints, parametry, responses), getting started guides, authentication, code examples w wielu językach, error handling, webhooks, SDK docs. Pracuję z OpenAPI/Swagger i ręczną dokumentacją w Markdown/Docusaurus.'
+  },
+  {
+    q: 'Czy mogę zlecić tylko audyt istniejącej dokumentacji?',
+    a: 'Tak — audyt to osobna usługa (2000–6000 zł). Obejmuje: inwentaryzację treści, analizę luk (co brakuje), analizę jakości (co wymaga przepisania), analizę struktury (architektura informacji), rekomendacje priorytetyzowane (co naprawić najpierw). Raport z action items.'
+  },
+  {
+    q: 'Ile czasu zajmuje stworzenie dokumentacji?',
+    a: 'Knowledge base (20–50 artykułów): 3–8 tygodni. Dokumentacja API: 4–10 tygodni. Instrukcja obsługi: 2–6 tygodni. Czas zależy od złożoności produktu, dostępności SME (subject matter experts) i zakresu wizualizacji. Dostarczam iteracyjnie — artykułami, nie całością na koniec.'
+  },
+  {
+    q: 'Czy oferujesz stałe utrzymanie dokumentacji?',
+    a: 'Tak — retainer na maintenance dokumentacji (od 3000 zł/mies.): aktualizacje przy nowych releasach, nowe artykuły, optymalizacja na podstawie danych (search queries, tickety supportu), review spójności. Dokumentacja bez utrzymania starzeje się i traci wartość.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/dokumentacja-techniczna/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/dokumentacja-techniczna/",
+      "name": "Dokumentacja techniczna — technical writing, API docs, knowledge base | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/dokumentacja-techniczna/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/dokumentacja-techniczna/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Dokumentacja techniczna", "item": "https://www.icopywriter.pl/uslugi/dokumentacja-techniczna/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Dokumentacja techniczna",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Dokumentacja techniczna: produktowa, API, instrukcje, bazy wiedzy, SOP. Technical writing + docs-as-code.",
+      "serviceType": "Technical Writing",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="td-intro" id="zakres" aria-labelledby="td-intro-title">
+    <div class="container">
+      <div class="td-intro__inner reveal">
+        <div class="td-intro__eyebrow">Dokumentacja techniczna i technical writing</div>
+        <h2 id="td-intro-title" class="td-intro__title">
+          <strong>Dokumentacja techniczna</strong> to nie afterthought.<br>
+          To <em>część produktu</em>.
+        </h2>
+        <div class="td-intro__columns">
+          <div class="td-intro__col">
+            <p>
+              Użytkownik, który nie rozumie Twojego produktu, nie kupuje go. Developer,
+              który nie rozumie Twojego API, nie integruje go. Pracownik, który nie
+              rozumie procedury, nie stosuje jej. <strong>Dokumentacja techniczna</strong>
+              to nie koszt — to inwestycja w&nbsp;adopcję, retencję i&nbsp;redukcję kosztów
+              supportu. Firmy z&nbsp;dobrą dokumentacją mają o&nbsp;30–50% mniej ticketów
+              i&nbsp;krótszy czas onboardingu.
+            </p>
+            <p>
+              Problem: większość dokumentacji jest pisana przez ludzi, którzy znają produkt
+              za dobrze. Pomijają oczywistości, używają wewnętrznego żargonu, zakładają
+              wiedzę, której użytkownik nie ma. Piszę <strong>dokumentację</strong>
+              z&nbsp;perspektywy użytkownika — bo to on jej potrzebuje, nie autor.
+            </p>
+          </div>
+          <div class="td-intro__col">
+            <p>
+              Tworzę <strong>dokumentację techniczną</strong> od A do Z: audyt istniejących
+              docs, architektura informacji, content plan, pisanie (step-by-step,
+              screenshoty, code examples), review techniczny, publikacja w&nbsp;docelowym
+              narzędziu. Pracuję z&nbsp;Docusaurus, Notion, Confluence, Zendesk, GitBook,
+              MkDocs. Docs-as-code: Markdown + Git + CI/CD.
+            </p>
+            <p>
+              Jestem full-stack developerem z&nbsp;15+ latami doświadczenia w&nbsp;pisaniu.
+              To rzadkie połączenie: rozumiem technologię (API, SDK, deployment, architektura)
+              <em>i</em> umiem o&nbsp;niej pisać jasno. <strong>Technical writing</strong>
+              wymaga obu umiejętności — i&nbsp;dlatego większość dokumentacji jest albo
+              precyzyjna ale nieczytelna, albo czytelna ale nieprecyzyjna. Moja jest obie.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="td-scope" aria-labelledby="td-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zakres"
+          title="Jaką <em>dokumentację techniczną</em> tworzę?"
+          subtitle="Od knowledge base po API docs i&nbsp;instrukcje obsługi. Każda z&nbsp;architekturą informacji, wizualizacjami i&nbsp;docs-as-code."
+        />
+      </div>
+      <div class="td-scope__list">
+        {scope.map((item, i) => (
+          <div class="td-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="td-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="td-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="td-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="td-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRINCIPLES (dark)
+       ════════════════════════════════════════ -->
+  <section class="td-princ" aria-labelledby="td-princ-title">
+    <div class="td-princ__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zasady"
+          title="Cztery zasady dobrej <em>dokumentacji</em>"
+          subtitle="User-first, findability, show don't tell, docs-as-code. Zasady, które odróżniają dokumentację używaną od dokumentacji ignorowanej."
+          inverted
+        />
+      </div>
+      <div class="td-princ__grid">
+        {principles.map((item, i) => (
+          <div class="td-princ__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="td-princ__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="td-proc" aria-labelledby="td-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>dokumentacja techniczna</em>?"
+          subtitle="Sześć etapów od audytu po maintenance. Architektura informacji, pisanie, review, publikacja, utrzymanie."
+        />
+      </div>
+      <div class="td-proc__timeline">
+        {process.map((item, i) => (
+          <div class="td-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="td-proc__step-marker">
+              <span class="td-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="td-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="td-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       TOOLS
+       ════════════════════════════════════════ -->
+  <section class="td-tools" aria-labelledby="td-tools-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Narzędzia"
+          title="W&nbsp;czym tworzę <em>dokumentację</em>?"
+          subtitle="Od Docusaurus po LaTeX — dopasowuję narzędzie do Twojego stack i&nbsp;workflow."
+        />
+      </div>
+      <div class="td-tools__grid">
+        {tools.map((item, i) => (
+          <div class="td-tools__card reveal" style={`--delay: ${i * 0.06}s`}>
+            <span class="td-tools__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="td-price" aria-labelledby="td-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>dokumentacja techniczna</em>?"
+          subtitle="Od audytu istniejących docs po pełną knowledge base z&nbsp;retainerem. Wycena w&nbsp;24h."
+        />
+      </div>
+      <div class="td-price__table reveal">
+        <div class="td-price__header">
+          <span>Zakres</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="td-price__row">
+            <span class="td-price__item">{row.item}</span>
+            <span class="td-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="td-price__footer">
+          <p>Ceny netto. W cenie: audyt, architektura informacji, pisanie, screenshoty/code examples, review, publikacja w docelowym narzędziu. Retainer: nowe artykuły, aktualizacje, maintenance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="td-faq" aria-labelledby="td-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>dokumentację techniczną</em>"
+          subtitle="Najczęstsze pytania o&nbsp;zakres, narzędzia, API docs, ceny i&nbsp;utrzymanie."
+        />
+      </div>
+      <div class="td-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="td-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="td-faq__question">
+              <span>{faq.q}</span>
+              <svg class="td-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="td-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="td-seo" aria-label="Dokumentacja techniczna — informacje">
+    <div class="container-narrow">
+      <article class="td-seo__article">
+        <h2>Dokumentacja techniczna — dlaczego to najważniejszy (i&nbsp;najczęściej zaniedbywany) element produktu</h2>
+        <p>
+          <strong>Dokumentacja techniczna</strong> to treść, która pomaga użytkownikom
+          zrozumieć i&nbsp;skutecznie korzystać z&nbsp;produktu, systemu lub procesu.
+          Obejmuje: dokumentację produktową (knowledge base, help center), dokumentację
+          deweloperską (API reference, SDK guides), instrukcje obsługi, dokumentację
+          procesów wewnętrznych (SOP) i&nbsp;bazy wiedzy. Dobra dokumentacja redukuje
+          koszty supportu o&nbsp;30–50% i&nbsp;skraca czas onboardingu użytkowników.
+        </p>
+
+        <h3>Technical writing — czym różni się od zwykłego copywritingu?</h3>
+        <p>
+          <strong>Technical writing</strong> to specjalizacja łącząca wiedzę techniczną
+          z&nbsp;umiejętnością pisania. Technical writer musi rozumieć produkt (architektura,
+          API, deployment) i&nbsp;umieć wyjaśnić go użytkownikowi w&nbsp;jasny, precyzyjny
+          sposób. To nie copywriting (perswazja) ani content marketing (ruch) — to
+          dokumentacja (użyteczność). Inny cel, inna metoda, inne metryki.
+        </p>
+
+        <h3>Dokumentacja API — jak pisać docs, które developerzy chcą czytać?</h3>
+        <p>
+          <strong>Dokumentacja API</strong> musi być: kompletna (każdy endpoint, parametr,
+          response), precyzyjna (typy danych, error codes, edge cases), praktyczna (działające
+          code examples w&nbsp;wielu językach) i&nbsp;aktualna (synchronizowana z&nbsp;każdym
+          release). Najlepsza praktyka: API reference (auto-generowane z&nbsp;OpenAPI)
+          + ludzko napisane guides (getting started, authentication, use cases).
+        </p>
+
+        <h3>Ile kosztuje dokumentacja techniczna?</h3>
+        <p>
+          Knowledge base (20–50 artykułów): 6000–20 000 zł. <strong>Dokumentacja API</strong>:
+          8000–25 000 zł. Instrukcja obsługi: 4000–15 000 zł. Audyt: 2000–6000 zł.
+          Retainer (maintenance): od 3000 zł/mies. Inwestycja, która zwraca się
+          w&nbsp;redukcji ticketów supportu, krótszym onboardingu i&nbsp;wyższej adopcji
+          produktu.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .td-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .td-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .td-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 680px; }
+  .td-intro__title strong { font-weight: var(--fw-bold); }
+  .td-intro__title em { font-style: italic; color: var(--accent); }
+  .td-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .td-intro__columns { grid-template-columns: 1fr; } }
+  .td-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .td-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .td-intro__col em { font-style: italic; }
+
+  /* ── SCOPE ── */
+  .td-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .td-scope__list { display: flex; flex-direction: column; }
+  .td-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .td-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .td-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .td-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .td-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .td-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .td-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── PRINCIPLES (dark) ── */
+  .td-princ { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .td-princ__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .td-princ__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .td-princ__grid { grid-template-columns: 1fr; } }
+  .td-princ__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .td-princ__card:hover { border-color: rgba(255,255,255,0.12); }
+  .td-princ__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .td-princ__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .td-princ__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .td-proc { padding: var(--space-24) 0; }
+  .td-proc__timeline { display: flex; flex-direction: column; }
+  .td-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .td-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .td-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .td-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .td-proc__step:last-child .td-proc__step-line { display: none; }
+  .td-proc__step-content { padding-bottom: var(--space-6); }
+  .td-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .td-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── TOOLS ── */
+  .td-tools { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .td-tools__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  @media (max-width: 768px) { .td-tools__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .td-tools__grid { grid-template-columns: 1fr; } }
+  .td-tools__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .td-tools__card:hover { border-color: var(--accent); }
+  .td-tools__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .td-tools__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .td-price { padding: var(--space-24) 0; }
+  .td-price__table { max-width: 660px; }
+  .td-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .td-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .td-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .td-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .td-price__footer { padding-top: var(--space-4); }
+  .td-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .td-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .td-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .td-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .td-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .td-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .td-faq__question::-webkit-details-marker { display: none; }
+  .td-faq__question::marker { display: none; content: ''; }
+  .td-faq__question:hover { color: var(--accent); }
+  .td-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .td-faq__item[open] .td-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .td-faq__answer { padding: 0 0 var(--space-6); }
+  .td-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .td-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .td-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .td-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .td-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .td-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

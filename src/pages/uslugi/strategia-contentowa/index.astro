@@ -1,0 +1,515 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('strategia-contentowa')!;
+
+// ── What's included ──
+const scope = [
+  {
+    title: 'Audyt istniejących treści',
+    desc: 'Analiza tego, co już masz: które treści generują ruch, które rankują, które nie — i dlaczego. Content inventory, performance scoring, identyfikacja quick wins (treści do odświeżenia), thin content do usunięcia lub połączenia. Audyt to punkt wyjścia — bez niego strategia opiera się na przeczuciach, nie danych.',
+    tags: ['Content inventory', 'Performance scoring', 'Quick wins', 'Thin content audit', 'Decay analysis']
+  },
+  {
+    title: 'Research fraz i klasteryzacja',
+    desc: 'Kompleksowy research fraz kluczowych: wolumen, trudność, intencja, sezonowość, trend. Klasteryzacja fraz w grupy tematyczne. Mapowanie intencji wyszukiwania (informacyjna, nawigacyjna, transakcyjna, komercyjna). Efekt: nie lista 500 losowych fraz — mapa tematów z priorytetami.',
+    tags: ['Research fraz', 'Klasteryzacja', 'Mapowanie intencji', 'Sezonowość', 'Trend analysis']
+  },
+  {
+    title: 'Topical map i architektura treści',
+    desc: 'Mapa tematyczna: pillar pages, cluster pages, supporting content — i relacje między nimi. Architektura, która buduje topical authority systematycznie. Każdy temat ma swoje miejsce, cel i powiązania. Google widzi eksperta w temacie, nie zbiór losowych artykułów.',
+    tags: ['Topical map', 'Pillar pages', 'Cluster pages', 'Hierarchia tematów', 'Topical authority']
+  },
+  {
+    title: 'Content plan i kalendarz',
+    desc: 'Priorytetyzacja tematów (quick wins → medium-term → long-term), harmonogram publikacji, przypisanie formatów (artykuł, landing page, FAQ, video brief). Kalendarz na 3–12 miesięcy z konkretnymi tytułami, docelowymi frazami i KPI per tekst.',
+    tags: ['Priorytetyzacja', 'Kalendarz redakcyjny', 'Content plan 3–12 mies.', 'KPI per tekst', 'Formaty']
+  },
+  {
+    title: 'Content gap analysis',
+    desc: 'Porównanie Twojej widoczności z konkurencją: na jakie frazy rankują oni, a Ty nie? Jakie tematy pokrywają, a Ty pomijasz? Content gap to mapa szans — tematów, w których możesz wyprzedzić konkurencję, bo jeszcze tego nie zrobiłeś, a potencjał istnieje.',
+    tags: ['Analiza konkurencji', 'Frazy konkurencji', 'Luki tematyczne', 'Szanse na wyprzedzenie', 'SERP analysis']
+  },
+  {
+    title: 'Wytyczne i brief system',
+    desc: 'Dokumentacja: tone of voice, style guide, brief template, wytyczne SEO dla copywriterów, checklist publikacji. System, który pozwala skalować produkcję treści — z zachowaniem jakości i spójności — nawet gdy piszesz nie Ty, lecz Twój zespół lub zewnętrzni autorzy.',
+    tags: ['Tone of voice', 'Style guide', 'Brief template', 'Checklist SEO', 'Skalowalność']
+  }
+];
+
+// ── Why you need a strategy ──
+const whyStrategy = [
+  {
+    title: 'Bez strategii piszesz losowo',
+    desc: 'Większość blogów firmowych wygląda tak: artykuł o tym, co prezes chciał, potem o tym, co podpowiedział kolega, potem cisza na 3 miesiące. Zero spójności, zero klasteryzacji, zero priorytetyzacji. Efekt: 50 artykułów, z których 5 generuje ruch. Strategia contentowa zmienia losowe strzały w system.'
+  },
+  {
+    title: 'Content marketing bez strategii to wydatek, nie inwestycja',
+    desc: 'Artykuł kosztuje 500–2000 zł. 20 artykułów to 10 000–40 000 zł. Bez strategii nie wiesz, które z nich przyniosą zwrot. Ze strategią wiesz: te 5 tematów to quick wins (rankowanie w 2 miesiące), te 10 buduje topical authority, te 5 to long-term bet. Każda złotówka ma uzasadnienie.'
+  },
+  {
+    title: 'Topical authority wymaga systemu',
+    desc: 'Google nie rankuje pojedynczych artykułów — rankuje ekspertów tematycznych. Żeby być ekspertem, potrzebujesz: pillar page + cluster pages + linkowanie wewnętrzne + regularność. To nie dzieje się przypadkowo — wymaga mapy tematycznej, priorytetyzacji i konsekwentnej realizacji.'
+  },
+  {
+    title: 'Strategia oszczędza czas i pieniądze',
+    desc: 'Kiedy wiesz, co pisać, w jakiej kolejności i dlaczego — piszesz szybciej, celniej, bez cofania się. Brak strategii to: pisanie artykułu, który kanibalizuje inny; pisanie o temacie bez wolumenu; pisanie treści, które nie pasują do lejka. Strategia eliminuje marnowanie zasobów.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Warsztat strategiczny', desc: 'Spotkanie (60–90 min): cele biznesowe, grupa docelowa, buyer personas, USP, obecne kanały, pain points. Definiujemy: co content marketing ma osiągnąć (ruch, leady, autorytet, onboarding) i w jakim horyzoncie czasowym.' },
+  { step: 'Audyt treści i danych', desc: 'Analiza istniejących treści (GSC, GA4, Ahrefs): co działa, co nie, co wymaga odświeżenia. Analiza profilu linków, autorytetu domeny, indeksacji. Inwentaryzacja contentu z performance scoringiem.' },
+  { step: 'Research fraz i konkurencji', desc: 'Research w Ahrefs/Semrush: frazy kluczowe, wolumen, trudność, intencja. Content gap analysis: frazy konkurencji, na których Ty nie rankujesz. Klasteryzacja fraz w grupy tematyczne.' },
+  { step: 'Topical map i architektura', desc: 'Projektuję mapę tematyczną: pillar pages, cluster pages, supporting content. Definiuję relacje, linkowanie wewnętrzne, hierarchię. Mapa to blueprint Twojego content marketingu na 6–12 miesięcy.' },
+  { step: 'Content plan i priorytetyzacja', desc: 'Priorytetyzuję tematy: quick wins (niska trudność, szybki efekt), medium-term (budowanie authority), long-term (konkurencyjne frazy). Kalendarz z tytułami, frazami, formatami, KPI. Gotowy do realizacji.' },
+  { step: 'Dokumentacja i handoff', desc: 'Dostarczam: topical map, content plan, kalendarz redakcyjny, style guide, brief template, wytyczne SEO, checklist publikacji. Opcjonalnie: realizuję strategię sam (pisanie artykułów w retainerze) lub wspieram Twój zespół.' }
+];
+
+// ── Deliverables ──
+const deliverables = [
+  { label: 'Topical map', desc: 'Mapa tematyczna z pillar pages, cluster pages, relacjami i linkowaniem. Wizualizacja w Miro, Figma lub arkuszu.' },
+  { label: 'Content plan (3–12 mies.)', desc: 'Kalendarz z tytułami, docelowymi frazami, formatami, priorytetami, KPI. Gotowy do realizacji.' },
+  { label: 'Research fraz (arkusz)', desc: 'Kompletny arkusz: frazy, wolumen, trudność, intencja, klaster, priorytet. Sortowalne, filtrowalne.' },
+  { label: 'Content gap analysis', desc: 'Raport: frazy konkurencji, na których nie rankujesz. Tematy-szanse z oszacowanym potencjałem ruchu.' },
+  { label: 'Style guide i brief template', desc: 'Tone of voice, wytyczne copywriterskie, szablon briefu, checklist SEO. System do skalowania.' },
+  { label: 'Audyt treści (raport)', desc: 'Inwentaryzacja z performance scoringiem: co odświeżyć, co połączyć, co usunąć, co napisać od zera.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Strategia contentowa (kompletna, 3–6 mies.)', price: '4 000–10 000 zł' },
+  { item: 'Strategia contentowa (rozszerzona, 12 mies.)', price: '8 000–18 000 zł' },
+  { item: 'Audyt treści (samodzielny)', price: '2 000–5 000 zł' },
+  { item: 'Research fraz + klasteryzacja (samodzielny)', price: '2 000–6 000 zł' },
+  { item: 'Content gap analysis (samodzielny)', price: '1 500–4 000 zł' },
+  { item: 'Strategia + realizacja (retainer)', price: 'od 5 000 zł/mies.' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Co to jest strategia content marketingowa?',
+    a: 'Strategia content marketingowa to plan, który odpowiada na pytania: jakie treści tworzyć, dla kogo, w jakim formacie, w jakiej kolejności, na jakie frazy kluczowe i z jakim celem biznesowym. Obejmuje: audyt istniejących treści, research fraz, topical map, content plan, kalendarz redakcyjny, wytyczne dla autorów. To blueprint, który zamienia losowe blogowanie w system generowania ruchu i leadów.'
+  },
+  {
+    q: 'Czy potrzebuję strategii, jeśli dopiero zaczynam z blogiem?',
+    a: 'Zwłaszcza wtedy. Łatwiej (i taniej) zbudować blog od zera z planem niż naprawiać 50 losowych artykułów za rok. Strategia od początku daje: właściwe tematy (nie zgadywanie), właściwą kolejność (quick wins najpierw), właściwą strukturę (klastry, nie silosy). Efekt: szybszy wzrost ruchu organicznego.'
+  },
+  {
+    q: 'Ile kosztuje strategia contentowa?',
+    a: 'Strategia na 3–6 miesięcy: 4000–10 000 zł netto. Na 12 miesięcy (rozszerzona): 8000–18 000 zł. Samodzielny audyt treści: 2000–5000 zł. Cena zależy od rozmiaru serwisu, liczby konkurentów do analizy i głębokości researchu. Wycenę przygotowuję w 24h — bezpłatnie.'
+  },
+  {
+    q: 'Czy realizujesz też treści ze strategii, czy tylko planujesz?',
+    a: 'Jedno i drugie. Mogę dostarczyć samą strategię (dokumentacja + handoff do Twojego zespołu) lub strategię + realizację w modelu retainera (pisanie artykułów, optymalizacja, publikacja). Przy retainerze strategia jest żywym dokumentem — aktualizuję ją co kwartał na podstawie danych.'
+  },
+  {
+    q: 'Ile czasu zajmuje przygotowanie strategii?',
+    a: 'Strategia kompletna (audyt + research + topical map + content plan + dokumentacja): 2–4 tygodnie. Zależy od rozmiaru serwisu i branży. Warsztat strategiczny to dzień 1 — reszta to praca analityczna i dokumentacyjna. Dostajesz gotowy plan z priorytetyzacją, nie prezentację z ogólnikami.'
+  },
+  {
+    q: 'Jakich narzędzi używasz do strategii contentowej?',
+    a: 'Ahrefs (research fraz, content gap, backlinki), Semrush (keyword magic tool, topical authority), Google Search Console (dane własne), GA4 (ruch, konwersje), Screaming Frog (audyt techniczny). Plus własne arkusze do klasteryzacji, priorytetyzacji i planowania. Wynik: dane, nie opinie.'
+  },
+  {
+    q: 'Czy strategia contentowa dotyczy tylko bloga?',
+    a: 'Nie — obejmuje wszystkie treści na stronie: podstrony usługowe, landing page, FAQ, bazy wiedzy, opisy kategorii. Blog to jeden z kanałów. Strategia definiuje, jakie treści potrzebujesz na każdym etapie lejka: TOFU (awareness), MOFU (consideration), BOFU (decision) — i jak je ze sobą łączyć.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/strategia-contentowa/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/strategia-contentowa/",
+      "name": "Strategia content marketingowa — plan treści oparty na danych | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/strategia-contentowa/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/strategia-contentowa/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Strategia contentowa", "item": "https://www.icopywriter.pl/uslugi/strategia-contentowa/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Strategia content marketingowa",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Strategia content marketingowa: audyt treści, research fraz, topical map, content plan, kalendarz redakcyjny. Plan oparty na danych.",
+      "serviceType": "Content Marketing Strategy",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="cs-intro" id="zakres" aria-labelledby="cs-intro-title">
+    <div class="container">
+      <div class="cs-intro__inner reveal">
+        <div class="cs-intro__eyebrow">Strategia content marketingowa</div>
+        <h2 id="cs-intro-title" class="cs-intro__title">
+          Bez <strong>strategii contentowej</strong> nie masz<br>
+          content marketingu — masz <em>losowe blogowanie</em>
+        </h2>
+        <div class="cs-intro__columns">
+          <div class="cs-intro__col">
+            <p>
+              Publikujesz artykuły, ale ruch organiczny nie rośnie. Masz 30 postów na blogu,
+              ale 90% z nich generuje zero wizyt. Piszesz o tematach, które „wydają się
+              ciekawe" — zamiast o tematach, których szukają Twoi klienci. Brzmi znajomo?
+              To typowy objaw braku <strong>strategii content marketingowej</strong>.
+            </p>
+            <p>
+              <strong>Strategia contentowa</strong> zmienia losowe strzały w system. Mówi Ci:
+              jakie treści tworzyć, dla kogo, w jakiej kolejności, na jakie frazy kluczowe
+              i z jakim celem biznesowym. Zamienia „blogowanie" w maszynę do generowania
+              ruchu organicznego, leadów i autorytetu branżowego — z mierzalnymi wynikami
+              i przewidywalnym wzrostem.
+            </p>
+          </div>
+          <div class="cs-intro__col">
+            <p>
+              Buduję <strong>strategie treści</strong> oparte na danych, nie przeczuciach.
+              Research fraz w Ahrefs i Semrush, analiza konkurencji, content gap analysis,
+              klasteryzacja tematów, priorytetyzacja. Efekt: topical map z pillar pages
+              i cluster pages, content plan na 3–12 miesięcy, kalendarz redakcyjny
+              z konkretnymi tytułami, frazami i KPI.
+            </p>
+            <p>
+              Mogę dostarczyć samą strategię — plan, dokumentację, wytyczne — do realizacji
+              przez Twój zespół. Albo mogę <strong>realizować strategię sam</strong>: pisać
+              artykuły, optymalizować treści, monitorować pozycje i aktualizować plan
+              co kwartał. Strategia + egzekucja w jednych rękach — zero luk między planem
+              a realizacją.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="cs-scope" aria-labelledby="cs-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zakres"
+          title="Co obejmuje <em>strategia contentowa</em>?"
+          subtitle="Sześć elementów, które składają się na kompletny plan treści. Każdy oparty na danych — zero zgadywania."
+        />
+      </div>
+      <div class="cs-scope__list">
+        {scope.map((item, i) => (
+          <div class="cs-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="cs-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="cs-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="cs-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="cs-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       WHY STRATEGY (dark)
+       ════════════════════════════════════════ -->
+  <section class="cs-why" aria-labelledby="cs-why-title">
+    <div class="cs-why__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego strategia"
+          title="Dlaczego <em>content marketing</em> bez strategii nie działa?"
+          subtitle="Cztery powody, dla których plan treści to nie luksus — to warunek konieczny mierzalnych efektów."
+          inverted
+        />
+      </div>
+      <div class="cs-why__grid">
+        {whyStrategy.map((item, i) => (
+          <div class="cs-why__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="cs-why__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="cs-proc" aria-labelledby="cs-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>strategia contentowa</em>?"
+          subtitle="Sześć etapów od warsztatu po gotowy plan. Dane, nie opinie. Konkrety, nie ogólniki."
+        />
+      </div>
+      <div class="cs-proc__timeline">
+        {process.map((item, i) => (
+          <div class="cs-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="cs-proc__step-marker">
+              <span class="cs-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="cs-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="cs-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       DELIVERABLES
+       ════════════════════════════════════════ -->
+  <section class="cs-del" aria-labelledby="cs-del-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Co dostajesz"
+          title="Dokumenty w&nbsp;ramach <em>strategii treści</em>"
+          subtitle="Nie prezentację z&nbsp;ogólnikami — gotowy do realizacji system dokumentów i&nbsp;planów."
+        />
+      </div>
+      <div class="cs-del__grid">
+        {deliverables.map((item, i) => (
+          <div class="cs-del__card reveal" style={`--delay: ${i * 0.06}s`}>
+            <span class="cs-del__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="cs-price" aria-labelledby="cs-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>strategia contentowa</em>?"
+          subtitle="Od samodzielnego audytu po pełną strategię z&nbsp;realizacją. Wycena w&nbsp;24h — bezpłatnie."
+        />
+      </div>
+      <div class="cs-price__table reveal">
+        <div class="cs-price__header">
+          <span>Zakres</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="cs-price__row">
+            <span class="cs-price__item">{row.item}</span>
+            <span class="cs-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="cs-price__footer">
+          <p>Ceny netto. Strategia kompletna zawiera: audyt, research, topical map, content plan, kalendarz, style guide, brief template. Retainer: strategia + pisanie artykułów + monitoring + kwartalne aktualizacje.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="cs-faq" aria-labelledby="cs-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>strategię contentową</em>"
+          subtitle="Najczęstsze pytania o&nbsp;strategię treści, content plan, koszty i&nbsp;realizację."
+        />
+      </div>
+      <div class="cs-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="cs-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="cs-faq__question">
+              <span>{faq.q}</span>
+              <svg class="cs-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="cs-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="cs-seo" aria-label="Strategia contentowa — informacje">
+    <div class="container-narrow">
+      <article class="cs-seo__article">
+        <h2>Strategia content marketingowa — czym jest i&nbsp;dlaczego jej potrzebujesz</h2>
+        <p>
+          <strong>Strategia content marketingowa</strong> to dokument, który definiuje:
+          jakie treści tworzyć, dla kogo, w&nbsp;jakim formacie, w&nbsp;jakiej kolejności
+          i&nbsp;z jakim celem biznesowym. Nie jest to „lista tematów na blog" — to kompleksowy
+          plan oparty na danych: researchu fraz kluczowych, analizie konkurencji, audycie
+          istniejących treści i&nbsp;mapowaniu ścieżki klienta. Dobra <strong>strategia
+          contentowa</strong> zamienia losowe działania w&nbsp;przewidywalny system wzrostu.
+        </p>
+
+        <h3>Content plan a&nbsp;strategia treści — jaka jest różnica?</h3>
+        <p>
+          <strong>Content plan</strong> to kalendarz: co publikujesz i&nbsp;kiedy. <strong>Strategia
+          treści</strong> to „dlaczego" i&nbsp;„jak": cele, grupa docelowa, architektura tematyczna,
+          priorytetyzacja, KPI. Plan jest elementem strategii — ale nie zastępuje jej. Można mieć
+          kalendarz pełen tematów i&nbsp;wciąż nie mieć strategii, jeśli tematy są przypadkowe,
+          bez klasteryzacji i&nbsp;bez powiązania z&nbsp;celami biznesowymi.
+        </p>
+
+        <h3>Ile kosztuje strategia content marketingowa?</h3>
+        <p>
+          Profesjonalna <strong>strategia content marketingowa</strong> kosztuje od 4000 zł
+          (plan na 3–6 miesięcy) do 18 000 zł (rozszerzona na 12 miesięcy z&nbsp;pogłębionym
+          researchem i&nbsp;audytem). Samodzielny audyt treści: 2000–5000 zł. W&nbsp;porównaniu
+          z&nbsp;kosztem 20 artykułów napisanych bez planu (10 000–40 000 zł), strategia to
+          ułamek budżetu, który decyduje o&nbsp;tym, czy reszta inwestycji przyniesie zwrot.
+        </p>
+
+        <h3>Kiedy warto zlecić strategię contentową?</h3>
+        <p>
+          <strong>Strategia contentowa</strong> opłaca się, gdy: ruch organiczny stoi w&nbsp;miejscu
+          mimo regularnych publikacji; nie wiesz, o&nbsp;czym pisać; Twoje artykuły nie rankują;
+          chcesz skalować content marketing z&nbsp;1–2 artykułów na 4–8 miesięcznie; zmieniasz
+          pozycjonowanie marki; wchodzisz na nowy rynek lub segment. To inwestycja, która
+          chroni budżet przed marnowaniem na treści bez potencjału.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .cs-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .cs-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .cs-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 720px; }
+  .cs-intro__title strong { font-weight: var(--fw-bold); }
+  .cs-intro__title em { font-style: italic; color: var(--accent); }
+  .cs-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .cs-intro__columns { grid-template-columns: 1fr; } }
+  .cs-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .cs-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── SCOPE ── */
+  .cs-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .cs-scope__list { display: flex; flex-direction: column; }
+  .cs-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .cs-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .cs-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .cs-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .cs-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .cs-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cs-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── WHY (dark) ── */
+  .cs-why { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .cs-why__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .cs-why__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .cs-why__grid { grid-template-columns: 1fr; } }
+  .cs-why__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .cs-why__card:hover { border-color: rgba(255,255,255,0.12); }
+  .cs-why__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .cs-why__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .cs-why__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .cs-proc { padding: var(--space-24) 0; }
+  .cs-proc__timeline { display: flex; flex-direction: column; }
+  .cs-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .cs-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .cs-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .cs-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .cs-proc__step:last-child .cs-proc__step-line { display: none; }
+  .cs-proc__step-content { padding-bottom: var(--space-6); }
+  .cs-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .cs-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── DELIVERABLES ── */
+  .cs-del { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .cs-del__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  @media (max-width: 768px) { .cs-del__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .cs-del__grid { grid-template-columns: 1fr; } }
+  .cs-del__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .cs-del__card:hover { border-color: var(--accent); }
+  .cs-del__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .cs-del__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .cs-price { padding: var(--space-24) 0; }
+  .cs-price__table { max-width: 660px; }
+  .cs-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .cs-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .cs-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .cs-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .cs-price__footer { padding-top: var(--space-4); }
+  .cs-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .cs-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .cs-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .cs-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .cs-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .cs-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .cs-faq__question::-webkit-details-marker { display: none; }
+  .cs-faq__question::marker { display: none; content: ''; }
+  .cs-faq__question:hover { color: var(--accent); }
+  .cs-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .cs-faq__item[open] .cs-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .cs-faq__answer { padding: 0 0 var(--space-6); }
+  .cs-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .cs-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .cs-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .cs-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .cs-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .cs-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

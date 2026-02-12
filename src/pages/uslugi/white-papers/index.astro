@@ -1,0 +1,511 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('white-papers')!;
+
+// ── Types ──
+const scope = [
+  {
+    title: 'White paper technologiczny',
+    desc: 'Publikacja 10–30 stron wyjaśniająca złożony problem techniczny i prezentująca Twoje rozwiązanie jako odpowiedź. SaaS, fintech, cyberbezpieczeństwo, AI, IoT — tłumaczę technologię na język decydenta, który musi uzasadnić zakup wewnętrznie. Dane, architektura, benchmarki, ROI.',
+    tags: ['SaaS / Cloud', 'Fintech', 'Cyberbezpieczeństwo', 'AI / ML', 'Architektura rozwiązań']
+  },
+  {
+    title: 'White paper branżowy / research',
+    desc: 'Publikacja oparta na danych: badania rynku, trendy branżowe, analizy, prognozy. Format, który media cytują, LinkedIn udostępnia, a konkurencja zazdrości. Oryginalny research (ankiety, dane klientów) lub synteza danych publicznych z unikalną interpretacją.',
+    tags: ['Badania rynku', 'Trendy branżowe', 'Oryginalne dane', 'Analizy i prognozy', 'Cytowalna publikacja']
+  },
+  {
+    title: 'White paper problemowy (problem-solution)',
+    desc: 'Klasyczny format: definiujesz problem, analizujesz konsekwencje, przedstawiasz rozwiązanie, dostarczasz dowody (dane, case studies). Nie „broszura sprzedażowa w przebraniu" — merytoryczna publikacja, która buduje zaufanie, bo edukuje zamiast sprzedawać wprost.',
+    tags: ['Problem → analiza → rozwiązanie', 'Case studies', 'Dane i dowody', 'Edukacja, nie sprzedaż', 'Zaufanie']
+  },
+  {
+    title: 'White paper regulacyjny / compliance',
+    desc: 'Publikacje wyjaśniające nowe regulacje, wymogi compliance, zmiany prawne — i jak Twój produkt/usługa pomaga je spełnić. RODO, NIS2, AI Act, ESG, KSeF — format, który trafia do prawników, compliance officerów i zarządów. Merytoryczny, precyzyjny, bez marketingowego bełkotu.',
+    tags: ['RODO / GDPR', 'NIS2', 'AI Act', 'ESG', 'KSeF']
+  },
+  {
+    title: 'White paper z pełnym składem i grafikami',
+    desc: 'Pełny pakiet end-to-end: research, pisanie, skład w LaTeX, wykresy, infografiki, okładka, redakcja, korekta, PDF. Taki sam workflow jak przy ebookach — profesjonalna typografia, print-ready output, zero kompromisów na jakości składu.',
+    tags: ['Skład LaTeX', 'Wykresy i infografiki', 'Okładka', 'Print-ready PDF', 'End-to-end']
+  }
+];
+
+// ── Why white papers work ──
+const whyWP = [
+  {
+    title: 'Najskuteczniejszy format lead gen w B2B',
+    desc: 'White paper to format, po który decydenci sięgają, kiedy podejmują poważne decyzje zakupowe. 71% kupujących B2B czyta white paper przed rozmową z vendorem (Demand Gen Report). To nie przypadek — white paper daje pogłębioną analizę problemu, którego nie da się zmieścić w artykule blogowym.'
+  },
+  {
+    title: 'Buduje autorytet jak żaden inny format',
+    desc: 'Artykuł blogowy mówi: „wiemy coś o tym temacie". White paper mówi: „jesteśmy ekspertami, mamy dane, przeprowadziliśmy analizę, mamy rozwiązanie". To format, który pozycjonuje firmę jako lidera myśli — bo wymaga wysiłku, researchu i ekspertyzy, których większość konkurencji nie podejmuje.'
+  },
+  {
+    title: 'Żyje dłużej niż jakikolwiek content',
+    desc: 'Post na LinkedIn żyje 48 godzin. Artykuł blogowy — miesiące. White paper — lata. Dobrze napisany white paper jest cytowany, linkowany, udostępniany i pobierany przez długi czas. To evergreen content w najczystszej formie — zwłaszcza jeśli opiera się na oryginalnych danych.'
+  },
+  {
+    title: 'Wspiera cały lejek sprzedażowy',
+    desc: 'White paper pracuje na każdym etapie: TOFU (awareness — edukacja o problemie), MOFU (consideration — porównanie rozwiązań), BOFU (decision — dane, ROI, case studies). Sales team wysyła go prospectom. Marketing promuje jako gated content. PR cytuje dane. Jeden dokument, wiele zastosowań.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Brief i strategia', desc: 'Cel (lead gen, autorytet, sales enablement), grupa docelowa (C-suite, technicy, compliance), temat, teza, zakres. Definiujemy: jaką decyzję ma podjąć czytelnik po przeczytaniu? Strategia dystrybucji: gated/ungated, LP, email promo, social, PR.' },
+  { step: 'Research i wywiady', desc: 'Pogłębiony research: dane branżowe, raporty, badania, statystyki. Wywiady z Twoimi ekspertami (SME interviews) — ekstrahuję wiedzę, której nie ma w Google. Analiza konkurencyjnych white papers: co napisano, czego brakuje, jaka jest luka.' },
+  { step: 'Outline i akceptacja struktury', desc: 'Struktura: executive summary, problem statement, analiza, rozwiązanie, case studies/dane, wnioski, CTA. Outline z key takeaway per sekcja. Akceptujesz strukturę — potem piszę.' },
+  { step: 'Pisanie', desc: 'Piszę sekcjami, iteracyjnie. Ton: ekspercki, merytoryczny, konkretny — ale czytelny (nie akademicki żargon). Dane i wykresy wplecione w narrację. Każda sekcja z jasnym przekazem i logicznym flow do kolejnej.' },
+  { step: 'Skład, grafiki, redakcja', desc: 'Skład w LaTeX: profesjonalna typografia, wykresy, tabele, infografiki, okładka. Redakcja merytoryczna i stylistyczna. Korekta językowa. Dwie rundy feedbacku z Twojej strony.' },
+  { step: 'Eksport i dystrybucja', desc: 'PDF cyfrowy (RGB, hiperlinki, zakładki) + opcjonalnie print-ready (CMYK). Landing page z formularzem pobierania, email promo sequence, social media copy. Kompletny launch kit.' }
+];
+
+// ── Deliverables ──
+const deliverables = [
+  { label: 'White paper (PDF)', desc: 'Gotowa publikacja: tekst, skład LaTeX, grafiki, okładka. PDF zoptymalizowany (zakładki, hiperlinki) lub print-ready.' },
+  { label: 'Executive summary', desc: 'Jednostronicowe podsumowanie kluczowych wniosków — do emaili, social media, prezentacji, pitchów.' },
+  { label: 'Landing page', desc: 'Opcjonalnie: LP z formularzem pobierania, copy, kodowanie w Astro. Gated content z lead capture.' },
+  { label: 'Materiały promocyjne', desc: 'Social media copy (LinkedIn, Twitter), email promo (3 emaile), blog post zapowiadający publikację.' },
+  { label: 'Dane źródłowe', desc: 'LaTeX source, grafiki wektorowe (SVG), wykresy edytowalne. Twoja własność — możesz aktualizować w przyszłości.' },
+  { label: 'Slide deck (opcja)', desc: 'Prezentacja (10–15 slajdów) z kluczowymi wnioskami white paper — do webinarów, konferencji, spotkań sales.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'White paper (10–15 stron, treść + skład)', price: '5 000–12 000 zł' },
+  { item: 'White paper (15–30 stron, treść + skład)', price: '10 000–25 000 zł' },
+  { item: 'White paper z oryginalnym researchem (ankiety, dane)', price: '15 000–40 000 zł' },
+  { item: 'Sam skład LaTeX (gotowy tekst)', price: '2 000–6 000 zł' },
+  { item: 'Landing page + email promo (launch kit)', price: '3 000–8 000 zł' },
+  { item: 'Executive summary + slide deck', price: '1 500–4 000 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Co to jest white paper?',
+    a: 'White paper to pogłębiona, merytoryczna publikacja (10–30 stron), która analizuje problem branżowy i prezentuje rozwiązanie oparte na danych. W B2B to najskuteczniejszy format budowania autorytetu i pozyskiwania leadów. Nie jest to broszura sprzedażowa — to edukacyjna publikacja, która buduje zaufanie przez wartość merytoryczną, dane i case studies.'
+  },
+  {
+    q: 'Czym white paper różni się od ebooka?',
+    a: 'White paper jest bardziej formalny, oparty na danych, zwykle krótszy (10–30 stron vs 30–150 stron ebooka) i skoncentrowany na jednym problemie/rozwiązaniu. Ebook może być poradnikiem, kompendium, podręcznikiem. White paper to analiza problemu z tezą, danymi i wnioskami — bliżej publikacji naukowej niż poradnika.'
+  },
+  {
+    q: 'Ile kosztuje white paper?',
+    a: 'White paper 10–15 stron (treść + skład + grafiki): 5000–12 000 zł. 15–30 stron: 10 000–25 000 zł. Z oryginalnym researchem (ankiety, wywiady): 15 000–40 000 zł. Sam skład LaTeX: 2000–6000 zł. Cena zależy od złożoności, głębokości researchu i objętości grafik/danych.'
+  },
+  {
+    q: 'Ile czasu zajmuje stworzenie white paper?',
+    a: 'White paper 10–15 stron: 3–5 tygodni. 15–30 stron: 5–8 tygodni. Z oryginalnym researchem: 6–12 tygodni (w zależności od zakresu badania). Czas obejmuje: brief, research, wywiady z ekspertami, pisanie, skład, grafiki, 2 rundy redakcji, korektę.'
+  },
+  {
+    q: 'Czy white paper powinien być gated (za formularzem)?',
+    a: 'Zależy od celu. Gated = więcej leadów, mniej pobrań. Ungated = więcej pobrań, więcej linków, lepsza widoczność (SEO, PR). Kompromis: executive summary ungated + pełny white paper gated. Lub: ungated przez pierwsze 3 miesiące (budowanie zasięgu), potem gated (lead gen).'
+  },
+  {
+    q: 'Czy robisz też wywiady z ekspertami (SME interviews)?',
+    a: 'Tak — wywiady z subject matter experts to kluczowy element researchu. Przeprowadzam 30–60 minutowe wywiady z Twoimi ekspertami, ekstrahuję kluczowe insighty i wplatam je w narrację. SME interviews dają white paper autentyczność i unikalną wiedzę niedostępną publicznie.'
+  },
+  {
+    q: 'Czy dostarczasz też materiały promocyjne do white paper?',
+    a: 'Tak — opcjonalnie tworzę kompletny launch kit: landing page z formularzem, 3 emaile promocyjne, posty na LinkedIn, executive summary, slide deck do prezentacji. White paper bez dystrybucji to marnowanie inwestycji — materiały promo zapewniają, że publikacja dotrze do właściwych ludzi.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/white-papers/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/white-papers/",
+      "name": "White paper — tworzenie publikacji B2B opartych na danych | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/white-papers/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/white-papers/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "White papers", "item": "https://www.icopywriter.pl/uslugi/white-papers/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "White papers",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "White papers B2B: research, pisanie, skład LaTeX, grafiki, dystrybucja. Publikacje oparte na danych, budujące autorytet.",
+      "serviceType": "White Paper Writing",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="wp-intro" id="zakres" aria-labelledby="wp-intro-title">
+    <div class="container">
+      <div class="wp-intro__inner reveal">
+        <div class="wp-intro__eyebrow">White papers B2B</div>
+        <h2 id="wp-intro-title" class="wp-intro__title">
+          <strong>White paper</strong> to nie broszura sprzedażowa.<br>
+          To <em>publikacja, która buduje autorytet danymi</em>.
+        </h2>
+        <div class="wp-intro__columns">
+          <div class="wp-intro__col">
+            <p>
+              71% kupujących B2B czyta <strong>white paper</strong> zanim porozmawia
+              z&nbsp;vendorem. To format, po który sięgają decydenci — dyrektorzy, CTOs,
+              heads of — kiedy muszą zrozumieć problem, porównać rozwiązania i&nbsp;uzasadnić
+              decyzję zakupową wewnętrznie. Ebook edukuje. Blog informuje.
+              <strong>White paper</strong> przekonuje danymi.
+            </p>
+            <p>
+              Ale większość white papers to broszury sprzedażowe z&nbsp;nudną okładką:
+              dwa akapity „o nas", screenshot produktu, „skontaktuj się". Zero danych,
+              zero analizy, zero wartości. Moje <strong>white papers</strong> są inne —
+              bo zaczynam od problemu czytelnika, nie od Twojego produktu. Dopiero gdy
+              czytelnik rozumie problem, prezentuję rozwiązanie. Edukacja → zaufanie → konwersja.
+            </p>
+          </div>
+          <div class="wp-intro__col">
+            <p>
+              Tworzę <strong>white papers</strong> end-to-end: research i&nbsp;wywiady
+              z&nbsp;ekspertami (SME interviews), pisanie treści, wykresy i&nbsp;infografiki,
+              profesjonalny skład w&nbsp;LaTeX, redakcja i&nbsp;korekta, eksport PDF.
+              Ten sam workflow wydawniczy co przy ebookach — typografia na poziomie
+              wydawnictwa, nie „dokument z&nbsp;Worda z&nbsp;logo".
+            </p>
+            <p>
+              Opcjonalnie: kompletny launch kit — <strong>landing page</strong> z&nbsp;formularzem
+              pobierania, sekwencja emailowa, posty na LinkedIn, executive summary, slide
+              deck do prezentacji. Bo <strong>white paper</strong> bez dystrybucji to
+              marnowanie inwestycji. Dostarczam publikację i&nbsp;narzędzia, żeby dotarła
+              do właściwych ludzi.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="wp-scope" aria-labelledby="wp-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Rodzaje"
+          title="Jakie <em>white papers</em> tworzę?"
+          subtitle="Technologiczne, branżowe, problemowe, regulacyjne — i&nbsp;pełny pakiet z&nbsp;składem LaTeX. Każdy oparty na danych."
+        />
+      </div>
+      <div class="wp-scope__list">
+        {scope.map((item, i) => (
+          <div class="wp-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="wp-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="wp-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="wp-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="wp-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       WHY WHITE PAPERS (dark)
+       ════════════════════════════════════════ -->
+  <section class="wp-why" aria-labelledby="wp-why-title">
+    <div class="wp-why__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego white paper"
+          title="Dlaczego <em>white paper</em> to najsilniejszy format w&nbsp;B2B?"
+          subtitle="Cztery powody, dla których decydenci czytają white papers — a&nbsp;nie artykuły blogowe — przed podpisaniem umowy."
+          inverted
+        />
+      </div>
+      <div class="wp-why__grid">
+        {whyWP.map((item, i) => (
+          <div class="wp-why__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="wp-why__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="wp-proc" aria-labelledby="wp-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>white paper</em>?"
+          subtitle="Sześć etapów od briefu po launch kit. Research, wywiady z&nbsp;ekspertami, pisanie, skład, dystrybucja."
+        />
+      </div>
+      <div class="wp-proc__timeline">
+        {process.map((item, i) => (
+          <div class="wp-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="wp-proc__step-marker">
+              <span class="wp-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="wp-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="wp-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       DELIVERABLES
+       ════════════════════════════════════════ -->
+  <section class="wp-del" aria-labelledby="wp-del-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Co dostajesz"
+          title="Kompletny pakiet — nie&nbsp;tylko <em>PDF</em>"
+          subtitle="White paper + materiały promocyjne + dane źródłowe. Wszystko, czego potrzebujesz do launchu i&nbsp;dystrybucji."
+        />
+      </div>
+      <div class="wp-del__grid">
+        {deliverables.map((item, i) => (
+          <div class="wp-del__card reveal" style={`--delay: ${i * 0.06}s`}>
+            <span class="wp-del__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="wp-price" aria-labelledby="wp-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>white paper</em>?"
+          subtitle="Od kompaktowego white paper po publikację z&nbsp;oryginalnym researchem. Wycena w&nbsp;24h."
+        />
+      </div>
+      <div class="wp-price__table reveal">
+        <div class="wp-price__header">
+          <span>Zakres</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="wp-price__row">
+            <span class="wp-price__item">{row.item}</span>
+            <span class="wp-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="wp-price__footer">
+          <p>Ceny netto. Pełny pakiet: research, wywiady SME, pisanie, skład LaTeX, wykresy, infografiki, okładka, redakcja, korekta, PDF. Launch kit (LP, emaile, social) wyceniany osobno lub w pakiecie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="wp-faq" aria-labelledby="wp-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>white papers</em>"
+          subtitle="Najczęstsze pytania o&nbsp;tworzenie white paper, ceny, różnicę vs ebook i&nbsp;dystrybucję."
+        />
+      </div>
+      <div class="wp-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="wp-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="wp-faq__question">
+              <span>{faq.q}</span>
+              <svg class="wp-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="wp-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="wp-seo" aria-label="White papers — informacje">
+    <div class="container-narrow">
+      <article class="wp-seo__article">
+        <h2>White paper — co to jest i&nbsp;dlaczego to najsilniejszy content B2B</h2>
+        <p>
+          <strong>White paper</strong> to pogłębiona, merytoryczna publikacja (zazwyczaj
+          10–30&nbsp;stron), która analizuje problem branżowy, prezentuje dane i&nbsp;proponuje
+          rozwiązanie. W&nbsp;odróżnieniu od ebooka, <strong>white paper</strong> jest bardziej
+          formalny, oparty na danych i&nbsp;skoncentrowany na jednym temacie. To format, po
+          który sięgają decydenci B2B — dyrektorzy, managerowie, specjaliści — kiedy muszą
+          zrozumieć problem i&nbsp;uzasadnić decyzję zakupową.
+        </p>
+
+        <h3>Tworzenie white paper — jak wygląda profesjonalny proces?</h3>
+        <p>
+          Profesjonalne <strong>tworzenie white paper</strong> zaczyna się od strategii
+          (cel, grupa docelowa, teza), przechodzi przez pogłębiony research (dane branżowe,
+          wywiady z&nbsp;ekspertami, content gap analysis), pisanie treści sekcjami, skład
+          typograficzny, projekt grafik i&nbsp;wykresów, redakcję i&nbsp;korektę. Efekt:
+          publikacja na poziomie wydawnictwa, nie „PDF wygenerowany z&nbsp;prezentacji".
+        </p>
+
+        <h3>White paper B2B — jak wpływa na sprzedaż?</h3>
+        <p>
+          <strong>White paper B2B</strong> działa na każdym etapie lejka sprzedażowego.
+          Na górze lejka: buduje awareness i&nbsp;przyciąga leady (gated content). W&nbsp;środku:
+          edukuje i&nbsp;buduje zaufanie (porównania, analizy). Na dole: wspiera decyzję
+          (ROI, case studies, dane). Sales team może wysyłać white paper prospectom zamiast
+          kolejnej prezentacji — i&nbsp;zyskuje wiarygodność, której pitch deck nie da.
+        </p>
+
+        <h3>Ile kosztuje white paper na zamówienie?</h3>
+        <p>
+          <strong>White paper na zamówienie</strong> (pełny pakiet: research, pisanie, skład,
+          grafiki) kosztuje od 5000 zł (10–15 stron) do 40 000 zł (publikacja z&nbsp;oryginalnym
+          researchem, ankietami i&nbsp;pogłębionymi wywiadami). Sam skład LaTeX: 2000–6000 zł.
+          Launch kit (LP, emaile, social copy): 3000–8000 zł. To inwestycja, która pracuje
+          latami — w&nbsp;postaci leadów, autorytetu i&nbsp;materiałów sales enablement.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .wp-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .wp-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .wp-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 720px; }
+  .wp-intro__title strong { font-weight: var(--fw-bold); }
+  .wp-intro__title em { font-style: italic; color: var(--accent); }
+  .wp-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .wp-intro__columns { grid-template-columns: 1fr; } }
+  .wp-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .wp-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── SCOPE ── */
+  .wp-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .wp-scope__list { display: flex; flex-direction: column; }
+  .wp-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .wp-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .wp-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .wp-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .wp-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .wp-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wp-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── WHY (dark) ── */
+  .wp-why { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .wp-why__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .wp-why__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .wp-why__grid { grid-template-columns: 1fr; } }
+  .wp-why__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .wp-why__card:hover { border-color: rgba(255,255,255,0.12); }
+  .wp-why__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .wp-why__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .wp-why__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .wp-proc { padding: var(--space-24) 0; }
+  .wp-proc__timeline { display: flex; flex-direction: column; }
+  .wp-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .wp-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .wp-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .wp-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .wp-proc__step:last-child .wp-proc__step-line { display: none; }
+  .wp-proc__step-content { padding-bottom: var(--space-6); }
+  .wp-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .wp-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── DELIVERABLES ── */
+  .wp-del { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .wp-del__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  @media (max-width: 768px) { .wp-del__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .wp-del__grid { grid-template-columns: 1fr; } }
+  .wp-del__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .wp-del__card:hover { border-color: var(--accent); }
+  .wp-del__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .wp-del__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .wp-price { padding: var(--space-24) 0; }
+  .wp-price__table { max-width: 660px; }
+  .wp-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .wp-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .wp-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .wp-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .wp-price__footer { padding-top: var(--space-4); }
+  .wp-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .wp-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .wp-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .wp-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .wp-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .wp-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .wp-faq__question::-webkit-details-marker { display: none; }
+  .wp-faq__question::marker { display: none; content: ''; }
+  .wp-faq__question:hover { color: var(--accent); }
+  .wp-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .wp-faq__item[open] .wp-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .wp-faq__answer { padding: 0 0 var(--space-6); }
+  .wp-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .wp-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .wp-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .wp-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .wp-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .wp-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

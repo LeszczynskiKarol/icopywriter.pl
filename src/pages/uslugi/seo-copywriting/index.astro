@@ -1,0 +1,537 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('seo-copywriting')!;
+
+// ── Scope ──
+const scope = [
+  {
+    title: 'Artykuły blogowe SEO',
+    desc: 'Artykuły eksperckie 2000–6000 słów, które odpowiadają na realne pytania użytkowników i budują topical authority. Nie piszę pod algorytm — piszę dla ludzi z wiedzą o tym, jak działa algorytm. Efekt: treści, które rankują, generują ruch i budują autorytet.',
+    tags: ['Poradniki how-to', 'Listicle', 'Pillar pages', 'Artykuły eksperckie', 'Content clusters']
+  },
+  {
+    title: 'Podstrony usługowe i produktowe',
+    desc: 'Podstrony zoptymalizowane pod frazy transakcyjne — usługi, produkty, kategorie. Struktura H1–H3, naturalny dobór fraz, wewnętrzne linkowanie, FAQ schema. Teksty, które pozycjonują i jednocześnie przekonują do kontaktu lub zakupu.',
+    tags: ['Strony usługowe', 'Opisy kategorii', 'Strony produktowe', 'FAQ z schema', 'Linkowanie wewnętrzne']
+  },
+  {
+    title: 'Content clusters i topical authority',
+    desc: 'Architektura treści oparta na klastrach tematycznych: pillar page + cluster pages + linkowanie wewnętrzne. Buduję topical authority, które sygnalizuje Google, że jesteś ekspertem w temacie — nie pojedynczy artykuł, ale cała sieć powiązanych treści.',
+    tags: ['Pillar page', 'Cluster pages', 'Topical map', 'Linkowanie wewnętrzne', 'Content gap analysis']
+  },
+  {
+    title: 'Optymalizacja istniejących treści',
+    desc: 'Audyt i aktualizacja treści, które nie rankują lub spadły. Analiza search intent, uzupełnianie luk tematycznych, poprawa struktury nagłówków, dodanie FAQ, wewnętrzne przelinkowywanie. Tańsze i szybsze niż pisanie od zera — a często skuteczniejsze.',
+    tags: ['Content refresh', 'Search intent matching', 'Content pruning', 'Content merging', 'Thin content fix']
+  },
+  {
+    title: 'Research fraz i strategia SEO content',
+    desc: 'Research fraz kluczowych (Ahrefs, Semrush, GSC), klasteryzacja, analiza SERP, mapowanie intencji, content gap analysis, priorytetyzacja tematów. Strategia, która mówi co pisać, w jakiej kolejności i dlaczego — nie lista 500 fraz bez kontekstu.',
+    tags: ['Research fraz', 'Klasteryzacja', 'Analiza SERP', 'Content gap', 'Priorytetyzacja']
+  }
+];
+
+// ── How SEO copywriting works ──
+const howItWorks = [
+  {
+    title: 'Research fraz i intencji',
+    desc: 'Zaczynam od danych: frazy kluczowe, wolumen, trudność, intencja wyszukiwania (informacyjna, nawigacyjna, transakcyjna). Sprawdzam, co już rankuje na pierwszej stronie — i identyfikuję, czego brakuje. Bo celem nie jest „wpisać frazę 10 razy", lecz odpowiedzieć na pytanie lepiej niż konkurencja.'
+  },
+  {
+    title: 'Analiza SERP i konkurencji',
+    desc: 'Analizuję top 10 wyników dla docelowej frazy: jakie tematy pokrywają, jaką strukturę mają, ile słów, jakie nagłówki, jakie FAQ, jakie formaty (listy, tabele, wideo). Na tej podstawie buduję brief, który celuje w content gap — lukę, którą Twój tekst wypełni.'
+  },
+  {
+    title: 'Struktura i architektura treści',
+    desc: 'Projektuję strukturę artykułu lub podstrony: nagłówki H1–H3, sekcje, flow informacji, rozmieszczenie fraz, linkowanie wewnętrzne. Struktura to 60% sukcesu SEO — Google czyta nagłówki, aby zrozumieć temat. Jeśli struktura jest bałaganem, treść nie rankuje.'
+  },
+  {
+    title: 'Copywriting SEO-first',
+    desc: 'Piszę tekst z naturalnym umiejscowieniem fraz kluczowych — w nagłówkach, pierwszych akapitach, meta description, alt textach. Zero keyword stuffingu. Frazy wplatam w naturalny tok tekstu, bo Google od lat nagradza jakość i czytelność, nie mechaniczne powtórzenia.'
+  },
+  {
+    title: 'Optymalizacja on-page',
+    desc: 'Każdy tekst dostarczam z kompletną optymalizacją: title tag, meta description, nagłówki H1–H3, URL slug, alt texty obrazów, schema markup (FAQ, HowTo, Article), linkowanie wewnętrzne z anchor textami. Gotowy do wklejenia — lub wdrażam sam.'
+  },
+  {
+    title: 'Monitoring i iteracja',
+    desc: 'SEO copywriting to nie „napisz i zapomnij". Monitoruję pozycje (GSC, Ahrefs), analizuję CTR, identyfikuję frazy, dla których tekst rankuje na pozycjach 5–20 (low-hanging fruit). Po 2–3 miesiącach — content refresh: uzupełniam, optymalizuję, rozbudowuję.'
+  }
+];
+
+// ── What makes my SEO different ──
+const advantages = [
+  {
+    title: 'Piszę dla ludzi, optymalizuję dla Google',
+    desc: 'To nie jest sprzeczność — to jedyna strategia, która działa długoterminowo. Google od lat nagradza treści, które odpowiadają na pytania użytkowników, utrzymują uwagę, mają niski bounce rate i generują backlinki. Keyword stuffing jest martwy. Jakość jest jedynym shortcutem.'
+  },
+  {
+    title: 'Rozumiem technologię, nie tylko treść',
+    desc: 'Koduję strony w Astro i Next.js. Rozumiem Core Web Vitals, rendering, lazy loading, schema markup, crawlability. Mój SEO copywriting uwzględnia kontekst techniczny — bo najlepszy tekst nie pomoże, jeśli strona ładuje się 8 sekund lub blokuje indeksowanie.'
+  },
+  {
+    title: 'Dane, nie przeczucia',
+    desc: 'Research w Ahrefs i Semrush, analiza SERP, klasteryzacja fraz, content gap analysis. Nie piszę artykułu, bo „wydaje mi się, że to dobry temat". Piszę, bo dane pokazują wolumen, trudność i intencję — i bo ten temat logicznie wpasowuje się w Twoją architekturę treści.'
+  },
+  {
+    title: 'Strategia, nie pojedyncze artykuły',
+    desc: 'Pojedynczy artykuł rzadko zmienia wyniki SEO. Zmienia je strategia: content clusters, topical authority, linkowanie wewnętrzne, content refresh. Buduję systemy treści, które wzmacniają się nawzajem — pillar page linkuje do cluster pages, cluster pages linkują do pillar page.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Audyt i research', desc: 'Audyt istniejących treści (co rankuje, co nie, co warto odświeżyć). Research fraz: wolumen, trudność, intencja, sezonowość. Analiza konkurencji: kto rankuje, dlaczego, jakie luki.' },
+  { step: 'Strategia i priorytetyzacja', desc: 'Klasteryzacja fraz, mapowanie intencji, priorytetyzacja tematów (szybkie wygrane vs długoterminowe). Topical map i content plan — co pisać, w jakiej kolejności, z jakim celem.' },
+  { step: 'Brief i struktura artykułu', desc: 'Dla każdego tekstu: docelowa fraza, frazy wspierające, intencja, nagłówki H1–H3, sekcje, długość, linkowanie wewnętrzne, format (lista, tabela, FAQ). Brief to mapa, nie inspiracja.' },
+  { step: 'SEO copywriting', desc: 'Piszę tekst: naturalny dobór fraz, semantyka LSI, czytelna struktura, wartość merytoryczna. Nie „tekst na 3000 słów z frazą 15 razy" — tekst, który odpowiada na pytanie lepiej niż top 10.' },
+  { step: 'Optymalizacja on-page', desc: 'Title tag, meta description, slug, nagłówki, alt texty, schema markup, anchor texty linków wewnętrznych. Kompletny pakiet — gotowy do publikacji.' },
+  { step: 'Publikacja i monitoring', desc: 'Wdrażam na stronę (lub dostarczam plik). Po 4–8 tygodniach: analiza pozycji, CTR, ruchu. Po 2–3 miesiącach: content refresh dla fraz na pozycjach 5–20.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Artykuł blogowy SEO (3 000–5 000 słów)', price: '600–2 000 zł' },
+  { item: 'Artykuł pillar page (5 000–8 000 słów)', price: '1 500–3 500 zł' },
+  { item: 'Podstrona usługowa z SEO', price: '500–2 000 zł' },
+  { item: 'Opis kategorii e-commerce', price: '300–800 zł' },
+  { item: 'Content refresh / optymalizacja istniejącego tekstu', price: '300–1 000 zł' },
+  { item: 'Research fraz + strategia contentowa (jednorazowo)', price: '2 000–6 000 zł' },
+  { item: 'Pakiet 4 artykuły SEO / miesiąc', price: 'od 2 000 zł/mies.' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Co to jest SEO copywriting?',
+    a: 'SEO copywriting to tworzenie treści zoptymalizowanych pod wyszukiwarki (głównie Google), które jednocześnie czyta się z przyjemnością. Łączy research fraz kluczowych z jakościowym pisaniem — tekst odpowiada na realne pytania użytkowników, ma optymalną strukturę nagłówków, naturalnie wplata frazy kluczowe i jest technicznie zoptymalizowany (meta tagi, schema, linkowanie). Celem jest generowanie ruchu organicznego i konwersji.'
+  },
+  {
+    q: 'Czym różni się SEO copywriting od „zwykłego" copywritingu?',
+    a: 'Zwykły copywriting pisze tekst, który ma przekonać do działania — bez uwzględniania wyszukiwarek. SEO copywriting robi to samo, ale z dodatkową warstwą: research fraz, analiza intencji wyszukiwania, optymalizacja struktury pod Google, meta tagi, schema markup. Efekt: tekst, który jednocześnie rankuje w Google i konwertuje odwiedzających.'
+  },
+  {
+    q: 'Czy SEO copywriting nadal działa po aktualizacjach Google?',
+    a: 'Tak — ale tylko jeśli jest robiony dobrze. Aktualizacje Google (Helpful Content, Core Updates) karają cienkie, sztuczne treści pisane „pod algorytm". Nagradzają treści pisane dla ludzi: oryginalne, eksperckie, wyczerpujące, z realną wartością. Moje podejście — pisanie dla ludzi z wiedzą o algorytmie — jest odporne na aktualizacje, bo jest z nimi spójne.'
+  },
+  {
+    q: 'Ile czasu zajmuje, zanim tekst zacznie rankować?',
+    a: 'Typowo 2–6 miesięcy. Zależy od autorytetu domeny (Domain Rating), konkurencyjności frazy, jakości tekstu i linkowania wewnętrznego. Frazy long-tail (niska konkurencja) mogą rankować w 2–4 tygodnie. Frazy główne (wysoka konkurencja) — 3–12 miesięcy. SEO to inwestycja długoterminowa z efektem kuli śnieżnej.'
+  },
+  {
+    q: 'Czy wystarczy jeden artykuł, żeby poprawić SEO?',
+    a: 'Rzadko. Pojedynczy artykuł może rankować na long-tail, ale prawdziwe efekty SEO daje strategia: content clusters, topical authority, linkowanie wewnętrzne, regularna publikacja. Jeden artykuł to punkt startowy — ale żeby budować autorytet tematyczny, potrzebujesz systemu powiązanych treści.'
+  },
+  {
+    q: 'Czy piszesz też opisy produktów zoptymalizowane pod SEO?',
+    a: 'Tak — opisy produktów SEO to osobna usługa. Unikalne opisy z naturalnym doborem fraz, językiem korzyści, strukturą skanowalną, specyfikacjami. Pracuję z e-commerce od lat — od pojedynczych opisów po pakiety 500+ produktów z automatyzacją AI + redakcja ludzka.'
+  },
+  {
+    q: 'Jakich narzędzi SEO używasz?',
+    a: 'Ahrefs (research fraz, analiza konkurencji, backlinki), Semrush (pozycje, audyt techniczny), Google Search Console (dane własne), Surfer SEO (optymalizacja on-page), GA4 (analityka), Screaming Frog (crawl). Plus własne narzędzia AI do clusteryzacji fraz i analizy SERP.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/seo-copywriting/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/seo-copywriting/",
+      "name": "SEO copywriting — teksty, które rankują w Google | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/seo-copywriting/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/seo-copywriting/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "SEO copywriting", "item": "https://www.icopywriter.pl/uslugi/seo-copywriting/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "SEO copywriting",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "SEO copywriting: artykuły, podstrony, content clusters zoptymalizowane pod Google. Research fraz, analiza SERP, optymalizacja on-page.",
+      "serviceType": "SEO Copywriting",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="seo-intro" id="zakres" aria-labelledby="seo-intro-title">
+    <div class="container">
+      <div class="seo-intro__inner reveal">
+        <div class="seo-intro__eyebrow">Czym jest SEO copywriting?</div>
+        <h2 id="seo-intro-title" class="seo-intro__title">
+          <strong>SEO copywriting</strong> to teksty, które<br>
+          <em>rankują w&nbsp;Google i&nbsp;czyta się z&nbsp;przyjemnością</em>
+        </h2>
+        <div class="seo-intro__columns">
+          <div class="seo-intro__col">
+            <p>
+              <strong>SEO copywriting</strong> łączy dwie dyscypliny, które zbyt często żyją
+              w&nbsp;osobnych światach: optymalizację pod wyszukiwarki i&nbsp;jakościowe pisanie.
+              Efekt? Treści, które Google chce pokazywać wysoko — bo odpowiadają na pytania
+              użytkowników, mają ekspercką wartość i&nbsp;dobrą strukturę. I&nbsp;które ludzie
+              chcą czytać — bo są jasne, konkretne i&nbsp;użyteczne.
+            </p>
+            <p>
+              Zbyt wielu <strong>copywriterów SEO</strong> wciąż pisze „pod algorytm":
+              wrzuca frazę kluczową 15 razy, generuje 3000 słów bełkotu i&nbsp;liczy, że
+              Google tego nie zauważy. Zauważa. Aktualizacje Helpful Content i&nbsp;Core Updates
+              systematycznie degradują cienkie, sztuczne treści. Moje podejście jest inne —
+              i&nbsp;dlatego odporne na aktualizacje.
+            </p>
+          </div>
+          <div class="seo-intro__col">
+            <p>
+              Zaczynam od <strong>researchu fraz i&nbsp;analizy intencji wyszukiwania</strong>.
+              Sprawdzam, czego ludzie szukają, jakie pytania zadają, co im odpowiada top&nbsp;10
+              wyników — i&nbsp;czego im brakuje. Potem piszę tekst, który wypełnia tę lukę:
+              lepiej, dokładniej, czytelniej. Z&nbsp;naturalnym doborem fraz, optymalną strukturą
+              i&nbsp;kompletną optymalizacją on-page.
+            </p>
+            <p>
+              Jako <strong>SEO copywriter</strong> z&nbsp;ponad 15-letnim doświadczeniem wiem,
+              że <strong>pozycjonowanie treści</strong> to nie jednorazowa czynność, lecz system.
+              Pojedynczy artykuł rzadko zmienia wyniki — zmienia je strategia: content clusters,
+              topical authority, linkowanie wewnętrzne, regularne odświeżanie. Buduję systemy
+              treści, które wzmacniają się nawzajem i&nbsp;generują ruch organiczny miesiącami
+              po publikacji.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="seo-scope" aria-labelledby="seo-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zakres"
+          title="Co obejmuje mój <em>SEO copywriting</em>?"
+          subtitle="Od pojedynczego artykułu po kompletną strategię contentową. Każdy tekst z&nbsp;researchem, optymalizacją on-page i&nbsp;gotowy do publikacji."
+        />
+      </div>
+      <div class="seo-scope__list">
+        {scope.map((item, i) => (
+          <div class="seo-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="seo-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="seo-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="seo-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="seo-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HOW IT WORKS (dark)
+       ════════════════════════════════════════ -->
+  <section class="seo-how" aria-labelledby="seo-how-title">
+    <div class="seo-how__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Jak to robię"
+          title="SEO copywriting od researchu po <em>monitoring pozycji</em>"
+          subtitle="Sześć elementów, które składają się na tekst, który rankuje. Każdy oparty na danych, nie przeczuciach."
+          inverted
+        />
+      </div>
+      <div class="seo-how__grid">
+        {howItWorks.map((item, i) => (
+          <div class="seo-how__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="seo-how__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       ADVANTAGES
+       ════════════════════════════════════════ -->
+  <section class="seo-adv" aria-labelledby="seo-adv-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego ja"
+          title="Czym mój <em>SEO copywriting</em> się wyróżnia?"
+          subtitle="Nie jestem agencją SEO ani generatorem artykułów. Jestem copywriterem, który rozumie i&nbsp;technologię, i&nbsp;ludzi."
+        />
+      </div>
+      <div class="seo-adv__grid">
+        {advantages.map((item, i) => (
+          <div class="seo-adv__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="seo-proc" aria-labelledby="seo-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak wygląda współpraca nad <em>tekstami SEO</em>?"
+          subtitle="Sześć etapów: od audytu i&nbsp;researchu fraz po publikację i&nbsp;monitoring pozycji."
+        />
+      </div>
+      <div class="seo-proc__timeline">
+        {process.map((item, i) => (
+          <div class="seo-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="seo-proc__step-marker">
+              <span class="seo-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="seo-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="seo-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="seo-price" aria-labelledby="seo-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>SEO copywriting</em>?"
+          subtitle="Widełki cenowe dla typowych projektów. Dokładną wycenę przygotowuję w&nbsp;24h — bezpłatnie."
+        />
+      </div>
+      <div class="seo-price__table reveal">
+        <div class="seo-price__header">
+          <span>Usługa</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="seo-price__row">
+            <span class="seo-price__item">{row.item}</span>
+            <span class="seo-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="seo-price__footer">
+          <p>Ceny netto. Każdy artykuł w&nbsp;cenie: research fraz, optymalizacja on-page, meta tagi, schema, linkowanie wewnętrzne. Stała współpraca (min. 3 mies.): rabat 15–20%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="seo-faq" aria-labelledby="seo-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>SEO copywriting</em>"
+          subtitle="Najczęstsze pytania o&nbsp;teksty SEO, pozycjonowanie treści, narzędzia i&nbsp;efekty."
+        />
+      </div>
+      <div class="seo-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="seo-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="seo-faq__question">
+              <span>{faq.q}</span>
+              <svg class="seo-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="seo-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="seo-content" aria-label="SEO copywriting — informacje">
+    <div class="container-narrow">
+      <article class="seo-content__article">
+        <h2>SEO copywriting — co to jest i&nbsp;jak zwiększa widoczność w&nbsp;Google</h2>
+        <p>
+          <strong>SEO copywriting</strong> (ang. Search Engine Optimization copywriting) to specjalizacja
+          copywriterska polegająca na tworzeniu treści, które są jednocześnie zoptymalizowane pod
+          wyszukiwarki internetowe i&nbsp;wartościowe dla czytelnika. Celem <strong>tekstów SEO</strong>
+          jest budowanie widoczności organicznej w&nbsp;wynikach wyszukiwania Google, generowanie
+          ruchu na stronę i&nbsp;konwertowanie odwiedzających w&nbsp;klientów.
+        </p>
+
+        <h3>Teksty SEO — jak powstaje treść, która rankuje?</h3>
+        <p>
+          Skuteczne <strong>teksty SEO</strong> powstają w&nbsp;oparciu o&nbsp;dane: research fraz
+          kluczowych (wolumen wyszukiwań, trudność, intencja), analiza SERP (co rankuje i&nbsp;dlaczego),
+          content gap analysis (czego brakuje w&nbsp;istniejących wynikach). <strong>Copywriter SEO</strong>
+          tworzy treść, która odpowiada na pytania użytkowników lepiej i&nbsp;pełniej niż konkurencja —
+          z&nbsp;optymalną strukturą nagłówków, naturalnym doborem fraz i&nbsp;kompletną optymalizacją
+          on-page (title tag, meta description, schema markup, linkowanie wewnętrzne).
+        </p>
+
+        <h3>Copywriting a&nbsp;pozycjonowanie — jaka jest różnica?</h3>
+        <p>
+          <strong>Pozycjonowanie</strong> (SEO) to szeroka dyscyplina obejmująca optymalizację
+          techniczną, link building, UX i&nbsp;content. <strong>SEO copywriting</strong> to jeden
+          z&nbsp;filarów pozycjonowania — odpowiada za warstwę treściową. Bez jakościowego contentu
+          nawet najlepsza optymalizacja techniczna nie przyniesie trwałych efektów, bo Google
+          coraz mocniej nagradza treści, które naprawdę pomagają użytkownikom (Helpful Content Update).
+          <strong>Copywriting pozycjonujący</strong> to inwestycja, która generuje ruch organiczny
+          miesiącami — bez stałych kosztów reklamowych.
+        </p>
+
+        <h3>Ile kosztuje SEO copywriter i&nbsp;czy to się opłaca?</h3>
+        <p>
+          Ceny <strong>SEO copywritera</strong> zależą od długości tekstu, złożoności tematu
+          i&nbsp;zakresu optymalizacji. Typowy artykuł blogowy SEO kosztuje 600–2000 zł, podstrona
+          usługowa 500–2000 zł, strategia contentowa od 2000 zł. Czy się opłaca? Jeden dobrze
+          napisany artykuł może generować 100–1000 wizyt miesięcznie przez lata — bez dodatkowych
+          kosztów. W&nbsp;porównaniu z&nbsp;Google Ads, gdzie płacisz za każde kliknięcie,
+          <strong>teksty SEO</strong> to inwestycja z&nbsp;rosnącym zwrotem (compound interest
+          contentu).
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* Reuse patterns from copywriting-sprzedazowy with prefixed classes */
+
+  /* ── INTRO ── */
+  .seo-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .seo-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .seo-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 700px; }
+  .seo-intro__title strong { font-weight: var(--fw-bold); }
+  .seo-intro__title em { font-style: italic; color: var(--accent); }
+  .seo-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .seo-intro__columns { grid-template-columns: 1fr; } }
+  .seo-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .seo-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .seo-intro__col em { font-style: italic; }
+
+  /* ── SCOPE ── */
+  .seo-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .seo-scope__list { display: flex; flex-direction: column; }
+  .seo-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .seo-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .seo-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .seo-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .seo-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .seo-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .seo-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── HOW IT WORKS (dark) ── */
+  .seo-how { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .seo-how__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .seo-how__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .seo-how__grid { grid-template-columns: 1fr; } }
+  .seo-how__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .seo-how__card:hover { border-color: rgba(255,255,255,0.12); }
+  .seo-how__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .seo-how__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .seo-how__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── ADVANTAGES ── */
+  .seo-adv { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .seo-adv__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .seo-adv__grid { grid-template-columns: 1fr; } }
+  .seo-adv__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .seo-adv__card:hover { border-color: var(--accent); }
+  .seo-adv__card h3 { font-family: var(--font-display); font-size: var(--fs-base); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .seo-adv__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PROCESS ── */
+  .seo-proc { padding: var(--space-24) 0; }
+  .seo-proc__timeline { display: flex; flex-direction: column; }
+  .seo-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .seo-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .seo-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .seo-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .seo-proc__step:last-child .seo-proc__step-line { display: none; }
+  .seo-proc__step-content { padding-bottom: var(--space-6); }
+  .seo-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .seo-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── PRICING ── */
+  .seo-price { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .seo-price__table { max-width: 660px; }
+  .seo-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .seo-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .seo-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .seo-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .seo-price__footer { padding-top: var(--space-4); }
+  .seo-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .seo-faq { padding: var(--space-24) 0; }
+  .seo-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .seo-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .seo-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .seo-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .seo-faq__question::-webkit-details-marker { display: none; }
+  .seo-faq__question::marker { display: none; content: ''; }
+  .seo-faq__question:hover { color: var(--accent); }
+  .seo-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .seo-faq__item[open] .seo-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .seo-faq__answer { padding: 0 0 var(--space-6); }
+  .seo-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .seo-content { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .seo-content__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .seo-content__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .seo-content__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .seo-content__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

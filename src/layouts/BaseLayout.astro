@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -39,6 +40,10 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
   <!-- Schema.org -->
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
+  <!-- Preconnect: fonts only — NO Google Analytics/GTM preconnects before consent -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <!-- Dark mode: prevent flash -->
   <script is:inline>
     (function(){
@@ -50,11 +55,20 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
   </script>
 </head>
 <body>
+  <!--
+    NO noscript GTM iframe here.
+    The noscript iframe sends a request to Google regardless of consent.
+    GTM is loaded dynamically by CookieBanner after consent defaults are set.
+  -->
+
   <Header />
   <main>
     <slot />
   </main>
   <Footer />
+
+  <!-- GDPR Cookie Consent Banner -->
+  <CookieBanner />
 
   <!-- Reveal on scroll -->
   <script is:inline>

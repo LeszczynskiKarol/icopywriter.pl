@@ -1,0 +1,521 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('teksty-na-strone')!;
+
+// ── Scope: types of pages ──
+const scope = [
+  {
+    title: 'Strona główna',
+    desc: 'Najważniejsza podstrona serwisu — wizytówka, pierwszą wrażenie, punkt wejścia. Piszę stronę główną, która w 5 sekund odpowiada na trzy pytania: kim jesteś, co robisz i dlaczego mam Ci zaufać. Hero, propozycja wartości, usługi, trust signals, CTA.',
+    tags: ['Hero i headline', 'Propozycja wartości', 'Sekcja usług', 'Social proof', 'CTA']
+  },
+  {
+    title: 'O nas / O firmie',
+    desc: 'Podstrona, którą czyta każdy potencjalny klient — a którą większość firm traktuje po macoszemu. Piszę „O nas", które buduje zaufanie przez konkrety: historia, zespół, wartości, wyniki, certyfikaty. Nie „jesteśmy dynamicznym zespołem" — lecz fakty, które wzbudzają szacunek.',
+    tags: ['Historia firmy', 'Zespół i kompetencje', 'Wartości i misja', 'Certyfikaty', 'Liczby i wyniki']
+  },
+  {
+    title: 'Podstrony usługowe',
+    desc: 'Każda usługa zasługuje na własną podstronę — z własnym H1, strukturą, argumentacją, FAQ i CTA. To nie „lista usług na jednej stronie" — to osobne jednostki perswazji, z których każda może rankować na swoją frazę kluczową i konwertować niezależnie.',
+    tags: ['Osobna podstrona per usługa', 'Wireframe tekstowy', 'FAQ per usługa', 'Trust signals', 'Wewnętrzne CTA']
+  },
+  {
+    title: 'Kontakt',
+    desc: 'Podstrona kontaktowa to nie formularz z mapką. To ostatni krok ścieżki konwersji — i zasługuje na tekst, który rozwiewa ostatnie wątpliwości. Piszę kontakt z mikrocopy, informacjami o czasie odpowiedzi, dostępnych formach kontaktu i gwarancjach.',
+    tags: ['Mikrocopy formularza', 'Czas odpowiedzi', 'Formy kontaktu', 'Gwarancje', 'FAQ kontaktowe']
+  },
+  {
+    title: 'FAQ / Baza wiedzy',
+    desc: 'Sekcje pytań i odpowiedzi, które jednocześnie rozwiązują wątpliwości klientów, redukują obciążenie supportu i budują widoczność w Google (FAQ schema). Piszę FAQ, które odpowiadają na realne pytania — nie na wymyślone.',
+    tags: ['FAQ schema', 'Pytania z researchu', 'Obiekcje klientów', 'Redukcja support ticketów', 'SEO long-tail']
+  },
+  {
+    title: 'Kompletna strona firmowa',
+    desc: 'Pełny pakiet: strona główna + o nas + usługi (4–8 podstron) + kontakt + FAQ + polityka prywatności. Spójna komunikacja, jeden ton, wewnętrzne linkowanie, kompletna optymalizacja SEO. Od wireframe tekstowego po gotowe treści — lub gotową, zakodowaną stronę.',
+    tags: ['5–15 podstron', 'Spójny tone of voice', 'Architektura informacji', 'SEO on-page', 'Gotowe do wdrożenia']
+  }
+];
+
+// ── What makes good website copy ──
+const principles = [
+  {
+    title: 'Wireframe tekstowy przed designem',
+    desc: 'Nie piszę „tekstu do layoutu". Tworzę wireframe tekstowy — strukturę sekcji, nagłówki, flow argumentacji, rozmieszczenie CTA — zanim ktokolwiek otworzy Figmę. Bo to tekst sprzedaje, nie pixel. Design powinien wspierać treść, a nie odwrotnie. Copy-first approach eliminuje problem „piękna strona, ale nie wiadomo o co chodzi".'
+  },
+  {
+    title: 'Każda podstrona to osobna strona wejścia',
+    desc: 'Użytkownik może trafić na Twoją stronę z Google na dowolną podstronę — nie tylko na stronę główną. Dlatego każda podstrona musi samodzielnie odpowiedzieć: kim jesteś, co oferujesz i dlaczego warto. Piszę teksty, które działają niezależnie od ścieżki wejścia.'
+  },
+  {
+    title: 'Hierarchia informacji, nie ściana tekstu',
+    desc: 'Ludzie skanują strony — czytają nagłówki, wyróżnienia i CTA, a dopiero potem (jeśli nagłówki ich zainteresują) zagłębiają się w treść. Strukturyzuję tekst tak, żeby skanowanie wystarczyło do zrozumienia oferty, a czytanie pogłębiało zaufanie.'
+  },
+  {
+    title: 'Język korzyści, nie funkcji',
+    desc: '„Mamy 20 lat doświadczenia" to cecha. „Dzięki 20 latom doświadczenia wiemy, jak rozwiązać Twój problem w 48 godzin" to korzyść. Piszę teksty na stronę, które tłumaczą, co klient zyskuje — nie co firma robi. Bo klienta interesuje jego problem, nie Twoja historia.'
+  },
+  {
+    title: 'CTA w odpowiednim momencie',
+    desc: 'Przycisk „Skontaktuj się" na górze strony nie konwertuje, jeśli czytelnik jeszcze nie wie, dlaczego ma się kontaktować. Rozmieszczam CTA po sekcjach, które budują zaufanie — i dobiam je mikrocopy, które redukuje ryzyko: „Bezpłatna wycena w 24h", „Bez zobowiązań".'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Brief i architektura informacji', desc: 'Definiujemy cel strony, grupę docelową, kluczowe przekazy, USP. Mapuję strukturę serwisu: jakie podstrony, w jakiej hierarchii, z jakim linkowianiem wewnętrznym. To fundament — bez niego teksty będą bezładne.' },
+  { step: 'Research i analiza konkurencji', desc: 'Sprawdzam, co komunikuje konkurencja — i czego nie komunikuje. Analizuję frazy kluczowe, pytania klientów (Google, fora, recenzje), język branży. Identyfikuję luki, które Twoja strona może wypełnić.' },
+  { step: 'Wireframe tekstowy', desc: 'Dla każdej podstrony tworzę wireframe: nagłówki H1–H3, sekcje z opisem zawartości, flow argumentacji, miejsca na CTA, social proof, FAQ. Akceptujesz strukturę zanim napiszę choćby jedno zdanie.' },
+  { step: 'Copywriting', desc: 'Piszę treści na stronę: nagłówki, body copy, opisy usług, propozycje wartości, CTA, mikrocopy, alt texty. Każda podstrona z jasnym celem i naturalnym doborem fraz kluczowych.' },
+  { step: 'Redakcja i optymalizacja', desc: 'Dwie rundy redakcji: upraszczam, wycinam, zaostrzam. Optymalizacja SEO: title tagi, meta description, nagłówki, schema markup, linkowanie wewnętrzne. Dostajesz dopracowany, gotowy tekst.' },
+  { step: 'Dostarczenie i wdrożenie', desc: 'Tekst w Google Docs z wireframe + oznaczeniami H1/H2/H3 — lub zakodowana strona w Astro / Next.js. Opcjonalnie: projekt graficzny, kodowanie, wdrożenie na serwer. Od słowa po gotowy produkt.' }
+];
+
+// ── Formats ──
+const formats = [
+  { label: 'Google Docs z wireframe', desc: 'Tekst z oznaczeniami nagłówków, sekcji, CTA. Gotowy do przekazania grafikowi i developerowi.' },
+  { label: 'Figma / wireframe wizualny', desc: 'Wireframe tekstowy przeniesiony do Figmy — z rozmieszczeniem sekcji, nagłówków i CTA.' },
+  { label: 'Gotowa strona w Astro / Next.js', desc: 'Zakodowana, responsywna strona z Twoimi treściami, SEO, schema markup. Gotowa do wdrożenia.' },
+  { label: 'HTML / WordPress / CMS', desc: 'Treści wgrane do Twojego CMS-a, sformatowane i zoptymalizowane. Gotowe do publikacji.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Strona główna (hero + sekcje + CTA)', price: '1 500–4 000 zł' },
+  { item: 'Podstrona „O nas" / „O firmie"', price: '600–1 500 zł' },
+  { item: 'Podstrona usługowa', price: '500–2 000 zł' },
+  { item: 'Podstrona „Kontakt" z mikrocopy', price: '300–800 zł' },
+  { item: 'FAQ (10–20 pytań z schema)', price: '400–1 000 zł' },
+  { item: 'Kompletna strona firmowa (5–8 podstron)', price: '4 000–12 000 zł' },
+  { item: 'Kompletna strona firmowa + kodowanie', price: '8 000–20 000 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Ile kosztują teksty na stronę internetową?',
+    a: 'Cena zależy od liczby podstron, złożoności branży i zakresu (sam tekst vs tekst + kodowanie). Pojedyncza podstrona: 500–2000 zł. Kompletna strona firmowa (5–8 podstron): 4000–12 000 zł. Z kodowaniem: 8000–20 000 zł. Wycena zawsze bezpłatna — opisz projekt, odpowiem w 24h.'
+  },
+  {
+    q: 'Dostarczasz sam tekst, czy też kodujesz stronę?',
+    a: 'Jedno i drugie — zależy od Twoich potrzeb. Mogę dostarczyć tekst w Google Docs z wireframe (gotowy do przekazania grafikowi i developerowi). Mogę też zaprojektować i zakodować stronę w Astro lub Next.js — responsywną, szybką, z SEO on-page. Jeden człowiek, zero pośredników.'
+  },
+  {
+    q: 'Co to jest wireframe tekstowy?',
+    a: 'Wireframe tekstowy to szkielet podstrony: nagłówki, sekcje, flow argumentacji, rozmieszczenie CTA, social proof. To nie jest jeszcze tekst — to jego architektura. Akceptujesz wireframe zanim napiszę treści, dzięki czemu unikamy sytuacji „tekst jest ładny, ale struktura nie działa".'
+  },
+  {
+    q: 'Czy teksty na stronę będą zoptymalizowane pod SEO?',
+    a: 'Tak — SEO jest wbudowane w każdy tekst. Title tagi, meta description, nagłówki H1–H3, naturalny dobór fraz, linkowanie wewnętrzne, alt texty, schema markup (FAQ, LocalBusiness). Nie dopisuję SEO na koniec — optymalizuję od pierwszego nagłówka.'
+  },
+  {
+    q: 'Ile czasu zajmuje napisanie tekstów na stronę firmową?',
+    a: 'Kompletna strona firmowa (5–8 podstron): 10–20 dni roboczych. Pojedyncza podstrona: 3–7 dni. Czas obejmuje research, wireframe, copywriting, 2 rundy redakcji i optymalizację SEO. Ekspres (+50%): czas skrócony o 40–50%.'
+  },
+  {
+    q: 'Mam stronę, ale teksty nie konwertują. Pomożesz?',
+    a: 'Tak — audyt i optymalizacja istniejących treści to częsty scenariusz. Analizuję strukturę, przekaz, CTA, flow argumentacji, SEO. Identyfikuję, co nie działa i dlaczego — i proponuję konkretne zmiany. Czasem wystarczy przebudowa nagłówków i CTA, czasem trzeba przepisać całość.'
+  },
+  {
+    q: 'Czy piszesz teksty na strony w WordPress?',
+    a: 'Piszę teksty na strony w dowolnym CMS-ie — WordPress, Webflow, Shopify, custom. Dostarczam tekst z wireframe w Google Docs lub (opcjonalnie) wgrywam treści bezpośrednio do CMS-a. Jeśli potrzebujesz nowej strony, mogę też zakodować ją od zera w Astro lub Next.js.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/teksty-na-strone/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/teksty-na-strone/",
+      "name": "Teksty na stronę — copywriting www z wireframe tekstowym | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/teksty-na-strone/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/teksty-na-strone/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Teksty na stronę", "item": "https://www.icopywriter.pl/uslugi/teksty-na-strone/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Teksty na stronę internetową",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Teksty na stronę internetową: strona główna, o nas, usługi, kontakt, FAQ. Wireframe tekstowy, SEO copywriting, kodowanie.",
+      "serviceType": "Website Copywriting",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="www-intro" id="zakres" aria-labelledby="www-intro-title">
+    <div class="container">
+      <div class="www-intro__inner reveal">
+        <div class="www-intro__eyebrow">Teksty na stronę internetową</div>
+        <h2 id="www-intro-title" class="www-intro__title">
+          Twoja strona jest otwarta <em>24/7</em>.<br>
+          Czy jej teksty pracują tak samo ciężko?
+        </h2>
+        <div class="www-intro__columns">
+          <div class="www-intro__col">
+            <p>
+              <strong>Teksty na stronę</strong> to nie „opis firmy w internecie". To Twój
+              najlepszy handlowiec — pracuje 24 godziny na dobę, 7 dni w tygodniu, nie bierze
+              urlopu i nie ma złych dni. Ale tylko wtedy, gdy wie, co mówić. Jeśli Twoja strona
+              wygląda pięknie, a nikt nie dzwoni, nie pisze i nie kupuje — problem nie jest
+              w designie. Problem jest w tekście.
+            </p>
+            <p>
+              Piszę <strong>teksty na strony internetowe</strong>, które odpowiadają na trzy
+              pytania w pierwszych 5 sekundach: <em>czym się zajmujesz, dlaczego mam Ci
+              zaufać i co mam teraz zrobić</em>. Jeśli Twoja strona nie odpowiada na te
+              pytania natychmiast — tracisz klientów, zanim zdążą przescrollować do połowy.
+            </p>
+          </div>
+          <div class="www-intro__col">
+            <p>
+              Zaczynam od <strong>wireframe tekstowego</strong> — struktury sekcji, nagłówków,
+              flow argumentacji i rozmieszczenia CTA. To podejście copy-first: tekst przed
+              designem, research przed pisaniem. Dzięki temu strona ma logiczną architekturę
+              perswazji, a nie „ładne grafiki z tekstem wciśniętym na koniec".
+            </p>
+            <p>
+              Mogę dostarczyć sam tekst z wireframe w Google Docs — gotowy do przekazania
+              grafikowi i developerowi. Ale mogę też <strong>zaprojektować i zakodować
+              stronę</strong> w Astro lub Next.js: responsywną, szybką, z pełną optymalizacją
+              SEO. Jeden copywriter zamiast łańcucha freelancerów — od briefu po gotową
+              <strong>stronę firmową</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE — Types of pages
+       ════════════════════════════════════════ -->
+  <section class="www-scope" aria-labelledby="www-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Podstrony"
+          title="Jakie <em>teksty na stronę</em> tworzę?"
+          subtitle="Od pojedynczej podstrony po kompletną stronę firmową. Każda z&nbsp;wireframe, SEO i&nbsp;jasnym celem konwersyjnym."
+        />
+      </div>
+      <div class="www-scope__list">
+        {scope.map((item, i) => (
+          <div class="www-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="www-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="www-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="www-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="www-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRINCIPLES (dark)
+       ════════════════════════════════════════ -->
+  <section class="www-princ" aria-labelledby="www-princ-title">
+    <div class="www-princ__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zasady"
+          title="Co sprawia, że <em>teksty na stronę</em> konwertują?"
+          subtitle="Pięć zasad, które stoją za każdą stroną, którą piszę. Nie ozdoby — fundamenty skutecznej komunikacji."
+          inverted
+        />
+      </div>
+      <div class="www-princ__grid">
+        {principles.map((item, i) => (
+          <div class="www-princ__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="www-princ__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="www-proc" aria-labelledby="www-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstają <em>teksty na stronę www</em>?"
+          subtitle="Sześć etapów od briefu po gotową stronę. Przejrzysty proces z&nbsp;akceptacją wireframe przed pisaniem."
+        />
+      </div>
+      <div class="www-proc__timeline">
+        {process.map((item, i) => (
+          <div class="www-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="www-proc__step-marker">
+              <span class="www-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="www-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="www-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FORMATS
+       ════════════════════════════════════════ -->
+  <section class="www-fmt" aria-labelledby="www-fmt-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Formaty"
+          title="W jakiej formie dostarczam <em>teksty na stronę</em>?"
+          subtitle="Od dokumentu w&nbsp;Google Docs po gotową, zakodowaną stronę. Wybierz format, który pasuje do Twojego procesu."
+        />
+      </div>
+      <div class="www-fmt__grid">
+        {formats.map((item, i) => (
+          <div class="www-fmt__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="www-fmt__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="www-price" aria-labelledby="www-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztują <em>teksty na stronę</em>?"
+          subtitle="Widełki cenowe dla typowych projektów. Wycenę przygotowuję w&nbsp;24h — bezpłatnie i&nbsp;bez zobowiązań."
+        />
+      </div>
+      <div class="www-price__table reveal">
+        <div class="www-price__header">
+          <span>Podstrona / zakres</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="www-price__row">
+            <span class="www-price__item">{row.item}</span>
+            <span class="www-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="www-price__footer">
+          <p>Ceny netto. Każda podstrona w cenie: wireframe tekstowy, copywriting, 2 rundy redakcji, optymalizacja SEO (title, meta, nagłówki, linkowanie). Kodowanie wyceniane osobno, chyba że wybierasz pakiet „tekst + strona".</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="www-faq" aria-labelledby="www-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>teksty na stronę</em>"
+          subtitle="Najczęstsze pytania o&nbsp;copywriting www, ceny, formaty i&nbsp;proces tworzenia treści na stronę."
+        />
+      </div>
+      <div class="www-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="www-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="www-faq__question">
+              <span>{faq.q}</span>
+              <svg class="www-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="www-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="www-seo" aria-label="Teksty na stronę — informacje">
+    <div class="container-narrow">
+      <article class="www-seo__article">
+        <h2>Teksty na stronę — dlaczego treści decydują o&nbsp;sukcesie strony www</h2>
+        <p>
+          <strong>Teksty na stronę internetową</strong> to fundament każdej skutecznej obecności
+          w&nbsp;sieci. Design przyciąga wzrok, ale to treść odpowiada na pytania, rozwiewa
+          wątpliwości i&nbsp;prowadzi do działania. Badania UX pokazują, że użytkownicy podejmują
+          decyzję o&nbsp;pozostaniu na stronie w&nbsp;ciągu 5–10 sekund — i&nbsp;decyzja ta
+          opiera się przede wszystkim na tekście: nagłówku, propozycji wartości, pierwszym
+          akapicie.
+        </p>
+
+        <h3>Teksty na stronę firmową — co powinny zawierać?</h3>
+        <p>
+          Dobra <strong>strona firmowa</strong> potrzebuje minimum: strony głównej z&nbsp;jasną
+          propozycją wartości, podstrony „O nas" budującej wiarygodność, osobnych podstron dla
+          każdej usługi z&nbsp;argumentacją i&nbsp;CTA, strony kontaktowej z&nbsp;mikrocopy
+          redukującym barierę wejścia oraz FAQ odpowiadającego na realne pytania klientów.
+          <strong>Teksty na stronę firmową</strong> powinny być pisane językiem korzyści
+          (co zyskuje klient), nie funkcji (co robi firma).
+        </p>
+
+        <h3>Copywriting www — czym różni się od „zwykłego" pisania?</h3>
+        <p>
+          <strong>Copywriting www</strong> uwzględnia specyfikę czytania w&nbsp;internecie:
+          skanowanie zamiast linearnego czytania, krótki czas uwagi, wielość opcji
+          (konkurencja jest jedno kliknięcie dalej). Dlatego <strong>teksty na stronę</strong>
+          wymagają jasnej hierarchii informacji, krótkich akapitów, mocnych nagłówków, wyraźnych
+          CTA i&nbsp;optymalizacji pod wyszukiwarki. To nie esej — to architektura przekazu
+          dostosowana do medium.
+        </p>
+
+        <h3>Ile kosztują profesjonalne teksty na stronę?</h3>
+        <p>
+          Ceny <strong>tekstów na stronę</strong> zależą od liczby podstron, złożoności branży
+          i&nbsp;zakresu usługi (sam tekst vs tekst + kodowanie). Pojedyncza podstrona
+          usługowa to 500–2000 zł netto, kompletna <strong>strona firmowa</strong>
+          (5–8 podstron): 4000–12 000 zł. Z&nbsp;kodowaniem w&nbsp;Astro lub Next.js:
+          8000–20 000 zł. Profesjonalne <strong>treści na stronę</strong> to inwestycja
+          z&nbsp;mierzalnym zwrotem — lepsza konwersja, więcej zapytań, wyższe pozycje
+          w&nbsp;Google.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .www-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .www-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .www-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 680px; }
+  .www-intro__title em { font-style: italic; color: var(--accent); }
+  .www-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .www-intro__columns { grid-template-columns: 1fr; } }
+  .www-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .www-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .www-intro__col em { font-style: italic; }
+
+  /* ── SCOPE ── */
+  .www-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .www-scope__list { display: flex; flex-direction: column; }
+  .www-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .www-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .www-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .www-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .www-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .www-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .www-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── PRINCIPLES (dark) ── */
+  .www-princ { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .www-princ__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .www-princ__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .www-princ__grid { grid-template-columns: 1fr; } }
+  .www-princ__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .www-princ__card:hover { border-color: rgba(255,255,255,0.12); }
+  .www-princ__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .www-princ__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .www-princ__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .www-princ__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .www-proc { padding: var(--space-24) 0; }
+  .www-proc__timeline { display: flex; flex-direction: column; }
+  .www-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .www-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .www-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .www-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .www-proc__step:last-child .www-proc__step-line { display: none; }
+  .www-proc__step-content { padding-bottom: var(--space-6); }
+  .www-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .www-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── FORMATS ── */
+  .www-fmt { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .www-fmt__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .www-fmt__grid { grid-template-columns: 1fr; } }
+  .www-fmt__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .www-fmt__card:hover { border-color: var(--accent); }
+  .www-fmt__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .www-fmt__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .www-price { padding: var(--space-24) 0; }
+  .www-price__table { max-width: 660px; }
+  .www-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .www-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .www-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .www-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .www-price__footer { padding-top: var(--space-4); }
+  .www-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .www-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .www-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .www-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .www-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .www-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .www-faq__question::-webkit-details-marker { display: none; }
+  .www-faq__question::marker { display: none; content: ''; }
+  .www-faq__question:hover { color: var(--accent); }
+  .www-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .www-faq__item[open] .www-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .www-faq__answer { padding: 0 0 var(--space-6); }
+  .www-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .www-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .www-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .www-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .www-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .www-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

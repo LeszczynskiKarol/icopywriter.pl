@@ -1,0 +1,552 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('redakcja-korekta')!;
+
+// ── Types ──
+const scope = [
+  {
+    title: 'Korekta językowa (proofreading)',
+    desc: 'Ostatni etap przed publikacją: ortografia, interpunkcja, literówki, powtórzenia, dzielenie wyrazów, typografia polska (pauzy, półpauzy, cudzysłowy, spacje nierozdzielające). Nie zmieniam treści ani stylu — usuwam błędy, które podważają wiarygodność. Bo jedna literówka w ofercie kosztuje więcej niż korekta.',
+    tags: ['Ortografia', 'Interpunkcja', 'Literówki', 'Typografia polska', 'Ostatni szlif']
+  },
+  {
+    title: 'Redakcja stylistyczna',
+    desc: 'Poprawiam język: niezgrabne zdania, powtórzenia, nadmiar przymiotników, za długie akapity, nieczytelna struktura. Upraszczam, skracam, wyostrzam. Tekst po redakcji stylistycznej brzmi naturalnie, czyta się płynnie i trafia do odbiorcy — bo nie walczy z formą.',
+    tags: ['Upraszczanie', 'Skracanie', 'Płynność', 'Czytelność', 'Naturalny język']
+  },
+  {
+    title: 'Redakcja merytoryczna',
+    desc: 'Sprawdzam spójność argumentacji, logikę struktury, poprawność danych, kompletność informacji. Czy tekst realizuje cel? Czy odbiorca zrozumie przekaz? Czy nie ma luk, sprzeczności, zbędnych powtórzeń? Redakcja merytoryczna to nie korekta — to praca nad tym, co tekst mówi, nie jak wygląda.',
+    tags: ['Spójność argumentacji', 'Logika struktury', 'Poprawność danych', 'Kompletność', 'Cel tekstu']
+  },
+  {
+    title: 'Rewriting i przepisywanie',
+    desc: 'Masz tekst, który „nie działa" — ale nie wiesz dlaczego. Diagnozuję problem (struktura, ton, język, cel) i przepisuję: od delikatnego liftingu (zachowuję 70% oryginału) po pełny rewriting (zachowuję myśli, zmieniam wszystko inne). Efekt: ten sam przekaz, zupełnie inna skuteczność.',
+    tags: ['Diagnoza problemu', 'Lifting tekstu', 'Pełny rewriting', 'Zmiana tonu', 'Nowa struktura']
+  },
+  {
+    title: 'Redakcja tekstów AI-generated',
+    desc: 'ChatGPT, Claude, Gemini — generują teksty szybko, ale nie generują tekstów dobrych. Generyczność, powtarzalność, brak głosu, sztuczna gładkość. Redaguję teksty AI: nadaję im ludzki głos, eliminuję AI-owe klisze, dodaję konkrety zamiast banałów, dostosowuję ton do marki.',
+    tags: ['Teksty z AI', 'Humanizacja', 'Eliminacja klisz', 'Głos marki', 'Konkrety zamiast banałów']
+  },
+  {
+    title: 'Fact-checking i weryfikacja',
+    desc: 'Sprawdzam fakty, liczby, cytaty, nazwy, daty, linki. Artykuł z błędnym danymi to nie tylko wstyd — to utrata wiarygodności, której nie odbudujesz jednym sprostowaniem. Fact-checking jako osobna usługa lub jako element redakcji merytorycznej.',
+    tags: ['Weryfikacja faktów', 'Sprawdzanie liczb', 'Cytaty i źródła', 'Linki', 'Wiarygodność']
+  }
+];
+
+// ── Levels ──
+const levels = [
+  {
+    title: 'Korekta (proofreading)',
+    what: 'Błędy językowe: ortografia, interpunkcja, literówki, typografia.',
+    whatNot: 'Nie zmieniam stylu, struktury ani treści.',
+    forWhom: 'Tekst jest gotowy, potrzebujesz ostatniego szlifu przed publikacją.',
+    price: 'od 5 zł / 1000 znaków'
+  },
+  {
+    title: 'Redakcja stylistyczna',
+    what: 'Język: płynność, czytelność, naturalność, eliminacja powtórzeń i niezgrabności.',
+    whatNot: 'Nie zmieniam argumentacji, danych ani struktury rozdziałów.',
+    forWhom: 'Tekst jest merytoryczny, ale źle się czyta — potrzebuje liftingu językowego.',
+    price: 'od 8 zł / 1000 znaków'
+  },
+  {
+    title: 'Redakcja merytoryczna',
+    what: 'Treść: spójność, logika, kompletność, poprawność danych, realizacja celu.',
+    whatNot: 'Nie przepisuję od zera — pracuję z Twoim materiałem.',
+    forWhom: 'Tekst wymaga głębszej pracy: zmiana struktury, uzupełnienie luk, wyostrzenie przekazu.',
+    price: 'od 12 zł / 1000 znaków'
+  },
+  {
+    title: 'Rewriting',
+    what: 'Przepisanie: zachowuję przekaz, zmieniam formę (język, struktura, ton, styl).',
+    whatNot: 'Nie tworzę treści od zera — potrzebuję Twojego materiału jako bazy.',
+    forWhom: 'Tekst „nie działa" i potrzebujesz gruntownej przebudowy, nie kosmetyki.',
+    price: 'od 18 zł / 1000 znaków'
+  }
+];
+
+// ── What I catch ──
+const whatICatch = [
+  {
+    title: 'Błędy, które podważają wiarygodność',
+    desc: 'Literówka w nazwie firmy klienta. „Milion" zamiast „miliard" w raporcie. Przecinek, który zmienia sens zdania. Błąd w dacie faktury. Jedno słowo może zmienić odbiór całego dokumentu — i kosztować więcej niż cała korekta.'
+  },
+  {
+    title: 'Typografia, której nikt nie zauważa (dopóki jest zła)',
+    desc: 'Dywiz zamiast pauzy. Prosty cudzysłów zamiast polskiego. Spacja przed dwukropkiem. Brak spacji nierozdzielającej po „w", „z", „i". To detale, których 95% ludzi nie zauważy — ale te 5%, które zauważą, to Twoi najważniejsi czytelnicy.'
+  },
+  {
+    title: 'Język, który przeszkadza zamiast pomagać',
+    desc: 'Zdania na 4 linie. Strona bierna zamiast czynnej. Nominalizacje zamiast czasowników. Żargon, który imponuje autorowi, ale myli czytelnika. Powtórzenia tego samego słowa 3 razy w jednym akapicie. Tekst po redakcji stylistycznej jest krótszy, jaśniejszy i bardziej przekonujący.'
+  },
+  {
+    title: 'Struktura, która nie prowadzi do celu',
+    desc: 'Wstęp, który nie mówi o czym jest tekst. Argumenty w losowej kolejności. Brak podsumowania. CTA zakopane w trzecim akapicie. Redakcja merytoryczna to praca nad architekturą tekstu — żeby każdy element był na swoim miejscu i prowadził czytelnika do konkluzji.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Materiał i brief', desc: 'Przesyłasz tekst (Word, Google Docs, Markdown, PDF) i mówisz, czego potrzebujesz: korekta, redakcja stylistyczna, merytoryczna, rewriting. Podajesz kontekst: gdzie tekst będzie opublikowany, dla kogo, jaki jest cel. Wycena w 24h.' },
+  { step: 'Wycena i harmonogram', desc: 'Wyceniam na podstawie objętości (znaków ze spacjami), zakresu (korekta vs redakcja vs rewriting) i złożoności. Podaję deadline. Krótkie teksty (do 10 000 znaków): 1–2 dni. Dłuższe: proporcjonalnie. Ekspres: dopłata 50%.' },
+  { step: 'Redakcja / korekta', desc: 'Pracuję w trybie śledzenia zmian (Track Changes w Word / Suggesting Mode w Google Docs). Widzisz każdą zmianę, możesz zaakceptować lub odrzucić. Komentarze przy zmianach merytorycznych — tłumaczę, dlaczego proponuję zmianę.' },
+  { step: 'Feedback i finalizacja', desc: 'Omawiamy zmiany (jeśli są pytania). Nanosimy poprawki. Finalna wersja: czysty tekst bez Track Changes, gotowy do publikacji. Opcjonalnie: lista uwag i rekomendacji na przyszłość (recurring mistakes, style guide notes).' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Korekta językowa (proofreading)', price: 'od 5 zł / 1000 zn.' },
+  { item: 'Redakcja stylistyczna', price: 'od 8 zł / 1000 zn.' },
+  { item: 'Redakcja merytoryczna', price: 'od 12 zł / 1000 zn.' },
+  { item: 'Rewriting / przepisywanie', price: 'od 18 zł / 1000 zn.' },
+  { item: 'Redakcja tekstu AI-generated', price: 'od 10 zł / 1000 zn.' },
+  { item: 'Fact-checking i weryfikacja', price: 'od 8 zł / 1000 zn.' },
+  { item: 'Pakiet: redakcja + korekta', price: 'od 15 zł / 1000 zn.' },
+  { item: 'Stała współpraca (retainer)', price: 'wycena indywidualna' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Jaka jest różnica między korektą a redakcją?',
+    a: 'Korekta (proofreading) to usuwanie błędów językowych: ortografia, interpunkcja, literówki, typografia. Nie zmieniam treści ani stylu. Redakcja stylistyczna to poprawa języka: płynność, czytelność, upraszczanie. Redakcja merytoryczna to praca nad treścią: spójność, logika, kompletność, cel. Każdy poziom obejmuje niższe — redakcja merytoryczna zawiera też stylistyczną i korektę.'
+  },
+  {
+    q: 'Ile kosztuje korekta tekstu?',
+    a: 'Korekta językowa: od 5 zł / 1000 znaków ze spacjami. Redakcja stylistyczna: od 8 zł. Redakcja merytoryczna: od 12 zł. Rewriting: od 18 zł. Przykład: artykuł 8000 znaków × korekta = od 40 zł. Tekst 40 000 znaków × redakcja merytoryczna = od 480 zł. Wycena w 24h.'
+  },
+  {
+    q: 'Ile czasu zajmuje korekta?',
+    a: 'Korekta tekstu do 10 000 znaków: 1 dzień roboczy. 10 000–30 000 znaków: 2–3 dni. 30 000–80 000 znaków: 3–5 dni. Redakcja merytoryczna i rewriting zajmują dłużej — proporcjonalnie do zakresu zmian. Ekspresowa realizacja (24–48h): dopłata 50%.'
+  },
+  {
+    q: 'W jakim formacie przesyłać tekst?',
+    a: 'Word (.docx), Google Docs (link z uprawnieniami do edycji), Markdown (.md), czysty tekst (.txt). Pracuję w trybie Track Changes / Suggesting Mode — widzisz każdą zmianę. PDF tylko do korekty — nie mogę edytować, więc zaznaczam błędy w komentarzach.'
+  },
+  {
+    q: 'Czy redagujesz teksty wygenerowane przez AI?',
+    a: 'Tak — to coraz częstsza usługa. Teksty AI są poprawne gramatycznie, ale generyczne: brak głosu, klisze („w dzisiejszym dynamicznie zmieniającym się świecie..."), sztuczna gładkość, brak konkretów. Redaguję: nadaję ludzki głos, eliminuję AI-owe klisze, dodaję konkrety i przykłady, dostosowuję ton do marki.'
+  },
+  {
+    q: 'Czy oferujesz stałą współpracę?',
+    a: 'Tak — retainer na redakcję i korektę: stała liczba znaków miesięcznie, priorytetowe terminy, niższa stawka. Idealne dla firm, które regularnie publikują (blog, newsletter, social media, dokumentacja). Wycena indywidualna zależnie od objętości i częstotliwości.'
+  },
+  {
+    q: 'Jakie teksty redagujesz?',
+    a: 'Wszystko, co będzie czytane: artykuły blogowe, strony www, oferty handlowe, prezentacje, ebooki, white papers, dokumentację, newslettery, posty social media, materiały szkoleniowe, raporty, teksty akademickie. Jeśli to tekst po polsku lub angielsku — redaguję.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/redakcja-korekta/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/redakcja-korekta/",
+      "name": "Redakcja i korekta tekstu — stylistyczna, merytoryczna, proofreading | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/redakcja-korekta/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/redakcja-korekta/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Redakcja i korekta", "item": "https://www.icopywriter.pl/uslugi/redakcja-korekta/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Redakcja i korekta tekstu",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Redakcja tekstu: korekta językowa, redakcja stylistyczna i merytoryczna, rewriting, redakcja tekstów AI. Track Changes.",
+      "serviceType": "Editing and Proofreading",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="red-intro" id="zakres" aria-labelledby="red-intro-title">
+    <div class="container">
+      <div class="red-intro__inner reveal">
+        <div class="red-intro__eyebrow">Redakcja i korekta tekstu</div>
+        <h2 id="red-intro-title" class="red-intro__title">
+          Dobry tekst to nie ten, który napisano dobrze.<br>
+          To ten, który <em>zredagowano dobrze</em>.
+        </h2>
+        <div class="red-intro__columns">
+          <div class="red-intro__col">
+            <p>
+              Każdy tekst — nawet najlepszego autora — potrzebuje redaktora. Nie dlatego,
+              że autor jest słaby. Dlatego, że autor jest za blisko tekstu: nie widzi
+              powtórzeń, nie zauważa niezgrabnego zdania, nie łapie literówki w&nbsp;trzecim
+              akapicie. <strong>Redakcja tekstu</strong> to świeże oczy, które widzą to,
+              czego autor nie widzi — i&nbsp;precyzyjny nóż, który wycina to, co niepotrzebne.
+            </p>
+            <p>
+              Oferuję cztery poziomy pracy z&nbsp;tekstem: <strong>korektę językową</strong>
+              (błędy ortograficzne, interpunkcyjne, typograficzne), <strong>redakcję
+              stylistyczną</strong> (płynność, czytelność, naturalność języka),
+              <strong>redakcję merytoryczną</strong> (spójność, logika, kompletność,
+              realizacja celu) i&nbsp;<strong>rewriting</strong> (przepisanie z&nbsp;zachowaniem
+              przekazu, zmianą formy). Plus: redakcja tekstów AI i&nbsp;fact-checking.
+            </p>
+          </div>
+          <div class="red-intro__col">
+            <p>
+              Pracuję w&nbsp;trybie Track Changes — widzisz każdą zmianę, możesz zaakceptować
+              lub odrzucić. Przy zmianach merytorycznych zostawiam komentarze: wyjaśniam,
+              dlaczego proponuję zmianę. To nie „poprawiam po Tobie" — to współpraca
+              nad tekstem, w&nbsp;której masz pełną kontrolę.
+            </p>
+            <p>
+              Specjalizuję się w&nbsp;tekstach biznesowych i&nbsp;marketingowych: strony www,
+              oferty, prezentacje, ebooki, artykuły, newslettery, dokumentacja. Ale
+              redaguję wszystko, co będzie czytane — bo każdy tekst zasługuje na to, żeby
+              być lepszą wersją siebie. Od&nbsp;korekty literówki po pełny <strong>rewriting</strong>:
+              jeden redaktor, pełne spectrum.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="red-scope" aria-labelledby="red-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Usługi"
+          title="Zakres <em>redakcji i&nbsp;korekty</em>"
+          subtitle="Od korekty językowej po pełny rewriting. Sześć typów pracy z&nbsp;tekstem — każdy na innym poziomie głębokości."
+        />
+      </div>
+      <div class="red-scope__list">
+        {scope.map((item, i) => (
+          <div class="red-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="red-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="red-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="red-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="red-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       LEVELS
+       ════════════════════════════════════════ -->
+  <section class="red-levels" aria-labelledby="red-levels-title">
+    <div class="red-levels__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Poziomy"
+          title="Cztery poziomy <em>redakcji</em> — który potrzebujesz?"
+          subtitle="Każdy poziom obejmuje niższe. Redakcja merytoryczna zawiera stylistyczną i&nbsp;korektę. Rewriting — wszystko."
+          inverted
+        />
+      </div>
+      <div class="red-levels__grid">
+        {levels.map((item, i) => (
+          <div class="red-levels__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="red-levels__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <div class="red-levels__card-row">
+              <span class="red-levels__card-label">Co robię:</span>
+              <p>{item.what}</p>
+            </div>
+            <div class="red-levels__card-row">
+              <span class="red-levels__card-label">Czego nie zmieniam:</span>
+              <p>{item.whatNot}</p>
+            </div>
+            <div class="red-levels__card-row">
+              <span class="red-levels__card-label">Dla kogo:</span>
+              <p>{item.forWhom}</p>
+            </div>
+            <div class="red-levels__card-price">{item.price}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       WHAT I CATCH
+       ════════════════════════════════════════ -->
+  <section class="red-catch" aria-labelledby="red-catch-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Co łapię"
+          title="Czego nie widzisz w&nbsp;swoim <em>tekście</em>?"
+          subtitle="Błędy, typografia, język, struktura — cztery warstwy, na których pracuję."
+        />
+      </div>
+      <div class="red-catch__grid">
+        {whatICatch.map((item, i) => (
+          <div class="red-catch__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="red-proc" aria-labelledby="red-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak wygląda <em>redakcja tekstu</em>?"
+          subtitle="Cztery kroki: przesyłasz tekst, wyceniam, redaguję w&nbsp;Track Changes, finalizujemy."
+        />
+      </div>
+      <div class="red-proc__timeline">
+        {process.map((item, i) => (
+          <div class="red-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="red-proc__step-marker">
+              <span class="red-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="red-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="red-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="red-price" aria-labelledby="red-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Cennik"
+          title="Ile kosztuje <em>redakcja i&nbsp;korekta tekstu</em>?"
+          subtitle="Stawki za 1000 znaków ze spacjami. Wycena konkretnego tekstu — w&nbsp;24h, bezpłatnie."
+        />
+      </div>
+      <div class="red-price__table reveal">
+        <div class="red-price__header">
+          <span>Usługa</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="red-price__row">
+            <span class="red-price__item">{row.item}</span>
+            <span class="red-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="red-price__footer">
+          <p>Ceny netto za 1000 znaków ze spacjami. Minimalne zlecenie: 3000 znaków. Ekspresowa realizacja (24–48h): dopłata 50%. Stała współpraca — stawki negocjowalne. Wycena konkretnego tekstu w 24h.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="red-faq" aria-labelledby="red-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>redakcję i&nbsp;korektę</em>"
+          subtitle="Najczęstsze pytania o&nbsp;różnicę korekta vs redakcja, ceny, formaty i&nbsp;czas realizacji."
+        />
+      </div>
+      <div class="red-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="red-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="red-faq__question">
+              <span>{faq.q}</span>
+              <svg class="red-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="red-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="red-seo" aria-label="Redakcja i korekta tekstu — informacje">
+    <div class="container-narrow">
+      <article class="red-seo__article">
+        <h2>Redakcja tekstu — dlaczego każdy tekst potrzebuje redaktora</h2>
+        <p>
+          <strong>Redakcja tekstu</strong> to proces, który zamienia dobry tekst w&nbsp;świetny
+          tekst. Nawet doświadczeni autorzy nie widzą własnych błędów — bo mózg czyta to,
+          co zamierzał napisać, nie to, co faktycznie napisał. Profesjonalny redaktor
+          wnosi świeże oczy, dystans i&nbsp;warsztat: widzi powtórzenia, łapie niezgrabności,
+          wyostrza przekaz. <strong>Redakcja</strong> to nie poprawianie błędów — to
+          podnoszenie jakości tekstu na poziom, którego autor sam nie osiągnie.
+        </p>
+
+        <h3>Korekta tekstu — co obejmuje i&nbsp;ile kosztuje?</h3>
+        <p>
+          <strong>Korekta tekstu</strong> (proofreading) to ostatni etap przed publikacją:
+          ortografia, interpunkcja, literówki, typografia polska (pauzy, cudzysłowy,
+          spacje nierozdzielające). Nie zmienia treści ani stylu — usuwa błędy, które
+          podważają wiarygodność. Cena: od 5 zł za 1000 znaków ze spacjami. Artykuł
+          8000 znaków = od 40 zł. Szybka, tania, niezbędna usługa.
+        </p>
+
+        <h3>Korekta językowa a&nbsp;redakcja stylistyczna — jaka jest różnica?</h3>
+        <p>
+          <strong>Korekta językowa</strong> usuwa błędy (ortografia, interpunkcja, literówki).
+          <strong>Redakcja stylistyczna</strong> poprawia język: upraszcza zdania, eliminuje
+          powtórzenia, dodaje płynność, poprawia czytelność. Korekta to minimum — tekst
+          bez błędów. Redakcja stylistyczna to upgrade — tekst, który dobrze się czyta.
+          Różnica cenowa: od 5 vs od 8 zł / 1000 znaków.
+        </p>
+
+        <h3>Redakcja tekstów AI — czy warto redagować teksty z&nbsp;ChatGPT?</h3>
+        <p>
+          Teksty generowane przez AI (ChatGPT, Claude, Gemini) są poprawne gramatycznie,
+          ale cierpią na: generyczność, brak głosu marki, AI-owe klisze, sztuczną gładkość,
+          brak konkretów. <strong>Redakcja tekstów AI</strong> nadaje im ludzki głos,
+          eliminuje powtarzalne wzorce, dodaje konkrety i&nbsp;przykłady, dostosowuje ton.
+          Efekt: tekst, który brzmi jak napisany przez eksperta — bo został zredagowany
+          przez eksperta.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .red-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .red-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .red-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 700px; }
+  .red-intro__title em { font-style: italic; color: var(--accent); }
+  .red-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .red-intro__columns { grid-template-columns: 1fr; } }
+  .red-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .red-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── SCOPE ── */
+  .red-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .red-scope__list { display: flex; flex-direction: column; }
+  .red-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .red-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .red-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .red-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .red-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .red-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .red-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── LEVELS (dark) ── */
+  .red-levels { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .red-levels__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .red-levels__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .red-levels__grid { grid-template-columns: 1fr; } }
+  .red-levels__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .red-levels__card:hover { border-color: rgba(255,255,255,0.12); }
+  .red-levels__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .red-levels__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-3); line-height: var(--lh-snug); }
+  .red-levels__card-row { margin-bottom: var(--space-2); }
+  .red-levels__card-label { display: block; font-family: var(--font-mono); font-size: 0.56rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 2px; }
+  .red-levels__card-row p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+  .red-levels__card-price { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid rgba(255,255,255,0.08); font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent-light); }
+
+  /* ── WHAT I CATCH ── */
+  .red-catch { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .red-catch__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .red-catch__grid { grid-template-columns: 1fr; } }
+  .red-catch__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .red-catch__card:hover { border-color: var(--accent); }
+  .red-catch__card h3 { font-family: var(--font-display); font-size: var(--fs-base); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .red-catch__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PROCESS ── */
+  .red-proc { padding: var(--space-24) 0; }
+  .red-proc__timeline { display: flex; flex-direction: column; }
+  .red-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .red-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .red-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .red-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .red-proc__step:last-child .red-proc__step-line { display: none; }
+  .red-proc__step-content { padding-bottom: var(--space-6); }
+  .red-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .red-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── PRICING ── */
+  .red-price { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .red-price__table { max-width: 660px; }
+  .red-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .red-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .red-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .red-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .red-price__footer { padding-top: var(--space-4); }
+  .red-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .red-faq { padding: var(--space-24) 0; }
+  .red-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .red-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .red-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .red-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .red-faq__question::-webkit-details-marker { display: none; }
+  .red-faq__question::marker { display: none; content: ''; }
+  .red-faq__question:hover { color: var(--accent); }
+  .red-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .red-faq__item[open] .red-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .red-faq__answer { padding: 0 0 var(--space-6); }
+  .red-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .red-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .red-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .red-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .red-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .red-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

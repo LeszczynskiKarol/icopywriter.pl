@@ -1,0 +1,535 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('ebooki')!;
+
+// ── Types of ebooks ──
+const scope = [
+  {
+    title: 'Ebooki lead magnet',
+    desc: 'Ebook 15–40 stron, który rozwiązuje konkretny problem Twojego klienta — w zamian za adres email. Najskuteczniejszy format pozyskiwania leadów w B2B i edukacji. Piszę treść, składam w LaTeX, projektuję okładkę i grafiki. Dostarczam gotowy PDF z profesjonalnym składem typograficznym.',
+    tags: ['Lead magnet', 'PDF gotowy do pobrania', 'Landing page', 'Formularz zapisu', '15–40 stron']
+  },
+  {
+    title: 'Ebooki eksperckie i branżowe',
+    desc: 'Publikacje 40–120 stron budujące autorytet: raporty, przewodniki, kompendja. Pogłębiony research, wywiady z ekspertami, dane, infografiki. Pozycjonujesz firmę jako lidera myśli w branży. Profesjonalny skład w LaTeX — typografia, która mówi „poważna publikacja", nie „dokument z Worda".',
+    tags: ['Raporty branżowe', 'Przewodniki', 'Kompendia', 'Thought leadership', '40–120 stron']
+  },
+  {
+    title: 'Ebooki edukacyjne i szkoleniowe',
+    desc: 'Materiały edukacyjne: podręczniki, kursy w formie PDF, workbooki z ćwiczeniami. Struktura dydaktyczna: cele lekcji, treść, przykłady, ćwiczenia, podsumowanie. Doświadczenie w tworzeniu materiałów akademickich i szkoleniowych — od matury po szkolenia korporacyjne.',
+    tags: ['Podręczniki', 'Kursy PDF', 'Workbooki', 'Ćwiczenia', 'Struktura dydaktyczna']
+  },
+  {
+    title: 'Ebooki produktowe i case studies',
+    desc: 'Publikacje wspierające sprzedaż: case study books, product guides, katalogi premium, implementation guides. Format, który sales team wysyła prospectom — profesjonalnie złożony, z danymi, wykresami i social proof. Buduje wiarygodność w procesie decyzyjnym B2B.',
+    tags: ['Case study book', 'Product guide', 'Implementation guide', 'Sales enablement', 'B2B']
+  },
+  {
+    title: 'Ebooki do druku (print-ready)',
+    desc: 'Nie każdy ebook zostaje w PDF-ie. Jeśli planujesz druk — dostarczam plik print-ready: LaTeX → PDF z bleedami, spadami, CMYK, osadzonym fontem, zgodny z wymaganiami drukarni. Twarda oprawa, miękka oprawa, A4, A5 — specyfikacja pod Twój format.',
+    tags: ['Print-ready PDF', 'CMYK', 'Bleedy i spady', 'LaTeX → druk', 'ISBN opcjonalnie']
+  }
+];
+
+// ── End-to-end: what I handle ──
+const endToEnd = [
+  {
+    title: 'Strategia i plan publikacji',
+    desc: 'Definiujemy cel (lead magnet, autorytet, sprzedaż), grupę docelową, temat, zakres, strukturę rozdziałów. Plan publikacji: harmonogram, milestones, distribution strategy. Nie zaczynam pisać, dopóki nie wiem, dlaczego piszę i dla kogo.'
+  },
+  {
+    title: 'Research i pisanie treści',
+    desc: 'Pogłębiony research: dane branżowe, raporty, wywiady, case studies. Piszę treść rozdziałami: merytoryczną, ekspercką, czytelną. Ton dopasowany do odbiorcy — inaczej dla C-suite, inaczej dla studentów, inaczej dla techników. Każdy rozdział z wewnętrzną logiką i flow.'
+  },
+  {
+    title: 'Skład typograficzny w LaTeX',
+    desc: 'Profesjonalny skład w LaTeX — systemie typograficznym używanym przez wydawnictwa akademickie i techniczne. Kontrola nad każdym detalem: fonty, interlinijka, marginesy, łamanie stron, nagłówki, stopki, spis treści, indeks. Efekt: publikacja, która wygląda jak z wydawnictwa, nie jak z Canvy.'
+  },
+  {
+    title: 'Grafiki, wykresy, infografiki',
+    desc: 'Tworzę lub zlecam grafiki: okładka, ilustracje rozdziałów, wykresy danych, infografiki, tabele, ikony. Wszystko spójne ze stylem publikacji — nie stockowe cliparty, lecz grafiki zaprojektowane pod Twój ebook. Wektorowe (SVG) lub rastrowe w rozdzielczości drukowej.'
+  },
+  {
+    title: 'Redakcja i korekta',
+    desc: 'Dwie rundy redakcji: merytoryczna (spójność, fakty, argumentacja, flow) i stylistyczna (język, czytelność, uproszczenia). Korekta językowa: ortografia, interpunkcja, typografia (dywizy, pauzy, cudzysłowy). Dostajesz tekst dopracowany do ostatniego przecinka.'
+  },
+  {
+    title: 'Eksport i publikacja',
+    desc: 'Dostarczam: PDF do dystrybucji cyfrowej (zoptymalizowany, z zakładkami i hiperlinkami) + opcjonalnie PDF print-ready (bleedy, CMYK, osadzone fonty). Mogę też opublikować jako ebook na Twojej stronie z landing page i formularzem pobierania. End-to-end.'
+  }
+];
+
+// ── Why LaTeX ──
+const whyLatex = [
+  {
+    title: 'Typografia na poziomie wydawnictwa',
+    desc: 'LaTeX to system składu, z którego korzystają wydawnictwa naukowe, Cambridge University Press, Springer, ACM. Kerning, ligatury, łamanie wierszy, justowanie — na poziomie niedostępnym w Wordzie czy Canvie. Twój ebook wygląda jak profesjonalna publikacja, bo jest profesjonalną publikacją.'
+  },
+  {
+    title: 'Pełna kontrola nad layoutem',
+    desc: 'Każdy margines, każda interlinia, każde wcięcie — pod kontrolą. Tabele, które nie rozjeżdżają się na 4. stronie. Spis treści, który generuje się automatycznie. Bibliografia, przypary, indeks — wszystko zarządzane systemowo. Zero ręcznego formatowania, zero „przesunęło się na następnej stronie".'
+  },
+  {
+    title: 'Print-ready z jednego źródła',
+    desc: 'Z tego samego źródła LaTeX generuję: PDF do ekranu (RGB, hiperlinki, zakładki) i PDF do druku (CMYK, bleedy, spady, crop marks). Bez konwertowania, bez utraty jakości, bez problemów z fontami. Jeden workflow, dwa formaty wyjściowe.'
+  },
+  {
+    title: 'Skalowalność i wersjonowanie',
+    desc: 'LaTeX to plain text — więc działa z Gitem. Wersjonowanie, branche, diff-y, współpraca. Aktualizacja danych w 2025? Zmieniam jedną zmienną, kompiluję — gotowe. Nie otwieram InDesigna na 3 godziny. To engineering approach do publikowania — i dlatego jest lepszy.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Brief i strategia', desc: 'Cel, grupa docelowa, temat, zakres, deadline. Definiujemy: ile stron, ile rozdziałów, jaki ton, jakie grafiki, jaki format (cyfrowy / druk). Strategia dystrybucji: landing page, email automation, social promo.' },
+  { step: 'Outline i struktura', desc: 'Spis treści: rozdziały, podrozdziały, key takeaway per sekcja. Outline to kontrakt — akceptujesz strukturę zanim zacznę pisać. Zmiana struktury w połowie pisania to najdroższy błąd w tworzeniu ebooków.' },
+  { step: 'Research i pisanie', desc: 'Piszę rozdziałami: research → draft → redakcja wewnętrzna. Dostarczam rozdziały iteracyjnie (np. co tydzień), żebyś mógł dawać feedback na bieżąco — nie po 2 miesiącach z gotowym tekstem, który Ci nie pasuje.' },
+  { step: 'Grafiki i materiały wizualne', desc: 'Okładka, ilustracje rozdziałów, wykresy, infografiki, tabele. Spójny styl wizualny — kolory, fonty, grid. Tworzę sam (Figma, SVG, TikZ) lub koordynuję z grafikiem wg mojego briefu.' },
+  { step: 'Skład w LaTeX', desc: 'Profesjonalny skład: layout, typografia, marginesy, nagłówki, stopki, spis treści, indeks. Osadzam grafiki, formatuję tabele, łamię strony. Efekt: PDF, który wygląda jak z wydawnictwa.' },
+  { step: 'Redakcja, korekta, eksport', desc: 'Redakcja merytoryczna i stylistyczna. Korekta językowa. Finalna kompilacja: PDF cyfrowy (RGB, hiperlinki) + opcjonalnie PDF print-ready (CMYK, bleedy). Dostarczam pliki + źródło LaTeX (jeśli chcesz edytować samodzielnie w przyszłości).' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Ebook lead magnet (15–30 stron, treść + skład)', price: '3 000–8 000 zł' },
+  { item: 'Ebook ekspercki (40–80 stron, treść + skład)', price: '8 000–20 000 zł' },
+  { item: 'Ebook obszerny (80–150 stron, treść + skład)', price: '15 000–35 000 zł' },
+  { item: 'Skład LaTeX (gotowy tekst, sam skład + grafiki)', price: '2 000–8 000 zł' },
+  { item: 'Okładka + grafiki rozdziałowe', price: '1 000–3 000 zł' },
+  { item: 'Redakcja i korekta (gotowy tekst, bez pisania)', price: '800–3 000 zł' },
+  { item: 'Landing page do ebooka (copy + kodowanie)', price: '2 000–6 000 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Ile kosztuje napisanie ebooka?',
+    a: 'Ebook lead magnet (15–30 stron, treść + skład LaTeX + grafiki): 3000–8000 zł. Ebook ekspercki (40–80 stron): 8000–20 000 zł. Obszerny (80–150 stron): 15 000–35 000 zł. Ceny obejmują pełen zakres: research, pisanie, skład, grafiki, redakcję, korektę, eksport PDF. Wycena w 24h.'
+  },
+  {
+    q: 'Dlaczego LaTeX zamiast InDesign czy Canva?',
+    a: 'LaTeX daje typografię na poziomie wydawnictwa (kerning, ligatury, łamanie wierszy), pełną kontrolę nad layoutem, automatyczny spis treści i indeks, print-ready PDF z jednego źródła, wersjonowanie w Git i skalowalność. Canva to narzędzie do szybkich grafik — nie do składu 80-stronicowej publikacji. InDesign jest dobry, ale LaTeX jest lepszy w tekście technicznym, akademickim i danych.'
+  },
+  {
+    q: 'Ile czasu zajmuje stworzenie ebooka?',
+    a: 'Ebook lead magnet (15–30 stron): 2–4 tygodnie. Ebook ekspercki (40–80 stron): 4–8 tygodni. Obszerny (80–150 stron): 2–4 miesiące. Czas obejmuje: research, pisanie (iteracyjnie, z feedbackiem), grafiki, skład, redakcję, korektę. Dostarczam rozdziały co tydzień, nie całość na koniec.'
+  },
+  {
+    q: 'Czy dostaję też pliki źródłowe?',
+    a: 'Tak — na życzenie dostarczam źródło LaTeX (.tex + assets). Dzięki temu możesz samodzielnie aktualizować ebooka w przyszłości (np. nowe dane, nowy rozdział) lub zlecić edycję innemu specjaliście. PDF dostajesz zawsze — źródło LaTeX opcjonalnie.'
+  },
+  {
+    q: 'Czy mogę zamówić sam skład, jeśli mam gotowy tekst?',
+    a: 'Tak — skład LaTeX to osobna usługa. Dostarczasz tekst (Word, Google Docs, Markdown), ja składam: layout, typografia, grafiki, spis treści, eksport PDF. Cena: 2000–8000 zł zależnie od objętości i złożoności (tabele, wzory, footnotes). Mogę też zrobić redakcję i korektę w pakiecie.'
+  },
+  {
+    q: 'Czy tworzysz też landing page do ebooka?',
+    a: 'Tak — landing page z formularzem pobierania to naturalny element dystrybucji ebooka lead magnet. Piszę copy (headline, korzyści, social proof, CTA), koduję w Astro, konfiguruję formularz z integracją do ESP (Mailchimp, ConvertKit, etc.). Pełny lejek: LP → formularz → email z PDF → sekwencja powitalna.'
+  },
+  {
+    q: 'Czy ebook może być też wydrukowany?',
+    a: 'Tak — dostarczam PDF print-ready: CMYK, bleedy, spady, crop marks, osadzone fonty. Zgodny z wymaganiami drukarni offsetowej i cyfrowej. Format: A4, A5, B5, custom. Oprawa miękka lub twarda. Mogę też skonsultować wybór drukarni i nadzorować jakość wydruku.'
+  },
+  {
+    q: 'Piszesz ebooki tylko po polsku?',
+    a: 'Piszę po polsku (natywnie) i po angielsku (C1+). LaTeX obsługuje oba języki z pełną typografią — polskie znaki, cudzysłowy, dzielenie wyrazów. Dla innych języków: mogę złożyć tekst dostarczony przez tłumacza.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/ebooki/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/ebooki/",
+      "name": "Ebooki — pisanie, skład LaTeX, grafiki, publikacja | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/ebooki/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/ebooki/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Ebooki", "item": "https://www.icopywriter.pl/uslugi/ebooki/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Tworzenie ebooków",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Tworzenie ebooków end-to-end: strategia, pisanie, skład w LaTeX, grafiki, redakcja, korekta, PDF print-ready.",
+      "serviceType": "Ebook Creation",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="eb-intro" id="zakres" aria-labelledby="eb-intro-title">
+    <div class="container">
+      <div class="eb-intro__inner reveal">
+        <div class="eb-intro__eyebrow">Ebooki — od planu po gotowy PDF</div>
+        <h2 id="eb-intro-title" class="eb-intro__title">
+          Tworzę <strong>ebooki</strong> end-to-end:<br>
+          <em>treść, skład, grafiki, korekta, publikacja</em>
+        </h2>
+        <div class="eb-intro__columns">
+          <div class="eb-intro__col">
+            <p>
+              <strong>Ebook</strong> to najpotężniejszy lead magnet w&nbsp;B2B i&nbsp;jednocześnie
+              najskuteczniejszy format budowania autorytetu eksperckiego. Ale „ebook" to nie
+              10 stron w&nbsp;Canvie z&nbsp;clipartami i&nbsp;lorem ipsum. To publikacja, którą
+              ludzie chcą pobrać, przeczytać i&nbsp;udostępnić — bo daje im coś, czego nie znajdą
+              w&nbsp;artykule blogowym: pogłębienie, strukturę, kompletność.
+            </p>
+            <p>
+              Nie jestem „copywriterem, który pisze tekst do ebooka". Jestem jednym człowiekiem,
+              który robi <strong>wszystko</strong>: plan i&nbsp;strategię publikacji, research,
+              pisanie treści rozdziałami, profesjonalny <strong>skład typograficzny w&nbsp;LaTeX</strong>,
+              okładkę i&nbsp;grafiki, redakcję merytoryczną i&nbsp;stylistyczną, korektę językową
+              i&nbsp;eksport gotowego PDF-a — cyfrowego lub print-ready.
+            </p>
+          </div>
+          <div class="eb-intro__col">
+            <p>
+              Dlaczego <strong>LaTeX</strong>? Bo to system składu używany przez wydawnictwa
+              akademickie i&nbsp;techniczne na całym świecie. Typografia, jakiej nie osiągniesz
+              w&nbsp;Wordzie ani Canvie: kerning, ligatury, profesjonalne łamanie wierszy,
+              automatyczny spis treści, indeks, bibliografia. Efekt: Twój <strong>ebook</strong>
+              wygląda jak publikacja z&nbsp;wydawnictwa — bo jest złożony tym samym narzędziem.
+            </p>
+            <p>
+              Dostarczam PDF gotowy do pobrania z&nbsp;landing page, PDF print-ready
+              z&nbsp;bleedami i&nbsp;CMYK do drukarni — i&nbsp;opcjonalnie landing page
+              z&nbsp;formularzem zapisu + sekwencję powitalną z&nbsp;deliverką ebooka.
+              Kompletny lejek: <strong>ebook → LP → formularz → email → lead</strong>.
+              Jeden wykonawca zamiast pięciu.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="eb-scope" aria-labelledby="eb-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Rodzaje"
+          title="Jakie <em>ebooki</em> tworzę?"
+          subtitle="Od lead magnetu na 20 stron po 150-stronicową publikację ekspercką. Każdy z&nbsp;pełnym składem w&nbsp;LaTeX."
+        />
+      </div>
+      <div class="eb-scope__list">
+        {scope.map((item, i) => (
+          <div class="eb-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="eb-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="eb-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="eb-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="eb-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       END-TO-END (dark)
+       ════════════════════════════════════════ -->
+  <section class="eb-e2e" aria-labelledby="eb-e2e-title">
+    <div class="eb-e2e__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="End-to-end"
+          title="Wszystko w&nbsp;jednych rękach — od&nbsp;planu po <em>gotowy PDF</em>"
+          subtitle="Sześć etapów, które normalnie wymagają copywritera, grafika, DTP-owca i&nbsp;korektora. U&nbsp;mnie: jedna osoba, zero pośredników."
+          inverted
+        />
+      </div>
+      <div class="eb-e2e__grid">
+        {endToEnd.map((item, i) => (
+          <div class="eb-e2e__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="eb-e2e__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       WHY LATEX
+       ════════════════════════════════════════ -->
+  <section class="eb-latex" aria-labelledby="eb-latex-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego LaTeX"
+          title="Skład w&nbsp;<em>LaTeX</em> — dlaczego nie Word, nie Canva, nie InDesign?"
+          subtitle="Cztery powody, dla których profesjonalna publikacja wymaga profesjonalnego narzędzia."
+        />
+      </div>
+      <div class="eb-latex__grid">
+        {whyLatex.map((item, i) => (
+          <div class="eb-latex__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="eb-proc" aria-labelledby="eb-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>ebook</em>?"
+          subtitle="Sześć etapów z&nbsp;iteracyjnym dostarczaniem rozdziałów — nie czekasz 2 miesiące na gotowy tekst."
+        />
+      </div>
+      <div class="eb-proc__timeline">
+        {process.map((item, i) => (
+          <div class="eb-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="eb-proc__step-marker">
+              <span class="eb-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="eb-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="eb-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="eb-price" aria-labelledby="eb-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>stworzenie ebooka</em>?"
+          subtitle="Ceny za pełny pakiet (treść + skład + grafiki + redakcja) i&nbsp;usługi osobno. Wycena w&nbsp;24h."
+        />
+      </div>
+      <div class="eb-price__table reveal">
+        <div class="eb-price__header">
+          <span>Zakres</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="eb-price__row">
+            <span class="eb-price__item">{row.item}</span>
+            <span class="eb-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="eb-price__footer">
+          <p>Ceny netto. Pełny pakiet obejmuje: research, pisanie, skład LaTeX, okładkę, grafiki, redakcję, korektę, eksport PDF. Skład LaTeX, grafiki, redakcja — dostępne też osobno, jeśli masz gotowy tekst.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="eb-faq" aria-labelledby="eb-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>tworzenie ebooków</em>"
+          subtitle="Najczęstsze pytania o&nbsp;ceny, proces, LaTeX, formaty i&nbsp;dystrybucję."
+        />
+      </div>
+      <div class="eb-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="eb-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="eb-faq__question">
+              <span>{faq.q}</span>
+              <svg class="eb-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="eb-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="eb-seo" aria-label="Ebooki — informacje">
+    <div class="container-narrow">
+      <article class="eb-seo__article">
+        <h2>Ebooki — dlaczego to najskuteczniejszy lead magnet i&nbsp;narzędzie budowania autorytetu</h2>
+        <p>
+          <strong>Ebook</strong> to format treści, który łączy dwie supermocje: pozyskiwanie
+          leadów (w&nbsp;zamian za adres email) i&nbsp;budowanie autorytetu eksperckiego
+          (pogłębiona, wartościowa treść). W&nbsp;B2B <strong>ebooki</strong> są najpopularniejszym
+          formatem lead magnetu — 63% marketerów B2B wskazuje je jako najskuteczniejsze narzędzie
+          generowania leadów (Content Marketing Institute). W&nbsp;edukacji — jednym z&nbsp;głównych
+          formatów dystrybucji wiedzy.
+        </p>
+
+        <h3>Tworzenie ebooków — co obejmuje profesjonalna usługa?</h3>
+        <p>
+          Profesjonalne <strong>tworzenie ebooków</strong> to nie „napisanie tekstu i wrzucenie
+          do szablonu". To pełny proces wydawniczy: strategia i&nbsp;plan publikacji, research,
+          pisanie treści, skład typograficzny, projekt okładki i&nbsp;grafik, redakcja merytoryczna
+          i&nbsp;stylistyczna, korekta językowa, eksport do odpowiedniego formatu (PDF cyfrowy,
+          PDF print-ready, ePub). Każdy z&nbsp;tych etapów wpływa na jakość finalnej publikacji.
+        </p>
+
+        <h3>Pisanie ebooków — jak powstaje treść, która buduje autorytet?</h3>
+        <p>
+          <strong>Pisanie ebooków</strong> eksperckich wymaga pogłębionego researchu: dane
+          branżowe, raporty, wywiady z&nbsp;ekspertami, case studies, oryginalne wnioski.
+          Ebook, który przepakowuje informacje dostępne w&nbsp;trzech artykułach blogowych,
+          nie buduje autorytetu — buduje rozczarowanie. Wartość ebooka mierzy się tym, czego
+          czytelnik nie znajdzie nigdzie indziej: unikalnymi danymi, pogłębioną analizą,
+          praktycznymi frameworkami.
+        </p>
+
+        <h3>Ile kosztuje ebook na zamówienie?</h3>
+        <p>
+          <strong>Ebook na zamówienie</strong> (pełny pakiet: treść + skład + grafiki +
+          redakcja) kosztuje od 3000 zł (lead magnet, 15–30 stron) do 35 000 zł (publikacja
+          ekspercka, 80–150 stron). Sam skład w&nbsp;LaTeX (bez pisania treści): 2000–8000 zł.
+          Cena zależy od objętości, złożoności tematu, liczby grafik i&nbsp;wymaganego formatu
+          (cyfrowy vs print-ready). Inwestycja zwraca się w&nbsp;leadach, autorytecie
+          i&nbsp;długowieczności — ebook pracuje latami.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .eb-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .eb-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .eb-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 700px; }
+  .eb-intro__title strong { font-weight: var(--fw-bold); }
+  .eb-intro__title em { font-style: italic; color: var(--accent); }
+  .eb-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .eb-intro__columns { grid-template-columns: 1fr; } }
+  .eb-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .eb-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── SCOPE ── */
+  .eb-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .eb-scope__list { display: flex; flex-direction: column; }
+  .eb-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .eb-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .eb-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .eb-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .eb-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .eb-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .eb-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── END-TO-END (dark) ── */
+  .eb-e2e { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .eb-e2e__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .eb-e2e__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .eb-e2e__grid { grid-template-columns: 1fr; } }
+  .eb-e2e__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .eb-e2e__card:hover { border-color: rgba(255,255,255,0.12); }
+  .eb-e2e__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .eb-e2e__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .eb-e2e__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── WHY LATEX ── */
+  .eb-latex { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .eb-latex__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .eb-latex__grid { grid-template-columns: 1fr; } }
+  .eb-latex__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .eb-latex__card:hover { border-color: var(--accent); }
+  .eb-latex__card h3 { font-family: var(--font-display); font-size: var(--fs-base); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .eb-latex__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PROCESS ── */
+  .eb-proc { padding: var(--space-24) 0; }
+  .eb-proc__timeline { display: flex; flex-direction: column; }
+  .eb-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .eb-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .eb-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .eb-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .eb-proc__step:last-child .eb-proc__step-line { display: none; }
+  .eb-proc__step-content { padding-bottom: var(--space-6); }
+  .eb-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .eb-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── PRICING ── */
+  .eb-price { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .eb-price__table { max-width: 660px; }
+  .eb-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .eb-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .eb-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .eb-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .eb-price__footer { padding-top: var(--space-4); }
+  .eb-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .eb-faq { padding: var(--space-24) 0; }
+  .eb-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .eb-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .eb-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .eb-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .eb-faq__question::-webkit-details-marker { display: none; }
+  .eb-faq__question::marker { display: none; content: ''; }
+  .eb-faq__question:hover { color: var(--accent); }
+  .eb-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .eb-faq__item[open] .eb-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .eb-faq__answer { padding: 0 0 var(--space-6); }
+  .eb-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .eb-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .eb-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .eb-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .eb-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .eb-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

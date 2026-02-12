@@ -1,0 +1,653 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const policySchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Polityka Prywatności — iCopywriter.pl",
+  "description": "Polityka prywatności serwisu iCopywriter.pl. Informacje o przetwarzaniu danych osobowych, plikach cookies i Google Analytics.",
+  "url": "https://www.icopywriter.pl/polityka-prywatnosci/",
+  "inLanguage": "pl"
+};
+---
+
+<BaseLayout
+  title="Polityka Prywatności — iCopywriter.pl"
+  description="Polityka prywatności serwisu iCopywriter.pl. Informacje o przetwarzaniu danych osobowych, plikach cookies, Google Analytics i prawach użytkowników zgodnie z RODO."
+  schema={policySchema}
+>
+
+  <section class="policy" aria-labelledby="policy-title">
+    <div class="container-narrow">
+
+      <!-- Breadcrumb -->
+      <nav class="policy__breadcrumb" aria-label="Nawigacja okruszkowa">
+        <a href="/">Strona główna</a>
+        <span aria-hidden="true">/</span>
+        <span>Polityka prywatności</span>
+      </nav>
+
+      <h1 id="policy-title" class="policy__title">Polityka Prywatności</h1>
+      <p class="policy__updated">Ostatnia aktualizacja: 12 lutego 2026 r.</p>
+
+      <!-- Sticky TOC -->
+      <nav class="policy__toc" aria-label="Spis treści">
+        <h2 class="policy__toc-title">Spis treści</h2>
+        <ol class="policy__toc-list">
+          <li><a href="#administrator">§1. Administrator danych</a></li>
+          <li><a href="#dane">§2. Jakie dane zbieramy</a></li>
+          <li><a href="#podstawy">§3. Podstawy prawne przetwarzania</a></li>
+          <li><a href="#formularz">§4. Formularz kontaktowy</a></li>
+          <li><a href="#pliki">§5. Przesyłanie plików</a></li>
+          <li><a href="#odbiorcy">§6. Odbiorcy danych</a></li>
+          <li><a href="#okres">§7. Okres przechowywania</a></li>
+          <li><a href="#prawa">§8. Twoje prawa</a></li>
+          <li><a href="#cookies">§9. Pliki cookies</a></li>
+          <li><a href="#analytics">§10. Google Analytics</a></li>
+          <li><a href="#zgody">§11. Zarządzanie zgodami</a></li>
+          <li><a href="#zmiany">§12. Zmiany polityki</a></li>
+          <li><a href="#kontakt-pp">§13. Kontakt</a></li>
+        </ol>
+      </nav>
+
+      <!-- ══════════════════════════════ -->
+      <article class="policy__content">
+
+        <!-- §1 -->
+        <section id="administrator">
+          <h2>§1. Administrator danych osobowych</h2>
+          <p>
+            Administratorem danych osobowych jest <strong>ecopywriting.pl Karol Leszczyński</strong>,
+            prowadzący działalność gospodarczą pod adresem: Papowo Biskupie 119/18,
+            86-221 Papowo Biskupie.
+          </p>
+          <div class="policy__info-box">
+            <p><strong>NIP:</strong> 956 220 39 48</p>
+            <p><strong>REGON:</strong> 340 627 879</p>
+            <p><strong>Email:</strong> <a href="mailto:kontakt@icopywriter.pl">kontakt@icopywriter.pl</a></p>
+          </div>
+        </section>
+
+        <!-- §2 -->
+        <section id="dane">
+          <h2>§2. Jakie dane zbieramy</h2>
+
+          <h3>Dane z formularza kontaktowego</h3>
+          <p>Podczas korzystania z formularza kontaktowego możemy zbierać następujące dane:</p>
+          <div class="policy__table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Dane</th>
+                  <th>Wymagane</th>
+                  <th>Cel</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Imię i nazwisko</td><td>Tak</td><td>Identyfikacja, komunikacja</td></tr>
+                <tr><td>Adres email</td><td>Tak</td><td>Odpowiedź na zapytanie</td></tr>
+                <tr><td>Numer telefonu</td><td>Nie</td><td>Kontakt telefoniczny</td></tr>
+                <tr><td>Nazwa firmy</td><td>Nie</td><td>Kontekst zapytania</td></tr>
+                <tr><td>Treść wiadomości</td><td>Tak</td><td>Realizacja zapytania</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Dane techniczne</h3>
+          <p>
+            Automatycznie możemy zbierać: adres IP, typ i wersję przeglądarki,
+            system operacyjny, rozdzielczość ekranu, stronę odsyłającą (referer),
+            czas wizyty i przeglądane podstrony — wyłącznie po wyrażeniu zgody
+            na pliki cookies analityczne.
+          </p>
+        </section>
+
+        <!-- §3 -->
+        <section id="podstawy">
+          <h2>§3. Podstawy prawne przetwarzania</h2>
+          <p>Przetwarzamy dane osobowe na następujących podstawach:</p>
+          <div class="policy__table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Podstawa</th>
+                  <th>Przepis RODO</th>
+                  <th>Zastosowanie</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wykonanie umowy / podjęcie działań przed zawarciem umowy</td>
+                  <td>Art. 6 ust. 1 lit. b)</td>
+                  <td>Formularz kontaktowy, realizacja usług</td>
+                </tr>
+                <tr>
+                  <td>Zgoda</td>
+                  <td>Art. 6 ust. 1 lit. a)</td>
+                  <td>Pliki cookies analityczne i marketingowe</td>
+                </tr>
+                <tr>
+                  <td>Obowiązek prawny</td>
+                  <td>Art. 6 ust. 1 lit. c)</td>
+                  <td>Dokumentacja podatkowa, rachunkowa</td>
+                </tr>
+                <tr>
+                  <td>Prawnie uzasadniony interes</td>
+                  <td>Art. 6 ust. 1 lit. f)</td>
+                  <td>Bezpieczeństwo, obrona przed roszczeniami</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- §4 -->
+        <section id="formularz">
+          <h2>§4. Formularz kontaktowy</h2>
+          <p>
+            Dane przesłane przez formularz kontaktowy są przetwarzane za pośrednictwem
+            usługi <strong>AWS Lambda</strong> i dostarczane na adres email administratora
+            za pomocą <strong>Amazon SES</strong> (Simple Email Service).
+          </p>
+          <p>
+            Dane przesyłane są szyfrowanym połączeniem HTTPS. Przetwarzanie odbywa się
+            w regionie UE (eu-north-1, Sztokholm).
+          </p>
+        </section>
+
+        <!-- §5 -->
+        <section id="pliki">
+          <h2>§5. Przesyłanie plików</h2>
+          <p>
+            Jeśli formularz kontaktowy umożliwia przesyłanie plików, są one przechowywane
+            na serwerze <strong>Amazon S3</strong> w regionie eu-north-1 (Sztokholm).
+          </p>
+          <div class="policy__info-box">
+            <p><strong>Maksymalny rozmiar pliku:</strong> 10 MB</p>
+            <p><strong>Maksymalna liczba plików:</strong> 5</p>
+            <p><strong>Automatyczne usunięcie:</strong> 30 dni (polityka cyklu życia S3)</p>
+            <p><strong>Metoda przesyłania:</strong> Presigned URLs (bezpośredni upload do S3)</p>
+          </div>
+          <p>
+            Pliki przesyłane są bezpośrednio na serwer Amazon S3 za pomocą presigned URLs,
+            co oznacza, że nie przechodzą przez nasz serwer aplikacyjny. Każdy plik jest
+            automatycznie usuwany po 30 dniach.
+          </p>
+        </section>
+
+        <!-- §6 -->
+        <section id="odbiorcy">
+          <h2>§6. Odbiorcy danych</h2>
+          <p>Dane osobowe mogą być przekazywane następującym podmiotom:</p>
+          <div class="policy__table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Podmiot</th>
+                  <th>Cel</th>
+                  <th>Zabezpieczenia</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Amazon Web Services (S3, Lambda, SES, CloudFront, API Gateway)</td>
+                  <td>Hosting, przetwarzanie formularza, przechowywanie plików, dostarczanie email</td>
+                  <td>Region UE (eu-north-1), standardowe klauzule umowne</td>
+                </tr>
+                <tr>
+                  <td>Google LLC (Google Tag Manager, Google Analytics 4)</td>
+                  <td>Analiza ruchu na stronie — wyłącznie po wyrażeniu zgody</td>
+                  <td>Standardowe klauzule umowne, Google Consent Mode v2</td>
+                </tr>
+                <tr>
+                  <td>Organy podatkowe, sądy</td>
+                  <td>Realizacja obowiązków prawnych</td>
+                  <td>Obowiązek prawny (art. 6 ust. 1 lit. c RODO)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- §7 -->
+        <section id="okres">
+          <h2>§7. Okres przechowywania danych</h2>
+          <div class="policy__table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kategoria danych</th>
+                  <th>Okres przechowywania</th>
+                  <th>Podstawa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Formularz kontaktowy</td>
+                  <td>Do zakończenia korespondencji + 3 lata</td>
+                  <td>Przedawnienie roszczeń</td>
+                </tr>
+                <tr>
+                  <td>Załączniki (pliki)</td>
+                  <td>30 dni</td>
+                  <td>Automatyczne usunięcie S3</td>
+                </tr>
+                <tr>
+                  <td>Dane rozliczeniowe</td>
+                  <td>5 lat od końca roku podatkowego</td>
+                  <td>Obowiązki podatkowe</td>
+                </tr>
+                <tr>
+                  <td>Dane Google Analytics</td>
+                  <td>14 miesięcy od ostatniej aktywności</td>
+                  <td>Ustawienia retencji GA4</td>
+                </tr>
+                <tr>
+                  <td>Zgoda na cookies</td>
+                  <td>365 dni, potem ponowne zapytanie</td>
+                  <td>ePrivacy / RODO</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- §8 -->
+        <section id="prawa">
+          <h2>§8. Twoje prawa</h2>
+          <p>Na podstawie RODO przysługują Ci następujące prawa:</p>
+          <div class="policy__rights-grid">
+            <div class="policy__right">
+              <strong>Prawo dostępu</strong>
+              <span>Możesz uzyskać informację, jakie dane przetwarzamy i w jakim celu.</span>
+            </div>
+            <div class="policy__right">
+              <strong>Prawo do sprostowania</strong>
+              <span>Możesz żądać poprawienia nieprawidłowych lub uzupełnienia niekompletnych danych.</span>
+            </div>
+            <div class="policy__right">
+              <strong>Prawo do usunięcia</strong>
+              <span>Możesz żądać usunięcia swoich danych („prawo do bycia zapomnianym").</span>
+            </div>
+            <div class="policy__right">
+              <strong>Prawo do ograniczenia</strong>
+              <span>Możesz żądać ograniczenia przetwarzania danych w określonych sytuacjach.</span>
+            </div>
+            <div class="policy__right">
+              <strong>Prawo do przenoszenia</strong>
+              <span>Możesz otrzymać swoje dane w ustrukturyzowanym formacie (np. JSON, CSV).</span>
+            </div>
+            <div class="policy__right">
+              <strong>Prawo do sprzeciwu</strong>
+              <span>Możesz sprzeciwić się przetwarzaniu opartemu na prawnie uzasadnionym interesie.</span>
+            </div>
+            <div class="policy__right">
+              <strong>Cofnięcie zgody</strong>
+              <span>Zgodę na cookies możesz cofnąć w każdym momencie przez link w stopce strony.</span>
+            </div>
+            <div class="policy__right">
+              <strong>Skarga do UODO</strong>
+              <span>Masz prawo złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych.</span>
+            </div>
+          </div>
+          <p>
+            W celu realizacji swoich praw skontaktuj się z nami pod adresem:
+            <a href="mailto:kontakt@icopywriter.pl">kontakt@icopywriter.pl</a>.
+            Odpowiemy w ciągu 30 dni.
+          </p>
+        </section>
+
+        <!-- §9 -->
+        <section id="cookies">
+          <h2>§9. Pliki cookies</h2>
+          <p>
+            Stosujemy pliki cookies w celu zapewnienia prawidłowego działania strony
+            oraz — za Twoją zgodą — analizy ruchu. Poniżej lista stosowanych cookies:
+          </p>
+          <div class="policy__table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nazwa</th>
+                  <th>Typ</th>
+                  <th>Cel</th>
+                  <th>Czas życia</th>
+                  <th>Dostawca</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>icopywriter_consent</code></td>
+                  <td>Niezbędne</td>
+                  <td>Zapis preferencji dotyczących cookies</td>
+                  <td>365 dni</td>
+                  <td>iCopywriter.pl (localStorage)</td>
+                </tr>
+                <tr>
+                  <td><code>theme</code></td>
+                  <td>Niezbędne</td>
+                  <td>Preferencja trybu jasnego/ciemnego</td>
+                  <td>Bez limitu</td>
+                  <td>iCopywriter.pl (localStorage)</td>
+                </tr>
+                <tr>
+                  <td><code>_ga</code></td>
+                  <td>Analityczne</td>
+                  <td>Identyfikacja użytkownika GA4</td>
+                  <td>2 lata</td>
+                  <td>Google LLC</td>
+                </tr>
+                <tr>
+                  <td><code>_ga_NFCFZ2NJLG</code></td>
+                  <td>Analityczne</td>
+                  <td>Stan sesji GA4</td>
+                  <td>2 lata</td>
+                  <td>Google LLC</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Cookies analityczne (<code>_ga</code>, <code>_ga_*</code>) są ustawiane
+            <strong>wyłącznie po wyrażeniu zgody</strong> na kategorię „Analityczne"
+            w banerze cookies.
+          </p>
+        </section>
+
+        <!-- §10 -->
+        <section id="analytics">
+          <h2>§10. Google Analytics</h2>
+          <p>
+            Korzystamy z <strong>Google Analytics 4</strong> (identyfikator pomiaru:
+            <code>G-NFCFZ2NJLG</code>) za pośrednictwem <strong>Google Tag Manager</strong>
+            (kontener: <code>GTM-TDLW7G3C</code>) w celu analizy ruchu na stronie.
+          </p>
+          <p>Stosujemy następujące mechanizmy ochrony prywatności:</p>
+          <div class="policy__info-box">
+            <p><strong>Google Consent Mode v2</strong> — wszystkie sygnały zgody ustawione domyślnie
+            na „denied" (odmowa) przed załadowaniem jakichkolwiek skryptów śledzących.</p>
+            <p><strong>Anonimizacja IP</strong> — adresy IP są anonimizowane.</p>
+            <p><strong>ads_data_redaction</strong> — redakcja danych reklamowych gdy brak zgody.</p>
+            <p><strong>url_passthrough</strong> — przekazywanie informacji o konwersji przez URL
+            zamiast cookies gdy brak zgody.</p>
+            <p><strong>Brak skryptów przed zgodą</strong> — GTM ładowany jest z domyślnymi
+            sygnałami „denied"; Tag Google wewnątrz GTM nie wysyła danych analitycznych
+            dopóki użytkownik nie wyrazi zgody.</p>
+          </div>
+          <p>
+            Funkcja „Włącz przegląd ustawień uzyskiwania zgody" jest aktywna w konfiguracji
+            kontenera GTM, co oznacza, że Tag Google w GTM respektuje sygnały Consent Mode
+            i nie uruchamia zbierania danych analitycznych bez odpowiedniej zgody.
+          </p>
+        </section>
+
+        <!-- §11 -->
+        <section id="zgody">
+          <h2>§11. Zarządzanie zgodami</h2>
+          <p>Przy pierwszej wizycie wyświetlamy baner z trzema opcjami:</p>
+          <div class="policy__info-box">
+            <p><strong>„Akceptuj wszystkie"</strong> — zgoda na wszystkie kategorie cookies</p>
+            <p><strong>„Zapisz wybrane"</strong> — zgoda tylko na zaznaczone kategorie</p>
+            <p><strong>„Tylko niezbędne"</strong> — odmowa cookies analitycznych i marketingowych</p>
+          </div>
+          <p>
+            Zgoda jest zapisywana w localStorage przeglądarki na okres <strong>365 dni</strong>.
+            Po upływie tego czasu baner zostanie wyświetlony ponownie.
+          </p>
+          <p>
+            W każdej chwili możesz zmienić swoje preferencje klikając link
+            <strong>„Ustawienia cookies"</strong> w stopce strony lub wywołując
+            funkcję <code>openCookieSettings()</code> w konsoli przeglądarki.
+          </p>
+        </section>
+
+        <!-- §12 -->
+        <section id="zmiany">
+          <h2>§12. Zmiany polityki prywatności</h2>
+          <p>
+            Zastrzegamy sobie prawo do zmiany niniejszej polityki prywatności.
+            O istotnych zmianach poinformujemy przez wyświetlenie komunikatu na stronie.
+            Aktualna wersja polityki jest zawsze dostępna pod adresem
+            <a href="/polityka-prywatnosci/">/polityka-prywatnosci/</a>.
+          </p>
+        </section>
+
+        <!-- §13 -->
+        <section id="kontakt-pp">
+          <h2>§13. Kontakt</h2>
+          <p>
+            W sprawach związanych z ochroną danych osobowych możesz skontaktować się
+            z administratorem:
+          </p>
+          <div class="policy__info-box">
+            <p><strong>Email:</strong> <a href="mailto:kontakt@icopywriter.pl">kontakt@icopywriter.pl</a></p>
+            <p><strong>Czas odpowiedzi:</strong> do 30 dni</p>
+          </div>
+        </section>
+
+      </article>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ═══════ POLICY PAGE ═══════ */
+  .policy {
+    padding: var(--space-20) 0 var(--space-24);
+  }
+
+  /* Breadcrumb */
+  .policy__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--fs-xs);
+    color: var(--ink-faint);
+    margin-bottom: var(--space-8);
+  }
+  .policy__breadcrumb a {
+    color: var(--ink-muted);
+    transition: color var(--transition-fast);
+  }
+  .policy__breadcrumb a:hover { color: var(--accent); }
+
+  /* Title */
+  .policy__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tight);
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+  }
+
+  .policy__updated {
+    font-size: var(--fs-sm);
+    color: var(--ink-faint);
+    margin-bottom: var(--space-10);
+  }
+
+  /* TOC */
+  .policy__toc {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin-bottom: var(--space-12);
+  }
+
+  .policy__toc-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin-bottom: var(--space-4);
+  }
+
+  .policy__toc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    list-style: none;
+    counter-reset: none;
+  }
+
+  @media (max-width: 640px) {
+    .policy__toc-list { grid-template-columns: 1fr; }
+  }
+
+  .policy__toc-list li a {
+    font-size: var(--fs-sm);
+    color: var(--ink-muted);
+    transition: color var(--transition-fast);
+    display: block;
+    padding: 2px 0;
+  }
+
+  .policy__toc-list li a:hover {
+    color: var(--accent);
+  }
+
+  /* Content */
+  .policy__content section {
+    margin-bottom: var(--space-12);
+    padding-top: var(--space-4);
+  }
+
+  .policy__content h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .policy__content h3 {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+
+  .policy__content p {
+    font-size: 0.95rem;
+    line-height: var(--lh-relaxed);
+    color: var(--ink-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .policy__content a {
+    color: var(--accent);
+    font-weight: var(--fw-medium);
+  }
+
+  .policy__content a:hover {
+    text-decoration: underline;
+  }
+
+  .policy__content code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-light);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--ink-soft);
+  }
+
+  .policy__content strong {
+    color: var(--ink-soft);
+    font-weight: var(--fw-semibold);
+  }
+
+  /* Info box */
+  .policy__info-box {
+    background: var(--paper-warm);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: var(--space-5) var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .policy__info-box p {
+    font-size: var(--fs-sm);
+    margin-bottom: var(--space-2);
+  }
+  .policy__info-box p:last-child { margin-bottom: 0; }
+
+  /* Tables */
+  .policy__table-wrap {
+    overflow-x: auto;
+    margin: var(--space-4) 0;
+    border: 1px solid var(--rule-light);
+    border-radius: var(--radius-md);
+  }
+
+  .policy__content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-sm);
+  }
+
+  .policy__content th {
+    background: var(--paper-warm);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 2px solid var(--rule-light);
+    white-space: nowrap;
+  }
+
+  .policy__content td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--rule-light);
+    color: var(--ink-muted);
+    vertical-align: top;
+  }
+
+  .policy__content tr:last-child td { border-bottom: none; }
+
+  .policy__content tr:hover td {
+    background: rgba(196, 90, 60, 0.03);
+  }
+
+  /* Rights grid */
+  .policy__rights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin: var(--space-4) 0 var(--space-6);
+  }
+
+  @media (max-width: 640px) {
+    .policy__rights-grid { grid-template-columns: 1fr; }
+  }
+
+  .policy__right {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-light);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .policy__right strong {
+    font-size: var(--fs-sm);
+    color: var(--ink);
+  }
+
+  .policy__right span {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    line-height: var(--lh-relaxed);
+  }
+</style>

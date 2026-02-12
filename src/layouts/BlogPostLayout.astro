@@ -1,0 +1,392 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description?: string;
+    date?: string;
+    updated?: string;
+    author?: string;
+    category?: string;
+    tags?: string[];
+    image?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+
+const formatDate = (dateStr?: string) => {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('pl-PL', { year: 'numeric', month: 'long', day: 'numeric' });
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": frontmatter.title,
+  "description": frontmatter.description || '',
+  "author": {
+    "@type": "Person",
+    "name": frontmatter.author || "Karol Leszczyński",
+    "url": "https://www.icopywriter.pl"
+  },
+  "datePublished": frontmatter.date || '',
+  "dateModified": frontmatter.updated || frontmatter.date || '',
+  "publisher": {
+    "@type": "Person",
+    "name": "Karol Leszczyński"
+  }
+};
+---
+
+<BaseLayout
+  title={`${frontmatter.title} | iCopywriter.pl`}
+  description={frontmatter.description || ''}
+  schema={schema}
+>
+
+  <!-- Blog post hero -->
+  <section class="post-hero" aria-labelledby="post-title">
+    <div class="post-hero__bg" aria-hidden="true">
+      <div class="post-hero__grain"></div>
+      <div class="post-hero__gradient"></div>
+    </div>
+    <div class="container">
+      <div class="post-hero__inner reveal">
+        <div class="post-hero__breadcrumb">
+          <a href="/">Strona główna</a>
+          <span aria-hidden="true">/</span>
+          <a href="/blog/">Blog</a>
+          <span aria-hidden="true">/</span>
+          <span>{frontmatter.title}</span>
+        </div>
+
+        {frontmatter.category && (
+          <span class="post-hero__category">{frontmatter.category}</span>
+        )}
+
+        <h1 id="post-title" class="post-hero__title">{frontmatter.title}</h1>
+
+        {frontmatter.description && (
+          <p class="post-hero__subtitle">{frontmatter.description}</p>
+        )}
+
+        <div class="post-hero__meta">
+          {frontmatter.author && <span class="post-hero__author">{frontmatter.author}</span>}
+          {frontmatter.date && <span class="post-hero__date">{formatDate(frontmatter.date)}</span>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article content -->
+  <article class="post-content">
+    <div class="container-narrow">
+      <div class="post-content__body reveal">
+        <slot />
+      </div>
+
+      {frontmatter.tags && frontmatter.tags.length > 0 && (
+        <div class="post-content__tags reveal">
+          <span class="post-content__tags-label">Tagi:</span>
+          {frontmatter.tags.map((tag: string) => (
+            <span class="post-content__tag">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  </article>
+
+  <!-- CTA after article -->
+  <section class="post-cta">
+    <div class="container-narrow">
+      <div class="post-cta__inner reveal">
+        <h2 class="post-cta__title">Potrzebujesz tekstów?</h2>
+        <p class="post-cta__desc">
+          Opisz swój projekt — odpowiem z&nbsp;wyceną i&nbsp;propozycją podejścia w&nbsp;ciągu 24&nbsp;godzin.
+        </p>
+        <a href="/#kontakt" class="post-cta__button">
+          Porozmawiajmy
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to blog -->
+  <div class="post-back">
+    <div class="container-narrow">
+      <a href="/blog/" class="post-back__link">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+        Wszystkie artykuły
+      </a>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  /* ════════════════════════════════════════
+     POST HERO
+     ════════════════════════════════════════ */
+  .post-hero {
+    position: relative;
+    padding: calc(72px + var(--space-16)) 0 var(--space-12);
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .post-hero__bg { position: absolute; inset: 0; z-index: 0; }
+  .post-hero__gradient {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,107,71,0.04) 0%, transparent 55%);
+  }
+  .post-hero__grain {
+    position: absolute; inset: 0; opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .post-hero__inner { position: relative; z-index: 1; max-width: 740px; }
+
+  .post-hero__breadcrumb {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);
+    letter-spacing: 0.04em; margin-bottom: var(--space-5);
+  }
+  .post-hero__breadcrumb a { transition: color var(--transition-fast); }
+  .post-hero__breadcrumb a:hover { color: var(--accent); }
+  .post-hero__breadcrumb span:last-child { color: var(--ink-muted); }
+
+  .post-hero__category {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 0.6rem; font-weight: var(--fw-semibold);
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .post-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: var(--fw-bold);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: var(--space-4);
+  }
+
+  .post-hero__subtitle {
+    font-size: var(--fs-lg);
+    line-height: var(--lh-relaxed);
+    color: var(--ink-muted);
+    max-width: 620px;
+    margin-bottom: var(--space-5);
+  }
+
+  .post-hero__meta {
+    display: flex; align-items: center; gap: var(--space-4);
+    font-family: var(--font-mono); font-size: 0.62rem; color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+  .post-hero__author { font-weight: var(--fw-semibold); color: var(--ink-muted); }
+  .post-hero__meta > span + span::before {
+    content: '·'; margin-right: var(--space-4);
+  }
+
+  /* ════════════════════════════════════════
+     POST CONTENT (prose)
+     ════════════════════════════════════════ */
+  .post-content {
+    padding: var(--space-12) 0 var(--space-16);
+  }
+
+  .post-content__body {
+    font-family: var(--font-sans);
+    font-size: clamp(0.92rem, 1.2vw, 1rem);
+    line-height: var(--lh-relaxed);
+    color: var(--ink-soft);
+  }
+
+  /* Prose typography */
+  .post-content__body :global(h2) {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+    color: var(--ink);
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-4);
+  }
+  .post-content__body :global(h3) {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+    color: var(--ink);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+  }
+  .post-content__body :global(h4) {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-2);
+  }
+
+  .post-content__body :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .post-content__body :global(strong) {
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+  }
+  .post-content__body :global(em) {
+    font-style: italic;
+  }
+
+  .post-content__body :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--transition-fast);
+  }
+  .post-content__body :global(a:hover) {
+    color: var(--accent-hover);
+  }
+
+  .post-content__body :global(ul),
+  .post-content__body :global(ol) {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-6);
+  }
+  .post-content__body :global(ul) { list-style: disc; }
+  .post-content__body :global(ol) { list-style: decimal; }
+  .post-content__body :global(li) {
+    margin-bottom: var(--space-2);
+    line-height: var(--lh-relaxed);
+  }
+
+  .post-content__body :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding: var(--space-4) var(--space-6);
+    margin: var(--space-6) 0;
+    background: var(--accent-muted);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .post-content__body :global(blockquote p) {
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+
+  .post-content__body :global(img) {
+    border-radius: var(--radius-md);
+    margin: var(--space-6) 0;
+    box-shadow: var(--shadow-md);
+  }
+
+  .post-content__body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--rule-light);
+    margin: var(--space-10) 0;
+  }
+
+  .post-content__body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--paper-warm);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--rule-light);
+  }
+
+  .post-content__body :global(pre) {
+    background: var(--navy);
+    color: var(--paper);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .post-content__body :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  /* Tags */
+  .post-content__tags {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    padding-top: var(--space-8);
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--rule-light);
+  }
+  .post-content__tags-label {
+    font-family: var(--font-mono); font-size: 0.6rem; font-weight: var(--fw-semibold);
+    color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .post-content__tag {
+    font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium);
+    color: var(--ink-faint); background: var(--paper-warm);
+    border: 1px solid var(--rule-light); padding: 3px 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* ════════════════════════════════════════
+     POST CTA
+     ════════════════════════════════════════ */
+  .post-cta {
+    padding: var(--space-12) 0;
+    background: var(--paper-warm);
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .post-cta__inner { text-align: center; }
+  .post-cta__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    margin-bottom: var(--space-3);
+  }
+  .post-cta__desc {
+    font-size: var(--fs-base);
+    color: var(--ink-muted);
+    margin-bottom: var(--space-6);
+  }
+  .post-cta__button {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 28px;
+    background: var(--accent); color: #fff;
+    font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-base);
+  }
+  .post-cta__button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26,107,71,0.25);
+  }
+  .post-cta__button svg { transition: transform var(--transition-fast); }
+  .post-cta__button:hover svg { transform: translateX(3px); }
+
+  /* ════════════════════════════════════════
+     BACK LINK
+     ════════════════════════════════════════ */
+  .post-back { padding: var(--space-8) 0 var(--space-16); }
+  .post-back__link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.7rem; font-weight: var(--fw-semibold);
+    color: var(--ink-faint); letter-spacing: 0.04em;
+    transition: color var(--transition-fast);
+  }
+  .post-back__link:hover { color: var(--accent); }
+  .post-back__link svg { transition: transform var(--transition-fast); }
+  .post-back__link:hover svg { transform: translateX(-3px); }
+</style>

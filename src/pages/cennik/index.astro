@@ -1,0 +1,566 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+
+const title = 'Cennik usług copywriterskich i content marketingowych | iCopywriter.pl';
+const description = 'Cennik usług: copywriting, SEO, artykuły, ebooki, white papers, prezentacje, dokumentacja techniczna, redakcja i korekta. Przejrzyste ceny, wycena w 24h.';
+const keywords = 'cennik copywriter, ile kosztuje copywriting, ceny usług copywriterskich, cennik tekstów, cennik content marketingu';
+
+// ── Category groups ──
+const categories = [
+  {
+    id: 'copywriting',
+    label: 'Copywriting',
+    title: 'Copywriting i teksty sprzedażowe',
+    services: [
+      {
+        name: 'Copywriting sprzedażowy',
+        slug: 'copywriting-sprzedazowy',
+        rows: [
+          { item: 'Strona A4 / 1800 zzs (copy sprzedażowy)', price: '150–350 zł' },
+          { item: 'Landing page (copy + wireframe)', price: '2 000–6 000 zł' },
+          { item: 'Podstrona usługowa', price: '500–2 000 zł' },
+          { item: 'Kompletna strona (5–8 podstron)', price: '4 000–12 000 zł' },
+          { item: 'Sekwencja emailowa (5–7 emaili)', price: '1 500–4 000 zł' },
+          { item: 'Slogan / tagline', price: '500–2 000 zł' }
+        ]
+      },
+      {
+        name: 'SEO copywriting',
+        slug: 'seo-copywriting',
+        rows: [
+          { item: 'Artykuł blogowy SEO (3 000–5 000 słów)', price: '600–2 000 zł' },
+          { item: 'Pillar page (5 000–8 000 słów)', price: '1 500–3 500 zł' },
+          { item: 'Podstrona usługowa z SEO', price: '500–2 000 zł' },
+          { item: 'Opis kategorii e-commerce', price: '300–800 zł' },
+          { item: 'Content refresh / optymalizacja', price: '300–1 000 zł' },
+          { item: 'Pakiet 4 artykuły SEO / miesiąc', price: 'od 2 000 zł/mies.' }
+        ]
+      },
+      {
+        name: 'Teksty na stronę www',
+        slug: 'teksty-na-strone',
+        rows: [
+          { item: 'Strona główna (hero + sekcje + CTA)', price: '1 500–4 000 zł' },
+          { item: 'Podstrona „O nas"', price: '600–1 500 zł' },
+          { item: 'Podstrona usługowa', price: '500–2 000 zł' },
+          { item: 'FAQ (10–20 pytań z schema)', price: '400–1 000 zł' },
+          { item: 'Kompletna strona firmowa (5–8 podstron)', price: '4 000–12 000 zł' },
+          { item: 'Strona firmowa + kodowanie', price: '8 000–20 000 zł' }
+        ]
+      },
+      {
+        name: 'Opisy produktów',
+        slug: 'opisy-produktow',
+        rows: [
+          { item: 'Opis produktu (krótki, 300–600 zzs)', price: '30–60 zł' },
+          { item: 'Opis produktu (rozszerzony, 800–1500 zzs)', price: '60–150 zł' },
+          { item: 'Opis kategorii / kolekcji', price: '200–600 zł' },
+          { item: 'Pakiet 50 opisów (krótkich)', price: 'od 1 200 zł' },
+          { item: 'Pakiet 100 opisów (krótkich)', price: 'od 2 000 zł' },
+          { item: 'Style guide + 5 wzorcowych opisów', price: '800–2 000 zł' }
+        ]
+      },
+      {
+        name: 'Landing page',
+        slug: 'landing-page',
+        rows: [
+          { item: 'Landing page (sam copy + wireframe)', price: '2 000–6 000 zł' },
+          { item: 'LP: copy + design (Figma)', price: '4 000–8 000 zł' },
+          { item: 'LP: copy + design + kodowanie', price: '6 000–15 000 zł' },
+          { item: 'LP + sekwencja emailowa (5–7 emaili)', price: '4 000–10 000 zł' },
+          { item: 'Audyt i optymalizacja istniejącego LP', price: '1 500–4 000 zł' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'content',
+    label: 'Content marketing',
+    title: 'Content marketing i strategia',
+    services: [
+      {
+        name: 'Artykuły blogowe',
+        slug: 'artykuly-blogowe',
+        rows: [
+          { item: 'Artykuł blogowy (1 500–3 000 słów)', price: '400–1 200 zł' },
+          { item: 'Artykuł ekspercki (3 000–5 000 słów)', price: '800–2 000 zł' },
+          { item: 'Pillar page (5 000–10 000 słów)', price: '1 500–4 000 zł' },
+          { item: 'Listicle / ranking (2 000–4 000 słów)', price: '500–1 500 zł' },
+          { item: 'Pakiet 4 artykuły / miesiąc', price: 'od 2 000 zł/mies.' },
+          { item: 'Content refresh / optymalizacja', price: '300–800 zł' }
+        ]
+      },
+      {
+        name: 'Strategia contentowa',
+        slug: 'strategia-contentowa',
+        rows: [
+          { item: 'Strategia kompletna (3–6 mies.)', price: '4 000–10 000 zł' },
+          { item: 'Strategia rozszerzona (12 mies.)', price: '8 000–18 000 zł' },
+          { item: 'Audyt treści', price: '2 000–5 000 zł' },
+          { item: 'Research fraz + klasteryzacja', price: '2 000–6 000 zł' },
+          { item: 'Content gap analysis', price: '1 500–4 000 zł' },
+          { item: 'Strategia + realizacja (retainer)', price: 'od 5 000 zł/mies.' }
+        ]
+      },
+      {
+        name: 'Email marketing',
+        slug: 'email-marketing',
+        rows: [
+          { item: 'Sekwencja powitalna (5–7 emaili)', price: '1 500–4 000 zł' },
+          { item: 'Sekwencja sprzedażowa (5–12 emaili)', price: '2 000–6 000 zł' },
+          { item: 'Newsletter (1 email)', price: '300–800 zł' },
+          { item: 'Pakiet 4 newslettery / miesiąc', price: 'od 1 000 zł/mies.' },
+          { item: 'Sekwencja nurturing (5–10 emaili)', price: '1 500–4 000 zł' },
+          { item: 'Audyt email marketingu + strategia', price: '2 000–5 000 zł' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'publikacje',
+    label: 'Publikacje',
+    title: 'Publikacje, ebooki i druk',
+    services: [
+      {
+        name: 'Ebooki',
+        slug: 'ebooki',
+        rows: [
+          { item: 'Ebook lead magnet (15–30 stron, treść + skład)', price: '3 000–8 000 zł' },
+          { item: 'Ebook ekspercki (40–80 stron)', price: '8 000–20 000 zł' },
+          { item: 'Ebook obszerny (80–150 stron)', price: '15 000–35 000 zł' },
+          { item: 'Sam skład LaTeX (gotowy tekst)', price: '2 000–8 000 zł' },
+          { item: 'Landing page do ebooka', price: '2 000–6 000 zł' }
+        ]
+      },
+      {
+        name: 'White papers',
+        slug: 'white-papers',
+        rows: [
+          { item: 'White paper (10–15 stron, treść + skład)', price: '5 000–12 000 zł' },
+          { item: 'White paper (15–30 stron)', price: '10 000–25 000 zł' },
+          { item: 'White paper z oryginalnym researchem', price: '15 000–40 000 zł' },
+          { item: 'Sam skład LaTeX (gotowy tekst)', price: '2 000–6 000 zł' },
+          { item: 'Launch kit (LP + emaile + social)', price: '3 000–8 000 zł' }
+        ]
+      },
+      {
+        name: 'Katalogi i broszury',
+        slug: 'katalogi-broszury',
+        rows: [
+          { item: 'Broszura (4–8 stron, copy + skład)', price: '2 000–5 000 zł' },
+          { item: 'Broszura (8–16 stron)', price: '4 000–10 000 zł' },
+          { item: 'Katalog produktowy (20–50 stron)', price: '8 000–20 000 zł' },
+          { item: 'Katalog produktowy (50–200 stron)', price: '15 000–40 000 zł' },
+          { item: 'Folder korporacyjny / raport roczny', price: '6 000–18 000 zł' },
+          { item: 'Aktualizacja istniejącego katalogu', price: '2 000–8 000 zł' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'specjalistyczne',
+    label: 'Specjalistyczne',
+    title: 'Usługi specjalistyczne',
+    services: [
+      {
+        name: 'Materiały szkoleniowe',
+        slug: 'materialy-szkoleniowe',
+        rows: [
+          { item: 'Podręcznik szkoleniowy (20–50 stron)', price: '4 000–12 000 zł' },
+          { item: 'Podręcznik szkoleniowy (50–150 stron)', price: '10 000–30 000 zł' },
+          { item: 'Workbook / zeszyt ćwiczeń', price: '3 000–8 000 zł' },
+          { item: 'Materiały onboardingowe', price: '5 000–15 000 zł' },
+          { item: 'Kurs PDF / moduł e-learning', price: '1 500–5 000 zł' }
+        ]
+      },
+      {
+        name: 'Prezentacje',
+        slug: 'prezentacje',
+        rows: [
+          { item: 'Pitch deck inwestorski (10–20 slajdów)', price: '3 000–10 000 zł' },
+          { item: 'Prezentacja sprzedażowa (15–30 slajdów)', price: '2 500–8 000 zł' },
+          { item: 'Keynote / konferencyjna (20–40 slajdów)', price: '3 000–10 000 zł' },
+          { item: 'Prezentacja szkoleniowa (30–80 slajdów)', price: '3 000–12 000 zł' },
+          { item: 'Redesign istniejącej prezentacji', price: '1 500–5 000 zł' },
+          { item: 'Template (master slides + style guide)', price: '2 000–6 000 zł' }
+        ]
+      },
+      {
+        name: 'Dokumentacja techniczna',
+        slug: 'dokumentacja-techniczna',
+        rows: [
+          { item: 'Knowledge base (20–50 artykułów)', price: '6 000–20 000 zł' },
+          { item: 'Dokumentacja API', price: '8 000–25 000 zł' },
+          { item: 'Instrukcja obsługi', price: '4 000–15 000 zł' },
+          { item: 'Baza wiedzy / help center', price: '5 000–18 000 zł' },
+          { item: 'Audyt dokumentacji + rekomendacje', price: '2 000–6 000 zł' },
+          { item: 'Retainer (maintenance)', price: 'od 3 000 zł/mies.' }
+        ]
+      },
+      {
+        name: 'Redakcja i korekta',
+        slug: 'redakcja-korekta',
+        rows: [
+          { item: 'Korekta językowa (proofreading)', price: 'od 5 zł / 1000 zn.' },
+          { item: 'Redakcja stylistyczna', price: 'od 8 zł / 1000 zn.' },
+          { item: 'Redakcja merytoryczna', price: 'od 12 zł / 1000 zn.' },
+          { item: 'Rewriting / przepisywanie', price: 'od 18 zł / 1000 zn.' },
+          { item: 'Redakcja tekstu AI-generated', price: 'od 10 zł / 1000 zn.' },
+          { item: 'Pakiet: redakcja + korekta', price: 'od 15 zł / 1000 zn.' }
+        ]
+      }
+    ]
+  }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Jak wygląda wycena?',
+    a: 'Przesyłasz brief (email, formularz, rozmowa) — opisujesz co potrzebujesz, dla kogo, w jakim terminie. Wyceniam w 24h. Wycena jest bezpłatna i niezobowiązująca. Podaję cenę netto, zakres, termin realizacji i formę rozliczenia.'
+  },
+  {
+    q: 'Dlaczego widełki cenowe, a nie stałe ceny?',
+    a: 'Bo każdy projekt jest inny. Landing page dla SaaS B2B z research fraz, wireframe i A/B testingiem kosztuje więcej niż LP dla lokalnej pizzerii. Widełki pokazują realistyczny zakres — konkretna cena zależy od złożoności, objętości, branży i terminu.'
+  },
+  {
+    q: 'Czy ceny są netto czy brutto?',
+    a: 'Wszystkie ceny na tej stronie są netto (+ VAT 23%). Na fakturze doliczam VAT. Jeśli jesteś firmą z UE spoza Polski — mogę wystawić fakturę z odwrotnym obciążeniem (reverse charge, 0% VAT).'
+  },
+  {
+    q: 'Jakie są formy płatności?',
+    a: 'Przelew na konto (FV z 7-dniowym terminem). Przy większych projektach (powyżej 5000 zł): 50% zaliczki przed startem, 50% po dostarczeniu. Przy retainerach: faktura miesięczna z góry. Płatność po dostarczeniu — przy mniejszych zleceniach i stałej współpracy.'
+  },
+  {
+    q: 'Czy oferujesz rabaty przy większych zleceniach?',
+    a: 'Tak — przy pakietach (np. 50+ opisów produktów, 8 artykułów/miesiąc, kompletna strona) cena jednostkowa jest niższa. Przy stałej współpracy (retainer) stawki są preferencyjne + priorytetowe terminy. Szczegóły w wycenie.'
+  },
+  {
+    q: 'Czy mogę zamówić usługę ekspresową?',
+    a: 'Tak — realizacja ekspresowa (czas standardowy × 0.5) z dopłatą 30–50%. Dostępność zależy od bieżącego obłożenia. Przy stałej współpracy: priorytet w kolejce bez dopłat.'
+  },
+  {
+    q: 'Co jeśli tekst mi się nie spodoba?',
+    a: 'W każdym projekcie masz 2 rundy poprawek w cenie. Pracuję iteracyjnie: outline → akceptacja → draft → feedback → poprawki → finał. Dzięki temu nie ma sytuacji „dostajesz gotowy tekst, który Ci nie pasuje". Jeśli mimo to potrzebujesz dodatkowych zmian — drobne gratis, większe wyceniam osobno.'
+  },
+  {
+    q: 'Jak wygląda współpraca krok po kroku?',
+    a: 'Brief (email/rozmowa) → wycena w 24h → akceptacja i zaliczka → research i outline → akceptacja struktury → pisanie (iteracyjnie) → feedback i poprawki → finalna wersja → faktura. Komunikacja: email, Slack, Google Meet. Pliki: Google Docs, Word, Markdown.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/cennik/#webpage",
+      "url": "https://www.icopywriter.pl/cennik/",
+      "name": title,
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": description,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/cennik/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/cennik/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Cennik", "item": "https://www.icopywriter.pl/cennik/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════ -->
+  <section class="cn-hero">
+    <div class="container">
+      <div class="cn-hero__inner reveal">
+        <nav class="cn-hero__breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Strona główna</a>
+          <span aria-hidden="true">›</span>
+          <span>Cennik</span>
+        </nav>
+        <div class="cn-hero__eyebrow">Cennik usług</div>
+        <h1 class="cn-hero__title">
+          Przejrzysty <strong>cennik</strong>.<br>
+          <em>Bez ukrytych kosztów, bez niespodzianek.</em>
+        </h1>
+        <p class="cn-hero__lead">
+          Orientacyjne ceny netto za usługi copywriterskie, content marketingowe, publikacje
+          i&nbsp;usługi specjalistyczne. Widełki pokazują realistyczny zakres — konkretna wycena
+          zależy od złożoności, objętości i&nbsp;terminu. <strong>Wycena w&nbsp;24h, bezpłatnie.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       CATEGORY NAV
+       ════════════════════════════════════════ -->
+  <nav class="cn-nav" aria-label="Kategorie usług">
+    <div class="container">
+      <div class="cn-nav__inner">
+        {categories.map((cat) => (
+          <a href={`#${cat.id}`} class="cn-nav__link">{cat.label}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       PRICING SECTIONS
+       ════════════════════════════════════════ -->
+  {categories.map((cat, catIdx) => (
+    <section class={`cn-cat ${catIdx % 2 === 1 ? 'cn-cat--alt' : ''}`} id={cat.id} aria-labelledby={`cn-cat-${cat.id}`}>
+      <div class="container">
+        <div class="reveal">
+          <SectionHeading
+            label={cat.label}
+            title={cat.title}
+          />
+        </div>
+        <div class="cn-cat__services">
+          {cat.services.map((svc, svcIdx) => (
+            <div class="cn-svc reveal" style={`--delay: ${svcIdx * 0.06}s`}>
+              <div class="cn-svc__header">
+                <h3 class="cn-svc__name">
+                  <a href={`/uslugi/${svc.slug}/`}>{svc.name}</a>
+                </h3>
+                <a href={`/uslugi/${svc.slug}/`} class="cn-svc__link">Szczegóły →</a>
+              </div>
+              <div class="cn-svc__table">
+                {svc.rows.map((row) => (
+                  <div class="cn-svc__row">
+                    <span class="cn-svc__item">{row.item}</span>
+                    <span class="cn-svc__price">{row.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- ════════════════════════════════════════
+       HOW IT WORKS
+       ════════════════════════════════════════ -->
+  <section class="cn-how" aria-labelledby="cn-how-title">
+    <div class="cn-how__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Jak to działa"
+          title="Od&nbsp;briefu po fakturę — <em>4&nbsp;kroki</em>"
+          inverted
+        />
+      </div>
+      <div class="cn-how__grid">
+        <div class="cn-how__step reveal" style="--delay: 0s">
+          <span class="cn-how__step-num">01</span>
+          <h3>Brief</h3>
+          <p>Opisujesz co potrzebujesz — email, formularz, rozmowa. Im więcej kontekstu, tym celniejsza wycena.</p>
+        </div>
+        <div class="cn-how__step reveal" style="--delay: 0.07s">
+          <span class="cn-how__step-num">02</span>
+          <h3>Wycena w 24h</h3>
+          <p>Dostajesz cenę netto, zakres, termin, formę rozliczenia. Bezpłatnie i niezobowiązująco.</p>
+        </div>
+        <div class="cn-how__step reveal" style="--delay: 0.14s">
+          <span class="cn-how__step-num">03</span>
+          <h3>Realizacja</h3>
+          <p>Pracuję iteracyjnie: outline → akceptacja → draft → feedback → poprawki → finał. Bez niespodzianek.</p>
+        </div>
+        <div class="cn-how__step reveal" style="--delay: 0.21s">
+          <span class="cn-how__step-num">04</span>
+          <h3>Delivery + FV</h3>
+          <p>Dostajesz gotowe pliki. Faktura z 7-dniowym terminem. Przy większych projektach: 50/50.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="cn-faq" aria-labelledby="cn-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>ceny i&nbsp;współpracę</em>"
+          subtitle="Wycena, płatności, rabaty, poprawki, ekspres — najczęstsze pytania."
+        />
+      </div>
+      <div class="cn-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="cn-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="cn-faq__question">
+              <span>{faq.q}</span>
+              <svg class="cn-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="cn-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="cn-seo" aria-label="Cennik — informacje">
+    <div class="container-narrow">
+      <article class="cn-seo__article">
+        <h2>Cennik copywritera — ile kosztują usługi copywriterskie w&nbsp;2025?</h2>
+        <p>
+          <strong>Cennik copywritera</strong> zależy od rodzaju usługi, złożoności tematu,
+          objętości tekstu i&nbsp;terminu realizacji. Krótki opis produktu: 30–60 zł.
+          Landing page z&nbsp;researchem i&nbsp;wireframe: 2000–6000 zł. Ebook ekspercki
+          (40–80 stron, treść + skład + grafiki): 8000–20 000 zł. Rozpiętość wynika
+          z&nbsp;różnic w&nbsp;zakresie prac — nie z&nbsp;kaprysu. Konkretna cena ustalana
+          jest na podstawie briefu.
+        </p>
+
+        <h3>Ile kosztuje copywriting — porównanie usług</h3>
+        <p>
+          <strong>Ile kosztuje copywriting</strong>? Zależy od tego, co zamawiasz.
+          Copywriting sprzedażowy (strona A4): 150–350 zł. Artykuł blogowy SEO: 400–2000 zł.
+          Strategia contentowa: 4000–18 000 zł. Dokumentacja techniczna API: 8000–25 000 zł.
+          Korekta językowa: od 5 zł/1000 znaków. Prezentacja pitch deck: 3000–10 000 zł.
+          Każda usługa to inny zakres prac, inny czas i&nbsp;inny efekt biznesowy.
+        </p>
+
+        <h3>Ceny usług copywriterskich — co wpływa na cenę?</h3>
+        <p>
+          Na <strong>ceny usług copywriterskich</strong> wpływa: objętość (ile znaków/stron),
+          złożoność (branża, temat, wymagany research), zakres (sam tekst vs tekst + skład
+          + grafiki + redakcja), termin (standardowy vs ekspres), format (PDF, PPTX, HTML,
+          print-ready). Stała współpraca (retainer) obniża stawki jednostkowe i&nbsp;gwarantuje
+          priorytetowe terminy.
+        </p>
+
+        <h3>Wycena w 24h — jak zamówić?</h3>
+        <p>
+          Prześlij brief (email, formularz, rozmowa) — co potrzebujesz, dla kogo, na kiedy.
+          W&nbsp;ciągu 24 godzin dostajesz <strong>wycenę</strong>: cenę netto, zakres prac,
+          termin realizacji, formę rozliczenia. Wycena jest bezpłatna i&nbsp;niezobowiązująca.
+          Nie musisz znać się na copywritingu — wystarczy, że opiszesz swój cel.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       CTA
+       ════════════════════════════════════════ -->
+  <section class="cn-cta" aria-label="Wycena">
+    <div class="container">
+      <div class="cn-cta__inner reveal">
+        <h2 class="cn-cta__title">Potrzebujesz wyceny?</h2>
+        <p class="cn-cta__desc">
+          Opisz co potrzebujesz — odpowiem z&nbsp;wyceną w&nbsp;24h. Bezpłatnie, niezobowiązująco.
+        </p>
+        <a href="/#kontakt" class="cn-cta__btn">Wyceń projekt →</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── HERO ── */
+  .cn-hero { padding: var(--space-20) 0 var(--space-12); border-bottom: 1px solid var(--rule-light); }
+  .cn-hero__breadcrumb { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: var(--space-6); }
+  .cn-hero__breadcrumb a { color: var(--ink-faint); text-decoration: none; transition: color var(--transition-fast); }
+  .cn-hero__breadcrumb a:hover { color: var(--accent); }
+  .cn-hero__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .cn-hero__title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-6); max-width: 680px; }
+  .cn-hero__title strong { font-weight: var(--fw-bold); }
+  .cn-hero__title em { font-style: italic; color: var(--accent); }
+  .cn-hero__lead { font-size: var(--fs-base); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 600px; }
+  .cn-hero__lead strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── CATEGORY NAV ── */
+  .cn-nav { padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); position: sticky; top: 0; z-index: 90; background: var(--bg); backdrop-filter: blur(12px); }
+  .cn-nav__inner { display: flex; gap: var(--space-2); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .cn-nav__inner::-webkit-scrollbar { display: none; }
+  .cn-nav__link { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); text-decoration: none; padding: var(--space-2) var(--space-4); border: 1px solid var(--rule-light); border-radius: var(--radius-sm); white-space: nowrap; transition: all var(--transition-fast); }
+  .cn-nav__link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── CATEGORY SECTIONS ── */
+  .cn-cat { padding: var(--space-20) 0; }
+  .cn-cat--alt { background: var(--paper-warm); }
+  .cn-cat__services { display: flex; flex-direction: column; gap: var(--space-8); }
+
+  /* ── SERVICE BLOCK ── */
+  .cn-svc { transition-delay: var(--delay, 0s); }
+  .cn-svc__header { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-3); padding-bottom: var(--space-2); border-bottom: 2px solid var(--ink); }
+  .cn-svc__name { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); }
+  .cn-svc__name a { color: inherit; text-decoration: none; transition: color var(--transition-fast); }
+  .cn-svc__name a:hover { color: var(--accent); }
+  .cn-svc__link { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-semibold); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); text-decoration: none; white-space: nowrap; transition: opacity var(--transition-fast); }
+  .cn-svc__link:hover { opacity: 0.7; }
+  .cn-svc__table { display: flex; flex-direction: column; }
+  .cn-svc__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-3) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .cn-svc__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .cn-svc__price { font-family: var(--font-display); font-size: var(--fs-base); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+
+  /* ── HOW IT WORKS (dark) ── */
+  .cn-how { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .cn-how__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .cn-how__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .cn-how__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .cn-how__grid { grid-template-columns: 1fr; } }
+  .cn-how__step { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .cn-how__step:hover { border-color: rgba(255,255,255,0.12); }
+  .cn-how__step-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .cn-how__step h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .cn-how__step p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── FAQ ── */
+  .cn-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .cn-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .cn-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .cn-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .cn-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .cn-faq__question::-webkit-details-marker { display: none; }
+  .cn-faq__question::marker { display: none; content: ''; }
+  .cn-faq__question:hover { color: var(--accent); }
+  .cn-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .cn-faq__item[open] .cn-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .cn-faq__answer { padding: 0 0 var(--space-6); }
+  .cn-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO ── */
+  .cn-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .cn-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .cn-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .cn-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .cn-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+
+  /* ── CTA ── */
+  .cn-cta { padding: var(--space-16) 0; border-top: 1px solid var(--rule-light); }
+  .cn-cta__inner { text-align: center; max-width: 500px; margin: 0 auto; }
+  .cn-cta__title { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-3); }
+  .cn-cta__desc { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-6); }
+  .cn-cta__btn { display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent); padding: var(--space-3) var(--space-8); border-radius: var(--radius-sm); text-decoration: none; transition: background var(--transition-fast), transform var(--transition-fast); }
+  .cn-cta__btn:hover { background: var(--accent-dark, #155a3a); transform: translateY(-1px); }
+</style>

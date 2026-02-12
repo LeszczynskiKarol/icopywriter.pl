@@ -1,0 +1,516 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('prezentacje')!;
+
+// ── Types ──
+const scope = [
+  {
+    title: 'Pitch deck (inwestorski)',
+    desc: 'Prezentacja 10–20 slajdów, która przekonuje inwestora do rozmowy. Problem → rozwiązanie → rynek → traction → model biznesowy → team → ask. Nie „ładne slajdy z logiem" — narracja, która buduje napięcie i prowadzi do jednego wniosku: warto zainwestować. Struktura sprawdzona w setkach rund.',
+    tags: ['Seed / Series A', 'Problem → Solution', 'Traction', 'Business model', '10–20 slajdów']
+  },
+  {
+    title: 'Prezentacje sprzedażowe',
+    desc: 'Slajdy, które wspierają handlowca — nie zastępują go. Kluczowe korzyści, social proof, dane, porównania, case studies, pricing. Jeden przekaz per slajd, zero ściany tekstu. Format dopasowany do kontekstu: spotkanie 1:1, demo, konferencja, webinar.',
+    tags: ['Sales deck', 'Case studies', 'Porównania', 'Pricing', 'Demo']
+  },
+  {
+    title: 'Prezentacje konferencyjne i keynote',
+    desc: 'Slajdy do wystąpień publicznych: konferencje, meetupy, webinary, wykłady. Duże fonty, minimalistyczny design, obrazy zamiast bullet pointów. Storytelling, który angażuje widownię — bo prezentacja to wsparcie dla mówcy, nie materiał do czytania.',
+    tags: ['Konferencje', 'Keynote', 'Webinary', 'Storytelling', 'Visual-first']
+  },
+  {
+    title: 'Prezentacje wewnętrzne i raportowe',
+    desc: 'Prezentacje zarządowe, raporty kwartalne, board decks, strategy updates. Dane, wykresy, KPI, wnioski, rekomendacje. Czytelne, zwięzłe, profesjonalne — bo zarząd nie ma czasu na 60 slajdów, które można streścić w 15.',
+    tags: ['Board deck', 'Raporty kwartalne', 'KPI / metryki', 'Strategy update', 'Executive summary']
+  },
+  {
+    title: 'Prezentacje szkoleniowe',
+    desc: 'Slajdy do szkoleń stacjonarnych i online: struktura dydaktyczna, kluczowe punkty per slajd, notatki dla trenera, handouty do wydruku. Spójne z podręcznikiem szkoleniowym — jeśli tworzę oba, branding i treść są zsynchronizowane.',
+    tags: ['Szkolenia', 'Notatki trenera', 'Handouty', 'Struktura dydaktyczna', 'Branding']
+  },
+  {
+    title: 'Prezentacje ofertowe i przetargowe',
+    desc: 'Dokumenty ofertowe w formie prezentacji: zakres, metodologia, zespół, timeline, cennik, referencje. Format wymagany w przetargach i RFP. Profesjonalny layout, czytelna struktura, dane wspierające argumentację — prezentacja, która wygrywa kontrakty.',
+    tags: ['Oferta handlowa', 'RFP / przetarg', 'Metodologia', 'Timeline', 'Referencje']
+  }
+];
+
+// ── What makes a great presentation ──
+const principles = [
+  {
+    title: 'Jeden przekaz per slajd',
+    desc: 'Slajd z 8 bullet pointami to nie prezentacja — to dokument z tłem. Każdy slajd powinien komunikować jedną myśl, jeden insight, jedno przesłanie. Jeśli nie da się streścić slajdu w jednym zdaniu — masz za dużo treści. Dzielę, upraszczam, wyostrzam.'
+  },
+  {
+    title: 'Storytelling, nie lista faktów',
+    desc: 'Ludzie pamiętają historie, nie bullet pointy. Każda prezentacja ma arc: setup (problem/kontekst), tension (dlaczego to ważne), resolution (rozwiązanie/wniosek). Pitch deck to historia firmy. Sales deck to historia klienta. Keynote to historia idei.'
+  },
+  {
+    title: 'Design wspiera przekaz, nie dekoruje',
+    desc: 'Gradient, animacja, stockowe zdjęcie uśmiechniętego człowieka — to nie design, to szum. Profesjonalny design prezentacji to: hierarchia wizualna (co widzisz najpierw), biała przestrzeń (oddech), typografia (czytelność), dane wizualizowane (wykresy zamiast tabel).'
+  },
+  {
+    title: 'Slajdy to wsparcie, nie skrypt',
+    desc: 'Jeśli możesz wysłać prezentację emailem i nic nie stracić — prezentacja jest zła. Slajdy mają wspierać mówcę, nie zastępować go. Notatki, kontekst, szczegóły — w speaker notes. Na slajdzie: essence. Wyjątek: prezentacje ofertowe i raporty, które czyta się samodzielnie.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Brief i cel prezentacji', desc: 'Kontekst: kto prezentuje, komu, w jakim celu, w jakim formacie (live, wysyłana, webinar). Co ma się wydarzyć po prezentacji? (inwestor umawia się na follow-up, klient prosi o ofertę, zarząd zatwierdza budżet). Cel definiuje strukturę.' },
+  { step: 'Strategia i storytelling', desc: 'Projektuję narrację: otwarcie (hook), rozwój (problem → dane → insight), kulminacja (rozwiązanie/propozycja), zamknięcie (CTA). Definiuję key message per slajd. Storyboard: szkic sekwencji slajdów z opisem treści.' },
+  { step: 'Copywriting slajdów', desc: 'Piszę treść: nagłówki, podpisy, data labels, bullet pointy (jeśli niezbędne), CTA, speaker notes. Każdy slajd z jednym przekazem. Język zwięzły, konkretny — bo na slajdzie liczy się każde słowo.' },
+  { step: 'Design i layout', desc: 'Projektuję slajdy: siatka, typografia, kolory, ikony, wykresy. Spójny branding (Twoje kolory, fonty, logo). Format: PowerPoint, Google Slides, Keynote lub LaTeX Beamer (dla prezentacji technicznych i akademickich).' },
+  { step: 'Dane i wizualizacje', desc: 'Tworzę wykresy, tabele, diagramy, mapy, infografiki. Dane prezentowane wizualnie — nie tabela z 50 wierszami, lecz wykres z jednym wnioskiem. Każda wizualizacja z jasnym „so what?" — co te dane znaczą dla odbiorcy.' },
+  { step: 'Feedback i finalizacja', desc: 'Dwie rundy feedbacku. Poprawki: treść, layout, dane, kolejność. Finalna wersja: plik edytowalny (PPTX / Google Slides / .tex) + PDF do wysyłki. Opcjonalnie: speaker notes, talking points, handouty do wydruku.' }
+];
+
+// ── Formats ──
+const formats = [
+  { label: 'PowerPoint / Google Slides', desc: 'Najczęstszy format. Edytowalny, uniwersalny, łatwy w aktualizacji. Master slides z Twoim brandingiem.' },
+  { label: 'LaTeX Beamer', desc: 'Prezentacje techniczne, akademickie, z wzorami i kodem. Wersjonowanie w Git, profesjonalna typografia.' },
+  { label: 'Keynote', desc: 'Dla użytkowników Apple. Płynne animacje, natywna integracja z ekosystemem Mac.' },
+  { label: 'PDF (read-only)', desc: 'Do wysyłki emailem, załączników do ofert, archiwizacji. Wygląda identycznie na każdym urządzeniu.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Pitch deck inwestorski (10–20 slajdów)', price: '3 000–10 000 zł' },
+  { item: 'Prezentacja sprzedażowa (15–30 slajdów)', price: '2 500–8 000 zł' },
+  { item: 'Keynote / prezentacja konferencyjna (20–40 slajdów)', price: '3 000–10 000 zł' },
+  { item: 'Prezentacja raportowa / board deck (15–30 slajdów)', price: '2 000–7 000 zł' },
+  { item: 'Prezentacja szkoleniowa (30–80 slajdów)', price: '3 000–12 000 zł' },
+  { item: 'Prezentacja ofertowa / przetargowa', price: '2 500–8 000 zł' },
+  { item: 'Redesign istniejącej prezentacji', price: '1 500–5 000 zł' },
+  { item: 'Template prezentacji (master slides + style guide)', price: '2 000–6 000 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Ile kosztuje stworzenie prezentacji?',
+    a: 'Pitch deck (10–20 slajdów): 3000–10 000 zł. Prezentacja sprzedażowa (15–30 slajdów): 2500–8000 zł. Keynote (20–40 slajdów): 3000–10 000 zł. Cena zależy od złożoności (sam copy vs copy + design + dane), formatu i liczby wizualizacji danych. W cenie: storytelling, copywriting, design, 2 rundy poprawek.'
+  },
+  {
+    q: 'W jakim formacie dostarczasz prezentacje?',
+    a: 'PowerPoint (.pptx), Google Slides (link z uprawnieniami), Keynote (.key), LaTeX Beamer (.pdf + .tex) lub PDF read-only. Domyślnie dostarczam plik edytowalny + PDF. Master slides z Twoim brandingiem — kolory, fonty, logo — gotowe do ponownego użycia.'
+  },
+  {
+    q: 'Czy tworzysz też pitch decki dla startupów?',
+    a: 'Tak — pitch deck to jedna z moich najczęstszych usług. Struktura zależy od etapu: pre-seed (problem, rozwiązanie, wizja), seed (traction, unit economics, ask), Series A (skalowanie, metryki, team). Piszę narrację, tworzę slajdy, pomagam z talking points do spotkania z inwestorem.'
+  },
+  {
+    q: 'Ile czasu zajmuje stworzenie prezentacji?',
+    a: 'Pitch deck / sales deck (10–20 slajdów): 5–10 dni roboczych. Keynote / szkoleniowa (20–40+ slajdów): 1–3 tygodnie. Czas obejmuje: brief, storytelling, copywriting, design, 2 rundy feedbacku. Ekspresowa realizacja (3–5 dni) — dopłata 30–50%.'
+  },
+  {
+    q: 'Czy mogę potem sam edytować prezentację?',
+    a: 'Tak — dostarczam plik edytowalny (PPTX / Google Slides / .tex) z master slides. Możesz dodawać slajdy, zmieniać treść, aktualizować dane — zachowując spójny branding. Opcjonalnie: template z style guide do tworzenia nowych prezentacji w tym samym stylu.'
+  },
+  {
+    q: 'Czy robisz prezentacje w LaTeX Beamer?',
+    a: 'Tak — LaTeX Beamer to idealny format do prezentacji technicznych, akademickich i naukowych: wzory matematyczne, fragmenty kodu, diagramy TikZ, bibliografia. Wersjonowanie w Git, profesjonalna typografia, eksport PDF. Dla firm tech/SaaS, które cenią precyzję.'
+  },
+  {
+    q: 'Czy piszesz też speaker notes?',
+    a: 'Tak — speaker notes to kluczowy element prezentacji live. Piszę je per slajd: key message, talking points, dane do przytoczenia, transition do następnego slajdu. Opcjonalnie: pełny skrypt do prezentacji (do odczytania lub zapamiętania) i handouty dla widowni.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/prezentacje/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/prezentacje/",
+      "name": "Prezentacje — pitch deck, sales deck, keynote | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/prezentacje/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/prezentacje/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Prezentacje", "item": "https://www.icopywriter.pl/uslugi/prezentacje/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Prezentacje",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Prezentacje firmowe: pitch deck, sales deck, keynote, prezentacje szkoleniowe i raportowe. Storytelling, copy, design.",
+      "serviceType": "Presentation Design",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="prez-intro" id="zakres" aria-labelledby="prez-intro-title">
+    <div class="container">
+      <div class="prez-intro__inner reveal">
+        <div class="prez-intro__eyebrow">Prezentacje firmowe i pitch decki</div>
+        <h2 id="prez-intro-title" class="prez-intro__title">
+          <strong>Prezentacja</strong> to nie slajdy z&nbsp;bullet pointami.<br>
+          To <em>historia, która prowadzi do decyzji</em>.
+        </h2>
+        <div class="prez-intro__columns">
+          <div class="prez-intro__col">
+            <p>
+              Inwestor widzi 500 <strong>pitch decków</strong> rocznie. Klient dostaje
+              10 ofert w&nbsp;prezentacji. Zarząd ogląda 20 raportów kwartalnych. Twoja
+              <strong>prezentacja</strong> ma 30 sekund, żeby się wyróżnić — albo znika
+              w&nbsp;szumie. Piękne slajdy z&nbsp;gradientem i&nbsp;stockowym zdjęciem
+              nie wystarczą. Liczy się narracja: co mówisz, w&nbsp;jakiej kolejności
+              i&nbsp;do jakiego wniosku prowadzisz.
+            </p>
+            <p>
+              Tworzę <strong>prezentacje</strong>, które mają jeden cel: doprowadzić
+              odbiorcę do konkretnej decyzji. Inwestor umawia follow-up. Klient prosi
+              o&nbsp;ofertę. Zarząd zatwierdza budżet. Trener utrzymuje uwagę grupy.
+              Każdy slajd jest krokiem w&nbsp;narracji — nie ozdobą.
+            </p>
+          </div>
+          <div class="prez-intro__col">
+            <p>
+              Robię wszystko: strategię i&nbsp;<strong>storytelling</strong>, copywriting
+              slajdów (nagłówki, dane, speaker notes), design i&nbsp;layout, wizualizacje
+              danych (wykresy, diagramy, infografiki). Dostarczam w&nbsp;PowerPoint,
+              Google Slides, Keynote lub <strong>LaTeX Beamer</strong> (prezentacje
+              techniczne i&nbsp;akademickie).
+            </p>
+            <p>
+              Nie jestem „grafikiem, który robi slajdy". Jestem copywriterem
+              i&nbsp;strategiem, który rozumie, że <strong>prezentacja</strong> zaczyna
+              się od przekazu — nie od szablonu. Najpierw definiuję, co chcesz
+              powiedzieć i&nbsp;w jakiej kolejności. Potem piszę treść. Dopiero potem
+              projektuję slajdy. Copy-first, design-second.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="prez-scope" aria-labelledby="prez-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Rodzaje"
+          title="Jakie <em>prezentacje</em> tworzę?"
+          subtitle="Od pitch decku inwestorskiego po prezentację przetargową. Każda z&nbsp;narracją, copy i&nbsp;designem."
+        />
+      </div>
+      <div class="prez-scope__list">
+        {scope.map((item, i) => (
+          <div class="prez-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="prez-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="prez-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="prez-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="prez-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRINCIPLES (dark)
+       ════════════════════════════════════════ -->
+  <section class="prez-princ" aria-labelledby="prez-princ-title">
+    <div class="prez-princ__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zasady"
+          title="Co sprawia, że <em>prezentacja</em> działa?"
+          subtitle="Cztery zasady, które odróżniają prezentację, która zmienia decyzje, od slajdów, które zmienia się w spam."
+          inverted
+        />
+      </div>
+      <div class="prez-princ__grid">
+        {principles.map((item, i) => (
+          <div class="prez-princ__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="prez-princ__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="prez-proc" aria-labelledby="prez-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>prezentacja</em>?"
+          subtitle="Sześć etapów od celu po gotowy plik. Storytelling → copy → design → dane → feedback → delivery."
+        />
+      </div>
+      <div class="prez-proc__timeline">
+        {process.map((item, i) => (
+          <div class="prez-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="prez-proc__step-marker">
+              <span class="prez-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="prez-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="prez-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FORMATS
+       ════════════════════════════════════════ -->
+  <section class="prez-fmt" aria-labelledby="prez-fmt-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Formaty"
+          title="W&nbsp;jakim formacie dostarczam <em>prezentacje</em>?"
+          subtitle="PowerPoint, Google Slides, Keynote, LaTeX Beamer — dopasowuję do Twojego workflow."
+        />
+      </div>
+      <div class="prez-fmt__grid">
+        {formats.map((item, i) => (
+          <div class="prez-fmt__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="prez-fmt__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="prez-price" aria-labelledby="prez-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>prezentacja na zamówienie</em>?"
+          subtitle="Od redesignu istniejącej po pełny pitch deck z&nbsp;narracją i&nbsp;designem. Wycena w&nbsp;24h."
+        />
+      </div>
+      <div class="prez-price__table reveal">
+        <div class="prez-price__header">
+          <span>Zakres</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="prez-price__row">
+            <span class="prez-price__item">{row.item}</span>
+            <span class="prez-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="prez-price__footer">
+          <p>Ceny netto. W cenie: storytelling, copywriting slajdów, design, wizualizacje danych, speaker notes, 2 rundy poprawek, plik edytowalny + PDF. Ekspres (3–5 dni): dopłata 30–50%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="prez-faq" aria-labelledby="prez-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>prezentacje</em>"
+          subtitle="Najczęstsze pytania o&nbsp;ceny, formaty, pitch decki, czas realizacji i&nbsp;edytowalność."
+        />
+      </div>
+      <div class="prez-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="prez-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="prez-faq__question">
+              <span>{faq.q}</span>
+              <svg class="prez-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="prez-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="prez-seo" aria-label="Prezentacje — informacje">
+    <div class="container-narrow">
+      <article class="prez-seo__article">
+        <h2>Prezentacje firmowe — dlaczego storytelling wygrywa z&nbsp;bullet pointami</h2>
+        <p>
+          <strong>Prezentacja firmowa</strong> to jedno z&nbsp;najczęściej używanych narzędzi
+          komunikacji w&nbsp;biznesie — i&nbsp;jedno z&nbsp;najczęściej źle robionych.
+          Ściana bullet pointów, stockowe zdjęcia, logo na każdym slajdzie, zero narracji.
+          Profesjonalne <strong>tworzenie prezentacji</strong> zaczyna się od pytania: „Co
+          ma się wydarzyć po tej prezentacji?" — i&nbsp;buduje każdy slajd jako krok
+          prowadzący do tej decyzji.
+        </p>
+
+        <h3>Pitch deck — jak stworzyć prezentację, która przekonuje inwestora?</h3>
+        <p>
+          <strong>Pitch deck</strong> to prezentacja 10–20 slajdów prezentująca startup
+          inwestorowi. Struktura: problem → rozwiązanie → rynek (TAM/SAM/SOM) → produkt →
+          traction → business model → team → financial projections → ask. Kluczowe:
+          narracja (historia, nie lista faktów), dane (metryki, nie obietnice), zwięzłość
+          (jeden przekaz per slajd). Dobry pitch deck nie sprzedaje — otwiera drzwi
+          do rozmowy.
+        </p>
+
+        <h3>Prezentacja na zamówienie — co obejmuje profesjonalna usługa?</h3>
+        <p>
+          <strong>Prezentacja na zamówienie</strong> obejmuje: strategię i&nbsp;storytelling
+          (narracja, sekwencja, key messages), copywriting slajdów (nagłówki, dane, CTA,
+          speaker notes), design (layout, typografia, wizualizacje danych), delivery
+          w&nbsp;edytowalnym formacie. To nie „grafik, który robi ładne slajdy" — to
+          strateg, copywriter i&nbsp;designer w&nbsp;jednej osobie.
+        </p>
+
+        <h3>Ile kosztuje stworzenie prezentacji?</h3>
+        <p>
+          Profesjonalna <strong>prezentacja na zamówienie</strong> kosztuje od 1500 zł
+          (redesign istniejącej) do 12 000 zł (prezentacja szkoleniowa 30–80 slajdów).
+          Pitch deck: 3000–10 000 zł. Sales deck: 2500–8000 zł. Cena zależy od liczby
+          slajdów, złożoności danych, formatu i&nbsp;zakresu (sam copy vs copy + design).
+          Template do samodzielnego użycia: 2000–6000 zł.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .prez-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .prez-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .prez-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 700px; }
+  .prez-intro__title strong { font-weight: var(--fw-bold); }
+  .prez-intro__title em { font-style: italic; color: var(--accent); }
+  .prez-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .prez-intro__columns { grid-template-columns: 1fr; } }
+  .prez-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .prez-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── SCOPE ── */
+  .prez-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .prez-scope__list { display: flex; flex-direction: column; }
+  .prez-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .prez-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .prez-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .prez-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .prez-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .prez-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .prez-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── PRINCIPLES (dark) ── */
+  .prez-princ { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .prez-princ__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .prez-princ__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .prez-princ__grid { grid-template-columns: 1fr; } }
+  .prez-princ__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .prez-princ__card:hover { border-color: rgba(255,255,255,0.12); }
+  .prez-princ__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .prez-princ__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .prez-princ__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .prez-proc { padding: var(--space-24) 0; }
+  .prez-proc__timeline { display: flex; flex-direction: column; }
+  .prez-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .prez-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .prez-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .prez-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .prez-proc__step:last-child .prez-proc__step-line { display: none; }
+  .prez-proc__step-content { padding-bottom: var(--space-6); }
+  .prez-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .prez-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── FORMATS ── */
+  .prez-fmt { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .prez-fmt__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .prez-fmt__grid { grid-template-columns: 1fr; } }
+  .prez-fmt__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .prez-fmt__card:hover { border-color: var(--accent); }
+  .prez-fmt__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .prez-fmt__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .prez-price { padding: var(--space-24) 0; }
+  .prez-price__table { max-width: 660px; }
+  .prez-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .prez-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .prez-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .prez-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .prez-price__footer { padding-top: var(--space-4); }
+  .prez-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .prez-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .prez-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .prez-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .prez-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .prez-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .prez-faq__question::-webkit-details-marker { display: none; }
+  .prez-faq__question::marker { display: none; content: ''; }
+  .prez-faq__question:hover { color: var(--accent); }
+  .prez-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .prez-faq__item[open] .prez-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .prez-faq__answer { padding: 0 0 var(--space-6); }
+  .prez-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .prez-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .prez-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .prez-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .prez-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .prez-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

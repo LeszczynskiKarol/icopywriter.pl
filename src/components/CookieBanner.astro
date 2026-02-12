@@ -1,0 +1,484 @@
+---
+/**
+ * CookieBanner.astro
+ * GDPR-compliant cookie consent banner with Google Consent Mode v2
+ * For icopywriter.pl
+ *
+ * GTM: GTM-TDLW7G3C (contains Tag Google with GA4: G-NFCFZ2NJLG)
+ *
+ * Architecture:
+ * 1. Consent Mode v2 defaults set to DENIED (before any scripts)
+ * 2. GTM loads and respects consent mode — Tag Google won't fire until granted
+ * 3. On user action: consent update → GTM picks up new signals automatically
+ *
+ * No separate gtag.js needed — GTM handles GA4 via Tag Google
+ */
+---
+
+<!-- Cookie Banner -->
+<div
+  id="cookie-banner"
+  class="cookie-banner"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-title"
+  hidden
+>
+  <div class="cookie-banner__backdrop"></div>
+
+  <div class="cookie-banner__container">
+    <div class="cookie-banner__card">
+
+      <!-- Header -->
+      <div class="cookie-banner__header">
+        <h2 id="cookie-title" class="cookie-banner__title">Szanujemy Twoją prywatność</h2>
+        <p class="cookie-banner__desc">
+          Używamy plików cookies, aby zapewnić prawidłowe działanie strony
+          i&nbsp;analizować ruch za pomocą Google Analytics. Możesz zdecydować,
+          na które kategorie wyrażasz zgodę.
+        </p>
+      </div>
+
+      <!-- Cookie Categories (collapsible) -->
+      <div id="cookie-details" class="cookie-banner__details" hidden>
+        <div class="cookie-banner__categories">
+          <!-- Necessary -->
+          <div class="cookie-cat">
+            <div class="cookie-cat__info">
+              <div class="cookie-cat__icon cookie-cat__icon--necessary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div>
+                <span class="cookie-cat__name">Niezbędne</span>
+                <span class="cookie-cat__hint">Wymagane do działania strony</span>
+              </div>
+            </div>
+            <div class="cookie-toggle cookie-toggle--locked">
+              <div class="cookie-toggle__track cookie-toggle__track--on"></div>
+              <div class="cookie-toggle__thumb cookie-toggle__thumb--on"></div>
+            </div>
+          </div>
+
+          <!-- Analytics -->
+          <div class="cookie-cat">
+            <div class="cookie-cat__info">
+              <div class="cookie-cat__icon cookie-cat__icon--analytics">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              </div>
+              <div>
+                <span class="cookie-cat__name">Analityczne</span>
+                <span class="cookie-cat__hint">Google Analytics — statystyki odwiedzin</span>
+              </div>
+            </div>
+            <label class="cookie-toggle">
+              <input type="checkbox" id="cookie-analytics" class="cookie-toggle__input" />
+              <div class="cookie-toggle__track"></div>
+              <div class="cookie-toggle__thumb"></div>
+            </label>
+          </div>
+
+          <!-- Marketing -->
+          <div class="cookie-cat">
+            <div class="cookie-cat__info">
+              <div class="cookie-cat__icon cookie-cat__icon--marketing">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              </div>
+              <div>
+                <span class="cookie-cat__name">Marketingowe</span>
+                <span class="cookie-cat__hint">Remarketing i personalizacja reklam</span>
+              </div>
+            </div>
+            <label class="cookie-toggle">
+              <input type="checkbox" id="cookie-marketing" class="cookie-toggle__input" />
+              <div class="cookie-toggle__track"></div>
+              <div class="cookie-toggle__thumb"></div>
+            </label>
+          </div>
+        </div>
+
+        <p class="cookie-banner__policy">
+          Więcej informacji w&nbsp;<a href="/polityka-prywatnosci/">Polityce Prywatności</a>.
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="cookie-banner__actions">
+        <button id="cookie-toggle-details" class="cookie-banner__toggle-btn" type="button">
+          <span id="toggle-text">Dostosuj preferencje</span>
+          <svg id="toggle-icon" class="cookie-banner__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+
+        <div class="cookie-banner__buttons">
+          <button id="cookie-reject" class="cookie-btn cookie-btn--secondary" type="button">
+            Tylko niezbędne
+          </button>
+          <button id="cookie-accept-selected" class="cookie-btn cookie-btn--secondary" type="button" hidden>
+            Zapisz wybrane
+          </button>
+          <button id="cookie-accept-all" class="cookie-btn cookie-btn--primary" type="button">
+            Akceptuj wszystkie
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CONSENT MODE v2 + GTM
+     Must be the FIRST scripts on the page — before GTM loads
+     ═══════════════════════════════════════════════════════════════ -->
+<script is:inline>
+(function() {
+  // ═══════════════════════════════════════════
+  // Configuration
+  // ═══════════════════════════════════════════
+  var COOKIE_NAME = 'icopywriter_consent';
+  var GTM_ID = 'GTM-TDLW7G3C';
+  var CONSENT_MAX_AGE_DAYS = 365;
+
+  // ═══════════════════════════════════════════
+  // Google Consent Mode v2 — DENIED by default
+  // ═══════════════════════════════════════════
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'granted',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'wait_for_update': 500
+  });
+
+  gtag('set', 'url_passthrough', true);
+  gtag('set', 'ads_data_redaction', true);
+
+  // ═══════════════════════════════════════════
+  // DOM (deferred)
+  // ═══════════════════════════════════════════
+  var banner, details, toggleBtn, toggleText, toggleIcon;
+  var acceptAllBtn, acceptSelectedBtn, rejectBtn;
+  var analyticsCheckbox, marketingCheckbox;
+  var detailsVisible = false;
+
+  // ═══════════════════════════════════════════
+  // Consent storage with expiry
+  // ═══════════════════════════════════════════
+  function getConsent() {
+    try {
+      var raw = localStorage.getItem(COOKIE_NAME);
+      if (!raw) return null;
+      var c = JSON.parse(raw);
+      if (c.timestamp) {
+        var age = Date.now() - new Date(c.timestamp).getTime();
+        if (age > CONSENT_MAX_AGE_DAYS * 86400000) {
+          localStorage.removeItem(COOKIE_NAME);
+          return null;
+        }
+      }
+      return c;
+    } catch (e) { return null; }
+  }
+
+  function setConsent(consent) {
+    localStorage.setItem(COOKIE_NAME, JSON.stringify({
+      necessary: true,
+      analytics: consent.analytics,
+      marketing: consent.marketing,
+      timestamp: new Date().toISOString(),
+      version: '1.0'
+    }));
+  }
+
+  // ═══════════════════════════════════════════
+  // Update Google Consent signals
+  // GTM picks these up automatically
+  // ═══════════════════════════════════════════
+  function updateGoogleConsent(consent) {
+    var a = consent.analytics ? 'granted' : 'denied';
+    var m = consent.marketing ? 'granted' : 'denied';
+
+    gtag('consent', 'update', {
+      'ad_storage': m,
+      'ad_user_data': m,
+      'ad_personalization': m,
+      'analytics_storage': a,
+      'personalization_storage': m
+    });
+
+    dataLayer.push({
+      'event': 'consent_update',
+      'consent_analytics': consent.analytics,
+      'consent_marketing': consent.marketing
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // Load GTM — always (it respects consent mode)
+  // Tag Google inside GTM won't fire until
+  // analytics_storage is 'granted'
+  // ═══════════════════════════════════════════
+  function loadGTM() {
+    if (document.getElementById('gtm-script')) return;
+
+    var s = document.createElement('script');
+    s.id = 'gtm-script';
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+    document.head.appendChild(s);
+
+    dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+  }
+
+  // ═══════════════════════════════════════════
+  // Banner UI
+  // ═══════════════════════════════════════════
+  function showBanner() {
+    banner.removeAttribute('hidden');
+    banner.offsetHeight; // force reflow
+    banner.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hideBanner() {
+    banner.classList.remove('visible');
+    document.body.style.overflow = '';
+    setTimeout(function() { banner.setAttribute('hidden', ''); }, 300);
+  }
+
+  function toggleDetails() {
+    detailsVisible = !detailsVisible;
+    if (detailsVisible) {
+      details.removeAttribute('hidden');
+      acceptSelectedBtn.removeAttribute('hidden');
+    } else {
+      details.setAttribute('hidden', '');
+      acceptSelectedBtn.setAttribute('hidden', '');
+    }
+    toggleIcon.style.transform = detailsVisible ? 'rotate(180deg)' : '';
+    toggleText.textContent = detailsVisible ? 'Ukryj opcje' : 'Dostosuj preferencje';
+  }
+
+  // ═══════════════════════════════════════════
+  // Consent handlers
+  // ═══════════════════════════════════════════
+  function handleAcceptAll() {
+    var c = { analytics: true, marketing: true };
+    setConsent(c); updateGoogleConsent(c); loadGTM(); hideBanner();
+  }
+
+  function handleAcceptSelected() {
+    var c = { analytics: analyticsCheckbox.checked, marketing: marketingCheckbox.checked };
+    setConsent(c); updateGoogleConsent(c); loadGTM(); hideBanner();
+  }
+
+  function handleReject() {
+    var c = { analytics: false, marketing: false };
+    setConsent(c); updateGoogleConsent(c); loadGTM(); hideBanner();
+  }
+
+  // Global: reopen settings (footer link)
+  window.openCookieSettings = function() {
+    var c = getConsent();
+    if (c) {
+      analyticsCheckbox.checked = c.analytics;
+      marketingCheckbox.checked = c.marketing;
+    }
+    if (!detailsVisible) toggleDetails();
+    showBanner();
+  };
+
+  // ═══════════════════════════════════════════
+  // Init
+  // ═══════════════════════════════════════════
+  function init() {
+    banner = document.getElementById('cookie-banner');
+    details = document.getElementById('cookie-details');
+    toggleBtn = document.getElementById('cookie-toggle-details');
+    toggleText = document.getElementById('toggle-text');
+    toggleIcon = document.getElementById('toggle-icon');
+    acceptAllBtn = document.getElementById('cookie-accept-all');
+    acceptSelectedBtn = document.getElementById('cookie-accept-selected');
+    rejectBtn = document.getElementById('cookie-reject');
+    analyticsCheckbox = document.getElementById('cookie-analytics');
+    marketingCheckbox = document.getElementById('cookie-marketing');
+
+    if (!banner) return;
+
+    var consent = getConsent();
+    if (consent) {
+      updateGoogleConsent(consent);
+      loadGTM();
+    } else {
+      showBanner();
+      // Load GTM even without consent — it respects consent mode defaults
+      loadGTM();
+    }
+
+    toggleBtn.addEventListener('click', toggleDetails);
+    acceptAllBtn.addEventListener('click', handleAcceptAll);
+    acceptSelectedBtn.addEventListener('click', handleAcceptSelected);
+    rejectBtn.addEventListener('click', handleReject);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<style>
+  /* ═════ BANNER SHELL ═════ */
+  .cookie-banner {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-banner.visible { opacity: 1; pointer-events: auto; }
+
+  .cookie-banner__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+  }
+
+  .cookie-banner__container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  @media (min-width: 640px) {
+    .cookie-banner { padding: 1.5rem; }
+  }
+
+  /* ═════ CARD ═════ */
+  .cookie-banner__card {
+    background: var(--white, #fff);
+    border-top: 3px solid var(--ink, #1a1a1a);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  }
+
+  @media (min-width: 640px) {
+    .cookie-banner__card {
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-top: 3px solid var(--ink, #1a1a1a);
+    }
+  }
+
+  /* ═════ HEADER ═════ */
+  .cookie-banner__header { padding: 1.5rem 1.5rem 1rem; }
+
+  .cookie-banner__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink, #1a1a1a);
+    line-height: 1.3;
+    margin: 0 0 0.5rem;
+  }
+
+  .cookie-banner__desc {
+    font-size: 0.875rem;
+    color: var(--ink-muted, #555);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ═════ DETAILS ═════ */
+  .cookie-banner__details {
+    padding: 0 1.5rem 1rem;
+    animation: cookieSlideDown 0.25s ease-out;
+  }
+
+  @keyframes cookieSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cookie-banner__categories { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  /* ═════ CATEGORY ROW ═════ */
+  .cookie-cat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--paper-warm, #f8f9fa);
+    border: 1px solid var(--rule-light, #eee);
+    border-radius: 6px;
+  }
+
+  .cookie-cat__info { display: flex; align-items: center; gap: 0.75rem; }
+
+  .cookie-cat__icon {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; border-radius: 6px;
+  }
+
+  .cookie-cat__icon--necessary { background: rgba(16,185,129,0.1); color: #059669; }
+  .cookie-cat__icon--analytics { background: rgba(59,130,246,0.1); color: #2563eb; }
+  .cookie-cat__icon--marketing { background: rgba(245,158,11,0.1); color: #d97706; }
+
+  .cookie-cat__name { font-size: 0.82rem; font-weight: 600; color: var(--ink, #1a1a1a); display: block; line-height: 1.2; }
+  .cookie-cat__hint { font-size: 0.7rem; color: var(--ink-faint, #888); display: block; margin-top: 1px; }
+
+  /* ═════ TOGGLE ═════ */
+  .cookie-toggle { position: relative; cursor: pointer; flex-shrink: 0; width: 38px; height: 22px; }
+  .cookie-toggle--locked { cursor: not-allowed; opacity: 0.7; }
+  .cookie-toggle__input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .cookie-toggle__track { width: 38px; height: 22px; background: #d1d5db; border-radius: 11px; transition: background 0.2s; }
+  .cookie-toggle__track--on, .cookie-toggle__input:checked ~ .cookie-toggle__track { background: #059669; }
+  .cookie-toggle__thumb { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: #fff; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.2s; }
+  .cookie-toggle__thumb--on, .cookie-toggle__input:checked ~ .cookie-toggle__thumb { transform: translateX(16px); }
+
+  /* ═════ POLICY ═════ */
+  .cookie-banner__policy { font-size: 0.7rem; color: var(--ink-faint, #888); margin-top: 0.75rem; }
+  .cookie-banner__policy a { color: var(--ink, #1a1a1a); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ═════ ACTIONS ═════ */
+  .cookie-banner__actions { padding: 0.5rem 1.5rem 1.25rem; }
+
+  .cookie-banner__toggle-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    width: 100%; padding: 0.5rem 0; background: none; border: none; cursor: pointer;
+    font-size: 0.72rem; letter-spacing: 0.03em; color: var(--ink-faint, #888);
+    transition: color 0.2s; margin-bottom: 0.75rem;
+  }
+  .cookie-banner__toggle-btn:hover { color: var(--ink, #1a1a1a); }
+  .cookie-banner__chevron { transition: transform 0.25s ease; }
+
+  .cookie-banner__buttons { display: flex; gap: 0.75rem; }
+  @media (max-width: 480px) { .cookie-banner__buttons { flex-direction: column; } }
+
+  /* ═════ BUTTONS ═════ */
+  .cookie-btn {
+    flex: 1; padding: 0.65rem 1rem; font-family: inherit; font-size: 0.875rem;
+    font-weight: 500; border: none; border-radius: 6px; cursor: pointer;
+    transition: all 0.2s; text-align: center;
+  }
+
+  .cookie-btn--primary { background: var(--ink, #1a1a1a); color: #fff; }
+  .cookie-btn--primary:hover { background: var(--accent, #333); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+  .cookie-btn--secondary { background: var(--paper-warm, #f3f4f6); color: var(--ink-muted, #555); border: 1px solid var(--rule-light, #e5e7eb); }
+  .cookie-btn--secondary:hover { background: var(--paper-dark, #e5e7eb); color: var(--ink, #1a1a1a); }
+</style>

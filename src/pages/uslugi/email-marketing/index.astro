@@ -1,0 +1,515 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('email-marketing')!;
+
+// ── Scope ──
+const scope = [
+  {
+    title: 'Sekwencje powitalne (onboarding)',
+    desc: 'Pierwsze 5–7 emaili po zapisie to moment, w którym wygrywasz lub tracisz subskrybenta. Piszę sekwencje powitalne, które budują zaufanie, dostarczają wartość i prowadzą do pierwszej konwersji. Welcome → wartość → social proof → oferta → follow-up. Każdy email z jednym celem.',
+    tags: ['Welcome email', 'Dostarczenie lead magnetu', 'Budowanie zaufania', 'Pierwsza oferta', 'Follow-up']
+  },
+  {
+    title: 'Sekwencje sprzedażowe (launch / promo)',
+    desc: 'Emaile, które sprzedają: launch produktu, promocja, flash sale, Black Friday, końcówka oferty. Framework: anticipation → objection handling → social proof → urgency → last call. Sekwencje 5–12 emaili z wariantami A/B tematu i CTA.',
+    tags: ['Launch', 'Promocja', 'Flash sale', 'Urgency', 'Last call']
+  },
+  {
+    title: 'Newslettery regularne',
+    desc: 'Cykliczne emaile, które utrzymują relację z bazą: branżowe newsy, porady, case studies, behind the scenes. Format, który buduje top-of-mind awareness — bo kiedy klient będzie potrzebował Twojej usługi, pomyśli o Tobie, nie o konkurencji. Piszę newslettery, które ludzie otwierają.',
+    tags: ['Newslettery tygodniowe', 'Newslettery miesięczne', 'Content curation', 'Behind the scenes', 'Top-of-mind']
+  },
+  {
+    title: 'Sekwencje nurturing (lead nurturing)',
+    desc: 'Emaile dla leadów, którzy jeszcze nie są gotowi kupić. Edukacja, case studies, porównania, FAQ — content, który przesuwa leada z TOFU do BOFU w jego własnym tempie. Automatyczne, wyzwalane zachowaniem (otwarcie, klik, wizyta na stronie).',
+    tags: ['Lead nurturing', 'Drip campaigns', 'Behavioral triggers', 'TOFU → BOFU', 'Automatyzacja']
+  },
+  {
+    title: 'Reaktywacja i win-back',
+    desc: 'Subskrybenci, którzy przestali otwierać? Klienci, którzy nie kupili od 6 miesięcy? Sekwencje reaktywacyjne: przypomnij, daj powód do powrotu, zaoferuj coś wyjątkowego — lub wyczyść bazę z nieaktywnych. Czystsza baza = lepszy deliverability = wyższe wyniki.',
+    tags: ['Win-back', 'Reaktywacja', 'Re-engagement', 'Czyszczenie bazy', 'Deliverability']
+  },
+  {
+    title: 'Emaile transakcyjne i posprzedażowe',
+    desc: 'Potwierdzenia zamówień, emaile wysyłkowe, prośby o opinię, cross-sell, upsell, anniversary — emaile, które większość firm ignoruje, a które mają najwyższe open rate (60–80%). Piszę mikrocopy, który buduje lojalność i generuje powtarzalne zakupy.',
+    tags: ['Potwierdzenie zamówienia', 'Prośba o opinię', 'Cross-sell', 'Upsell', 'Anniversary']
+  }
+];
+
+// ── Why email works ──
+const whyEmail = [
+  {
+    title: 'Najwyższy ROI w digital marketingu',
+    desc: 'Email marketing generuje średnio 36–42$ przychodu na każdego wydanego dolara (DMA/Litmus). Żaden inny kanał — ani social media, ani SEO, ani paid ads — nie ma takiego zwrotu. Powód: email trafia bezpośrednio do skrzynki, bez algorytmu pośrednika, i dociera do ludzi, którzy sami poprosili o kontakt.'
+  },
+  {
+    title: 'Twoja baza, Twoje zasady',
+    desc: 'Followersi na Instagramie należą do Mety. Ruch z Google zależy od algorytmu. Lista emailowa należy do Ciebie. Nikt Ci jej nie zabierze, nikt nie zmieni zasięgu, nikt nie zablokuje konta. Email to jedyny kanał marketingowy, nad którym masz pełną kontrolę — i dlatego jest najcenniejszy.'
+  },
+  {
+    title: 'Personalizacja, której social media nie dają',
+    desc: 'Email pozwala na segmentację i personalizację niedostępną w innych kanałach: po zachowaniu (co kliknął), po zakupie (co kupił), po etapie lejka (nowy vs stały klient). Dzięki temu każdy subskrybent dostaje treść dopasowaną do siebie — nie broadcast dla wszystkich.'
+  },
+  {
+    title: 'Automatyzacja = skalowalność',
+    desc: 'Sekwencja powitalna napisana raz pracuje 24/7 na każdego nowego subskrybenta. Sekwencja win-back wysyła się sama po 90 dniach nieaktywności. Email marketing skaluje się bez proporcjonalnego wzrostu pracy — bo automatyzacja robi 80% roboty.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Audyt i strategia emailowa', desc: 'Analiza obecnego email marketingu: lista, segmenty, open rate, CTR, konwersje, deliverability. Definiujemy cele, buyer personas, etapy lejka, kluczowe sekwencje. Mapuję customer journey i identyfikuję luki w komunikacji emailowej.' },
+  { step: 'Mapa sekwencji i flowchart', desc: 'Projektuję architekturę emaili: jakie sekwencje, w jakiej kolejności, z jakimi triggerami. Flowchart z decyzjami (otwarł / nie otwarł, kliknął / nie kliknął). Wizualna mapa, którą akceptujesz przed pisaniem.' },
+  { step: 'Copywriting emailów', desc: 'Piszę każdy email: subject line (3 warianty do A/B testu), preheader, body copy, CTA. Ton dopasowany do etapu lejka: lekki w welcome, ekspercki w nurturing, urgentny w launch. Każdy email z jednym celem i jednym CTA.' },
+  { step: 'Segmentacja i personalizacja', desc: 'Definiuję segmenty (nowi, aktywni, nieaktywni, kupujący, VIP), tagi, merge fields, dynamic content. Piszę warianty copy per segment — bo email do nowego subskrybenta powinien brzmieć inaczej niż do stałego klienta.' },
+  { step: 'Setup w narzędziu', desc: 'Opcjonalnie: konfiguruję sekwencje w Twoim ESP (Mailchimp, ConvertKit, ActiveCampaign, MailerLite, Brevo, Klaviyo). Templaty, automacje, triggery, A/B testy. Testuję deliverability, rendering w klientach pocztowych, CTA tracking.' },
+  { step: 'Launch i optymalizacja', desc: 'Uruchamiamy sekwencje. Po 2–4 tygodniach: analiza open rate, CTR, konwersji, unsubscribes. Optymalizuję: subject lines, send time, segmentację, CTA. Email marketing to system iteracyjny — mierz, ucz się, poprawiaj.' }
+];
+
+// ── Metrics ──
+const metrics = [
+  { label: 'Open Rate', desc: 'Procent odbiorców, którzy otwarli email. Benchmark B2B: 20–25%. Wpływa: subject line, sender name, send time, deliverability.' },
+  { label: 'Click-Through Rate (CTR)', desc: 'Procent odbiorców, którzy kliknęli link. Benchmark: 2–5%. Wpływa: copy, CTA placement, design, relevance.' },
+  { label: 'Conversion Rate', desc: 'Procent odbiorców, którzy wykonali docelową akcję (zakup, zapis, pobranie). KPI numer jeden — bo to on przekłada się na przychód.' },
+  { label: 'Deliverability', desc: 'Procent emaili, które trafiły do inbox (nie spam). Cel: 95%+. Wpływa: reputacja domeny, czystość bazy, techniczny setup (SPF, DKIM, DMARC).' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Sekwencja powitalna (5–7 emaili)', price: '1 500–4 000 zł' },
+  { item: 'Sekwencja sprzedażowa / launch (5–12 emaili)', price: '2 000–6 000 zł' },
+  { item: 'Newsletter (1 email, copywriting)', price: '300–800 zł' },
+  { item: 'Pakiet 4 newslettery / miesiąc', price: 'od 1 000 zł/mies.' },
+  { item: 'Sekwencja nurturing (5–10 emaili)', price: '1 500–4 000 zł' },
+  { item: 'Sekwencja reaktywacyjna / win-back (3–5 emaili)', price: '800–2 500 zł' },
+  { item: 'Audyt email marketingu + strategia', price: '2 000–5 000 zł' },
+  { item: 'Setup sekwencji w ESP (konfiguracja + templaty)', price: '1 000–3 000 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Co obejmuje copywriting emailowy?',
+    a: 'Każdy email: subject line (3 warianty do A/B testu), preheader (tekst podglądu), body copy, CTA z mikrocopy. Plus: strategia sekwencji (flowchart z triggerami), segmentacja, rekomendacje send time. Opcjonalnie: setup w ESP, template design, konfiguracja automatyzacji.'
+  },
+  {
+    q: 'Ile kosztuje sekwencja emailowa?',
+    a: 'Sekwencja 5–7 emaili: 1500–4000 zł netto. Sekwencja sprzedażowa 5–12 emaili: 2000–6000 zł. Pojedynczy newsletter: 300–800 zł. Cena zależy od złożoności (prosty nurturing vs wielowariantowy launch), segmentacji i zakresu (sam copy vs copy + setup w ESP).'
+  },
+  {
+    q: 'Czy konfigurujesz też emaile w narzędziu (ESP)?',
+    a: 'Tak — pracuję z Mailchimp, ConvertKit, ActiveCampaign, MailerLite, Brevo (ex-Sendinblue), Klaviyo. Konfiguruję: automacje, triggery, segmenty, tagi, A/B testy, templaty. Testuję deliverability i rendering w różnych klientach pocztowych (Gmail, Outlook, Apple Mail).'
+  },
+  {
+    q: 'Jak mierzysz skuteczność email marketingu?',
+    a: 'Główne KPI: open rate (cel: 25%+), CTR (cel: 3%+), conversion rate, revenue per email, unsubscribe rate (<0.5%). Przy setup w ESP konfiguruję tracking UTM, śledzenie konwersji i dashboardy. Po 2–4 tygodniach: raport z rekomendacjami optymalizacji.'
+  },
+  {
+    q: 'Czy email marketing nadal działa w 2025?',
+    a: 'Tak — i działa lepiej niż kiedykolwiek. ROI emaila to 36–42$ na 1$ (najwyższy w digital marketingu). Powody: bezpośredni kontakt (bez algorytmu), personalizacja (segmentacja po zachowaniu), automatyzacja (raz napisana sekwencja pracuje latami), owned media (Twoja lista, Twoje zasady).'
+  },
+  {
+    q: 'Ile emaili powinna mieć sekwencja powitalna?',
+    a: '5–7 emaili rozłożonych na 10–14 dni. Email 1: podziękowanie + lead magnet. Email 2–3: wartość (porady, case study). Email 4: social proof. Email 5–6: miękka oferta. Email 7: follow-up / segmentacja. Dokładna struktura zależy od produktu/usługi i lejka.'
+  },
+  {
+    q: 'Piszesz też subject lines i preheadery?',
+    a: 'Tak — subject line to 80% sukcesu emaila (decyduje o otwarciu). Każdy email dostarczam z 3 wariantami subject line do A/B testu + preheader (tekst podglądu widoczny w skrzynce). Testuję: długość, emoji vs bez, pytanie vs stwierdzenie, ciekawość vs korzyść.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/email-marketing/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/email-marketing/",
+      "name": "Email marketing — sekwencje, newslettery, copywriting emailowy | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/email-marketing/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/email-marketing/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Email marketing", "item": "https://www.icopywriter.pl/uslugi/email-marketing/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Email marketing",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Email marketing: sekwencje powitalne, sprzedażowe, nurturing, newslettery, reaktywacja. Copywriting + setup w ESP.",
+      "serviceType": "Email Marketing",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="em-intro" id="zakres" aria-labelledby="em-intro-title">
+    <div class="container">
+      <div class="em-intro__inner reveal">
+        <div class="em-intro__eyebrow">Email marketing i copywriting emailowy</div>
+        <h2 id="em-intro-title" class="em-intro__title">
+          <strong>Email marketing</strong> daje najwyższy ROI<br>
+          w&nbsp;digital marketingu. <em>Jeśli robisz to dobrze.</em>
+        </h2>
+        <div class="em-intro__columns">
+          <div class="em-intro__col">
+            <p>
+              36–42 dolarów przychodu na każdego wydanego dolara. Żaden inny kanał
+              marketingowy nie ma takiego zwrotu. <strong>Email marketing</strong> dociera
+              bezpośrednio do skrzynki — bez algorytmu, bez płacenia za zasięg, bez
+              zależności od platformy, której zasady mogą się zmienić jutro.
+              Lista emailowa to jedyny asset marketingowy, który naprawdę do Ciebie należy.
+            </p>
+            <p>
+              Ale „wysyłanie maili" to nie <strong>email marketing</strong>. Masowy blast
+              co tydzień z tym samym CTA „kup teraz" to najszybsza droga do folderu spam.
+              Skuteczny email marketing to system: segmentacja, personalizacja, automatyzacja,
+              A/B testy, analiza danych. I przede wszystkim — <strong>copywriting emailowy</strong>,
+              który ludzie chcą czytać.
+            </p>
+          </div>
+          <div class="em-intro__col">
+            <p>
+              Piszę <strong>emaile i sekwencje</strong>, które otwierają, czytają i klikają.
+              Subject line z&nbsp;3&nbsp;wariantami do A/B testu. Body copy z jednym celem
+              i jednym CTA per email. Ton dopasowany do etapu lejka: lekki w&nbsp;welcome,
+              merytoryczny w&nbsp;nurturingu, urgentny w&nbsp;launchu. Każdy element — od
+              preheadera po mikrocopy przycisku — ma swoje uzasadnienie.
+            </p>
+            <p>
+              Mogę dostarczyć sam copy — subject lines, body, CTA, flowchart sekwencji.
+              Albo <strong>pełny pakiet</strong>: copywriting + konfiguracja w&nbsp;Twoim
+              ESP (Mailchimp, ConvertKit, ActiveCampaign, Klaviyo), template design,
+              segmentacja, automatyzacje, A/B testy, monitoring deliverability.
+              Od&nbsp;strategii po działający system.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="em-scope" aria-labelledby="em-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zakres"
+          title="Jakie <em>emaile i sekwencje</em> tworzę?"
+          subtitle="Od powitania nowego subskrybenta po&nbsp;reaktywację nieaktywnych. Każda sekwencja z&nbsp;flowchartem, copy i&nbsp;opcjonalnie setupem w&nbsp;ESP."
+        />
+      </div>
+      <div class="em-scope__list">
+        {scope.map((item, i) => (
+          <div class="em-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="em-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="em-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="em-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="em-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       WHY EMAIL (dark)
+       ════════════════════════════════════════ -->
+  <section class="em-why" aria-labelledby="em-why-title">
+    <div class="em-why__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego email"
+          title="Dlaczego <em>email marketing</em> wygrywa z&nbsp;innymi kanałami?"
+          subtitle="Cztery powody, dla których email to nie relikt — to najpotężniejszy kanał konwersji w&nbsp;digital marketingu."
+          inverted
+        />
+      </div>
+      <div class="em-why__grid">
+        {whyEmail.map((item, i) => (
+          <div class="em-why__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="em-why__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="em-proc" aria-labelledby="em-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>sekwencja emailowa</em>?"
+          subtitle="Sześć etapów od audytu po optymalizację. Strategia → architektura → copy → setup → launch → iteracja."
+        />
+      </div>
+      <div class="em-proc__timeline">
+        {process.map((item, i) => (
+          <div class="em-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="em-proc__step-marker">
+              <span class="em-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="em-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="em-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       METRICS
+       ════════════════════════════════════════ -->
+  <section class="em-met" aria-labelledby="em-met-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="KPI"
+          title="Jak mierzę skuteczność <em>email marketingu</em>?"
+          subtitle="Cztery metryki, które śledzę i&nbsp;optymalizuję w&nbsp;każdym projekcie."
+        />
+      </div>
+      <div class="em-met__grid">
+        {metrics.map((item, i) => (
+          <div class="em-met__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="em-met__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="em-price" aria-labelledby="em-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>email marketing</em>?"
+          subtitle="Od pojedynczego newslettera po pełny system sekwencji z&nbsp;setupem w&nbsp;ESP. Wycena w&nbsp;24h."
+        />
+      </div>
+      <div class="em-price__table reveal">
+        <div class="em-price__header">
+          <span>Usługa</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="em-price__row">
+            <span class="em-price__item">{row.item}</span>
+            <span class="em-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="em-price__footer">
+          <p>Ceny netto. Każdy email w cenie: 3 warianty subject line, preheader, body copy, CTA z mikrocopy. Setup w ESP wyceniany osobno lub w pakiecie. Stała współpraca: rabat 15–20%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="em-faq" aria-labelledby="em-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>email marketing</em>"
+          subtitle="Najczęstsze pytania o&nbsp;sekwencje, newslettery, narzędzia i&nbsp;metryki."
+        />
+      </div>
+      <div class="em-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="em-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="em-faq__question">
+              <span>{faq.q}</span>
+              <svg class="em-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="em-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="em-seo" aria-label="Email marketing — informacje">
+    <div class="container-narrow">
+      <article class="em-seo__article">
+        <h2>Email marketing — dlaczego to wciąż najpotężniejszy kanał konwersji</h2>
+        <p>
+          <strong>Email marketing</strong> to kanał komunikacji, w&nbsp;którym firma wysyła
+          wiadomości emailowe do osób, które wyraziły zgodę na kontakt. W&nbsp;odróżnieniu
+          od social media czy reklam, <strong>email marketing</strong> dociera bezpośrednio
+          do skrzynki odbiorczej — bez algorytmu, bez płacenia za zasięg, bez zależności od
+          platformy. To owned media w&nbsp;najczystszej formie: Twoja baza, Twoje zasady.
+        </p>
+
+        <h3>Copywriting emailowy — czym różni się od zwykłego copywritingu?</h3>
+        <p>
+          <strong>Copywriting emailowy</strong> to specjalizacja z&nbsp;własnymi regułami.
+          Subject line musi przekonać do otwarcia w&nbsp;2 sekundy (rywaliz z&nbsp;50 innymi
+          emailami w&nbsp;skrzynce). Preheader musi wzmocnić obietnicę. Body copy musi być
+          krótsze i&nbsp;bardziej skanowalne niż na stronie www. CTA musi być jedno i&nbsp;jasne.
+          Ton musi być bardziej osobisty — bo email to korespondencja, nie reklama.
+        </p>
+
+        <h3>Sekwencje emailowe — automatyzacja, która sprzedaje 24/7</h3>
+        <p>
+          <strong>Sekwencje emailowe</strong> (email automation) to seria emaili wysyłanych
+          automatycznie na podstawie triggera: zapis na newsletter, zakup, porzucony koszyk,
+          30&nbsp;dni nieaktywności. Raz napisana i&nbsp;skonfigurowana <strong>sekwencja
+          emailowa</strong> pracuje bez przerwy — onboarduje nowych subskrybentów, nurturuje
+          leady, reaktywuje nieaktywnych, sprzedaje produkty. To skalowalna sprzedaż bez
+          proporcjonalnego wzrostu pracy.
+        </p>
+
+        <h3>Ile kosztuje email marketing i&nbsp;czy się opłaca?</h3>
+        <p>
+          Pojedynczy newsletter: 300–800 zł. Sekwencja 5–7 emaili: 1500–4000 zł. Audyt
+          + strategia: 2000–5000 zł. Przy ROI 36–42× (branżowy benchmark) nawet niewielka
+          inwestycja w&nbsp;profesjonalny <strong>email marketing</strong> zwraca się
+          wielokrotnie. Kluczowe: nie chodzi o&nbsp;koszt wysyłki, lecz o&nbsp;jakość copy,
+          segmentację i&nbsp;automatyzację — bo to one decydują, czy email konwertuje.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .em-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .em-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .em-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 700px; }
+  .em-intro__title strong { font-weight: var(--fw-bold); }
+  .em-intro__title em { font-style: italic; color: var(--accent); }
+  .em-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .em-intro__columns { grid-template-columns: 1fr; } }
+  .em-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .em-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── SCOPE ── */
+  .em-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .em-scope__list { display: flex; flex-direction: column; }
+  .em-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .em-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .em-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .em-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .em-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .em-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .em-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── WHY (dark) ── */
+  .em-why { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .em-why__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .em-why__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .em-why__grid { grid-template-columns: 1fr; } }
+  .em-why__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .em-why__card:hover { border-color: rgba(255,255,255,0.12); }
+  .em-why__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .em-why__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .em-why__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .em-proc { padding: var(--space-24) 0; }
+  .em-proc__timeline { display: flex; flex-direction: column; }
+  .em-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .em-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .em-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .em-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .em-proc__step:last-child .em-proc__step-line { display: none; }
+  .em-proc__step-content { padding-bottom: var(--space-6); }
+  .em-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .em-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── METRICS ── */
+  .em-met { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .em-met__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .em-met__grid { grid-template-columns: 1fr; } }
+  .em-met__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .em-met__card:hover { border-color: var(--accent); }
+  .em-met__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .em-met__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .em-price { padding: var(--space-24) 0; }
+  .em-price__table { max-width: 660px; }
+  .em-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .em-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .em-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .em-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .em-price__footer { padding-top: var(--space-4); }
+  .em-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .em-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .em-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .em-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .em-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .em-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .em-faq__question::-webkit-details-marker { display: none; }
+  .em-faq__question::marker { display: none; content: ''; }
+  .em-faq__question:hover { color: var(--accent); }
+  .em-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .em-faq__item[open] .em-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .em-faq__answer { padding: 0 0 var(--space-6); }
+  .em-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .em-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .em-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .em-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .em-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .em-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

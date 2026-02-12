@@ -1,0 +1,524 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('opisy-produktow')!;
+
+// ── Scope ──
+const scope = [
+  {
+    title: 'Unikalne opisy produktów',
+    desc: 'Oryginalne, niepowielone opisy pisane od zera — nie parafrazy z karty producenta. Każdy opis z językiem korzyści, specyfikacją techniczną i naturalnym doborem fraz SEO. Pisane z myślą o kliencie, który porównuje produkty i szuka powodu, żeby kupić właśnie u Ciebie.',
+    tags: ['Język korzyści', 'Specyfikacja techniczna', 'USP produktu', 'SEO on-page', 'Zero duplikatów']
+  },
+  {
+    title: 'Opisy kategorii i kolekcji',
+    desc: 'Teksty na strony kategorii, które pozycjonują na frazy ogólne i pomagają Google zrozumieć strukturę sklepu. Nie „Lorem ipsum na dole strony" — treści, które edukują, filtrują intencję i prowadzą do produktów. Kluczowy element SEO e-commerce.',
+    tags: ['Strony kategorii', 'Kolekcje', 'Filtrowanie intencji', 'Linkowanie wewnętrzne', 'SEO kategorie']
+  },
+  {
+    title: 'Pakiety opisów (10–500+)',
+    desc: 'Skalowalne projekty opisów z zachowaniem spójności. Tworzę style guide, wzorcowe opisy, strukturę powtarzalną — i piszę pakiet, który brzmi jak jeden głos, nie jak 500 różnych copywriterów. Workflow: AI draft + redakcja ludzka = jakość × skala.',
+    tags: ['Style guide', 'Wzorcowe opisy', 'Bulk writing', 'AI + redakcja', 'Spójność tonalna']
+  },
+  {
+    title: 'Opisy do marketplace',
+    desc: 'Allegro, Amazon, Empik Marketplace — każda platforma ma swoją specyfikę: limity znaków, pola, wytyczne, algorytm wyszukiwania. Piszę opisy zoptymalizowane pod konkretny marketplace: tytuły, bullet pointy, opisy rozszerzone, A+ Content.',
+    tags: ['Allegro', 'Amazon', 'Empik', 'Tytuły produktów', 'A+ Content']
+  },
+  {
+    title: 'Rewrite i optymalizacja istniejących opisów',
+    desc: 'Masz opisy, ale są skopiowane od producenta, cienkie lub niewidoczne w Google? Przepisujemy: unifikacja, rozbudowa, SEO, język korzyści. Tańsze niż pisanie od zera — a często wystarczy, żeby odblokować ruch organiczny na kartach produktów.',
+    tags: ['Content refresh', 'Deduplikacja', 'Rozbudowa thin content', 'SEO optymalizacja', 'Unifikacja']
+  }
+];
+
+// ── What makes good product copy ──
+const principles = [
+  {
+    title: 'Korzyść, nie cecha',
+    desc: '„Bateria 5000 mAh" to cecha. „Wytrzymuje 2 dni bez ładowania nawet przy intensywnym użytkowaniu" to korzyść. Każdy opis, który piszę, tłumaczy specyfikację na język codziennego doświadczenia klienta — bo nikt nie kupuje miliamperogodzin, kupuje spokój, że telefon nie padnie w połowie dnia.'
+  },
+  {
+    title: 'Struktura, którą skanuje się w 3 sekundy',
+    desc: 'Klient w sklepie internetowym nie czyta — skanuje. Headline z USP, 3–5 bullet pointów z korzyściami, krótki akapit opowieści, specyfikacja w tabeli. Struktura, która daje odpowiedź w 3 sekundy i zachęca do pogłębienia. Ściana tekstu = zamknięta karta.'
+  },
+  {
+    title: 'SEO wbudowane, nie doczepione',
+    desc: 'Frazy kluczowe wplatam naturalnie w nagłówki, bullet pointy i pierwsze zdania — nie dodaję ich „na koniec" w niewidocznym akapicie na dole. Google indeksuje karty produktów jako osobne strony — każda może rankować na swoją frazę long-tail. To ogromny, często niewykorzystany potencjał SEO.'
+  },
+  {
+    title: 'Spójność w skali',
+    desc: 'Sklep z 500 produktami potrzebuje opisów, które brzmią jak jeden głos — nie jak praca 15 różnych freelancerów. Tworzę style guide, definiuję strukturę, ton, słownik marki. Potem piszę (lub redaguję drafty AI) z zachowaniem 100% spójności. Efekt: profesjonalny, wiarygodny katalog.'
+  },
+  {
+    title: 'Obiekcja → kontrargument',
+    desc: 'Klient, który czyta opis, ma pytania: czy to pasuje do mojego sprzętu? Jaki rozmiar wybrać? Co jeśli nie będę zadowolony? Dobry opis produktu odpowiada na te pytania zanim klient zdąży je zadać — i zanim pójdzie szukać odpowiedzi u konkurencji.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Brief i audyt katalogu', desc: 'Analiza obecnych opisów, identyfikacja problemów (duplikaty, thin content, brak SEO). Definiujemy cel, ton, grupę docelową, priorytety produktowe. Dla nowych sklepów: analiza konkurencji i benchmarking opisów.' },
+  { step: 'Style guide i wzorzec', desc: 'Tworzę dokument referencyjny: struktura opisu, ton komunikacji, słownik marki, lista zabronionych sformułowań, wytyczne SEO. Plus 3–5 wzorcowych opisów do akceptacji — zanim ruszy masowa produkcja.' },
+  { step: 'Research fraz per kategoria', desc: 'Research fraz kluczowych na poziomie kategorii i produktu. Mapuję frazy na karty produktów, identyfikuję long-tail z potencjałem. Priorytetyzuję: bestsellery i produkty z marginem najpierw.' },
+  { step: 'Copywriting opisów', desc: 'Piszę opisy zgodnie ze style guide: nagłówek z USP, bullet pointy korzyści, akapit narracyjny, specyfikacja, FAQ produktowe. Dla dużych pakietów: AI draft + redakcja ludzka — jakość bez kompromisów w skali.' },
+  { step: 'Redakcja i QA', desc: 'Każdy opis przechodzi kontrolę jakości: zgodność ze style guide, unikalność (Copyscape), poprawność językowa, kompletność informacji, optymalizacja SEO. Batch delivery z raportowaniem.' },
+  { step: 'Import i wdrożenie', desc: 'Dostarczam opisy w formacie gotowym do importu: CSV, XML, bezpośredni upload do CMS-a (WooCommerce, Shopify, PrestaShop, BaseLinker). Mogę też wgrać bezpośrednio do Twojego systemu.' }
+];
+
+// ── Industries ──
+const industries = [
+  { label: 'Elektronika i IT', desc: 'Smartfony, laptopy, peryferia, akcesoria. Tłumaczenie specyfikacji technicznej na język korzyści. Porównania, kompatybilność, scenariusze użycia.' },
+  { label: 'Moda i odzież', desc: 'Ubrania, obuwie, akcesoria. Opisy, które budują pożądanie: kroje, materiały, stylizacje, tabele rozmiarów. Storytelling marki + praktyczne detale.' },
+  { label: 'Dom i ogród', desc: 'Meble, dekoracje, narzędzia, oświetlenie. Opisy, które pomagają wyobrazić sobie produkt w przestrzeni — wymiary, materiały, zastosowania, inspiracje.' },
+  { label: 'Zdrowie i uroda', desc: 'Kosmetyki, suplementy, sprzęt medyczny. Opisy zgodne z regulacjami (brak twierdzeń leczniczych), z naciskiem na składniki, działanie i efekty.' },
+  { label: 'Żywność i napoje', desc: 'Opisy, które oddziałują na zmysły: smak, aromat, tekstura, pochodzenie. Storytelling producenta, certyfikaty, zastosowania kulinarne.' },
+  { label: 'B2B i przemysł', desc: 'Komponenty, maszyny, usługi profesjonalne. Język techniczny + język decydenta zakupowego. Specyfikacja, certyfikaty, kompatybilność, warunki.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Opis produktu (krótki, 300–600 zzs)', price: '30–60 zł' },
+  { item: 'Opis produktu (rozszerzony, 800–1500 zzs)', price: '60–150 zł' },
+  { item: 'Opis kategorii / kolekcji (1000–2000 zzs)', price: '200–600 zł' },
+  { item: 'Pakiet 50 opisów (krótkich)', price: 'od 1 200 zł' },
+  { item: 'Pakiet 100 opisów (krótkich)', price: 'od 2 000 zł' },
+  { item: 'Pakiet 500+ opisów (AI + redakcja)', price: 'wycena indywidualna' },
+  { item: 'Style guide + 5 wzorcowych opisów', price: '800–2 000 zł' },
+  { item: 'Rewrite / optymalizacja istniejącego opisu', price: '20–60 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Ile kosztuje napisanie opisu produktu?',
+    a: 'Opis krótki (300–600 znaków ze spacjami): 30–60 zł netto. Opis rozszerzony (800–1500 zzs): 60–150 zł. Przy pakietach 50+ cena jednostkowa spada o 15–30%. Dokładna wycena zależy od branży, złożoności produktu i wymaganej struktury. Wycenę przygotowuję w 24h — bezpłatnie.'
+  },
+  {
+    q: 'Czy opisy będą unikalne?',
+    a: 'Tak — każdy opis pisuję od zera, nie parafrazuję karty producenta. Sprawdzam unikalność w Copyscape. Zero duplikatów, zero thin content. Nawet przy pakietach 500+ — workflow AI + redakcja ludzka gwarantuje unikalność każdego tekstu.'
+  },
+  {
+    q: 'W jakim formacie dostarczasz opisy?',
+    a: 'Standardowo: arkusz Google / Excel z kolumnami (SKU, nazwa, nagłówek, bullet pointy, opis, meta title, meta description). Gotowy do importu CSV/XML do WooCommerce, Shopify, PrestaShop, BaseLinker. Mogę też wgrać bezpośrednio do CMS-a.'
+  },
+  {
+    q: 'Czy piszesz opisy pod konkretne platformy (Allegro, Amazon)?',
+    a: 'Tak — każda platforma ma swoją specyfikę. Allegro: tytuł do 50 znaków, parametry, opis HTML. Amazon: title, bullet points, A+ Content. Empik, Ceneo, Google Shopping — dostarczam opisy zoptymalizowane pod wymagania konkretnego kanału sprzedaży.'
+  },
+  {
+    q: 'Jak radzisz sobie z dużymi pakietami (100–500+ opisów)?',
+    a: 'Workflow: style guide → wzorcowe opisy → AI draft (Claude/GPT z custom promptem) → redakcja ludzka → QA. To daje jakość copywritera × skalę automatyzacji. Każdy opis przechodzi ludzką redakcję — AI generuje szkic, ja doszlifowuję. Dzięki temu 500 opisów to tygodnie, nie miesiące.'
+  },
+  {
+    q: 'Czy opisy produktów pomagają w SEO?',
+    a: 'Zdecydowanie. Każda karta produktu to osobna strona, która może rankować na frazę long-tail. Unikalne opisy z naturalnym doborem fraz, zoptymalizowanymi tytułami i meta description budują widoczność na setki zapytań. Sklepy z unikalnymi opisami rankują wyżej niż te z kopiowanymi kartami producenta.'
+  },
+  {
+    q: 'Mam 2000 produktów — czy da się to zrobić?',
+    a: 'Tak. Przy bardzo dużych katalogach stosuję priorytetyzację: najpierw bestsellery i produkty z najwyższą marżą, potem reszta katalogu. Workflow AI + redakcja pozwala skalować bez utraty jakości. Harmonogram i budżet ustalamy indywidualnie.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/opisy-produktow/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/opisy-produktow/",
+      "name": "Opisy produktów — copywriting e-commerce, który sprzedaje | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/opisy-produktow/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/opisy-produktow/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Opisy produktów", "item": "https://www.icopywriter.pl/uslugi/opisy-produktow/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Opisy produktów",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Opisy produktów dla e-commerce: unikalne, SEO-friendly, sprzedażowe. Od 10 do 500+ opisów z zachowaniem spójności.",
+      "serviceType": "Product Description Writing",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="prod-intro" id="zakres" aria-labelledby="prod-intro-title">
+    <div class="container">
+      <div class="prod-intro__inner reveal">
+        <div class="prod-intro__eyebrow">Opisy produktów dla e-commerce</div>
+        <h2 id="prod-intro-title" class="prod-intro__title">
+          Twoje <strong>opisy produktów</strong> decydują,<br>
+          czy klient kupi u Ciebie — <em>czy&nbsp;u&nbsp;konkurencji</em>
+        </h2>
+        <div class="prod-intro__columns">
+          <div class="prod-intro__col">
+            <p>
+              W&nbsp;sklepie stacjonarnym klient dotyka, przymierza, pyta sprzedawcę.
+              W&nbsp;sklepie internetowym ma tylko zdjęcie i&nbsp;tekst. Jeśli <strong>opis
+              produktu</strong> to skopiowana karta producenta albo trzy zdania z&nbsp;suchą
+              specyfikacją — klient idzie do sklepu, który lepiej odpowiada na pytanie:
+              „dlaczego ten produkt jest dla mnie?".
+            </p>
+            <p>
+              Piszę <strong>opisy produktów</strong>, które tłumaczą cechy na korzyści,
+              odpowiadają na obiekcje zanim klient zdąży je sformułować i&nbsp;dają powód,
+              żeby kliknąć „Dodaj do koszyka" — a&nbsp;nie „wróć do wyników". Każdy opis
+              to mini-strona sprzedażowa: nagłówek z&nbsp;USP, bullet pointy z&nbsp;korzyściami,
+              krótka narracja, specyfikacja, FAQ produktowe.
+            </p>
+          </div>
+          <div class="prod-intro__col">
+            <p>
+              Pracuję z&nbsp;pojedynczymi opisami i&nbsp;z pakietami <strong>500+&nbsp;produktów</strong>.
+              Dla dużych katalogów stosuję workflow, który łączy skalę AI z&nbsp;jakością ludzkiej
+              redakcji: custom prompt → AI draft → redakcja merytoryczna i&nbsp;stylistyczna → QA.
+              Efekt: setki unikalnych opisów w&nbsp;tygodniach, nie miesiącach — ze spójnym tonem,
+              bez duplikatów, gotowe do importu.
+            </p>
+            <p>
+              Każdy <strong>opis produktu</strong> dostarczam z&nbsp;optymalizacją SEO: frazy
+              kluczowe w&nbsp;nagłówku i&nbsp;bullet pointach, meta title, meta description.
+              Bo każda karta produktu to osobna strona w&nbsp;Google — i&nbsp;każda może
+              generować ruch organiczny na frazach long-tail, których Twoja konkurencja
+              nie targetuje, bo ma identyczne opisy producenta co Ty.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="prod-scope" aria-labelledby="prod-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zakres"
+          title="Jakie <em>opisy produktów</em> tworzę?"
+          subtitle="Od pojedynczego opisu po pełną obsługę katalogu. Unikalne, SEO-friendly, gotowe do importu."
+        />
+      </div>
+      <div class="prod-scope__list">
+        {scope.map((item, i) => (
+          <div class="prod-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="prod-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="prod-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="prod-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="prod-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRINCIPLES (dark)
+       ════════════════════════════════════════ -->
+  <section class="prod-princ" aria-labelledby="prod-princ-title">
+    <div class="prod-princ__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Zasady"
+          title="Co sprawia, że <em>opis produktu</em> sprzedaje?"
+          subtitle="Pięć zasad, które stoją za każdym opisem. Nie kreatywne uniesienia — sprawdzone mechanizmy e-commerce."
+          inverted
+        />
+      </div>
+      <div class="prod-princ__grid">
+        {principles.map((item, i) => (
+          <div class="prod-princ__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="prod-princ__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="prod-proc" aria-labelledby="prod-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstają <em>opisy produktów</em>?"
+          subtitle="Sześć etapów od audytu katalogu po import do CMS-a. Skalowalne, powtarzalne, kontrolowane."
+        />
+      </div>
+      <div class="prod-proc__timeline">
+        {process.map((item, i) => (
+          <div class="prod-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="prod-proc__step-marker">
+              <span class="prod-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="prod-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="prod-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       INDUSTRIES
+       ════════════════════════════════════════ -->
+  <section class="prod-ind" aria-labelledby="prod-ind-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Branże"
+          title="Dla jakich branż piszę <em>opisy produktów</em>?"
+          subtitle="Doświadczenie w&nbsp;e-commerce obejmuje kilkanaście kategorii — od&nbsp;elektroniki po żywność."
+        />
+      </div>
+      <div class="prod-ind__grid">
+        {industries.map((item, i) => (
+          <div class="prod-ind__card reveal" style={`--delay: ${i * 0.06}s`}>
+            <span class="prod-ind__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="prod-price" aria-labelledby="prod-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztują <em>opisy produktów</em>?"
+          subtitle="Widełki cenowe od&nbsp;pojedynczego opisu po&nbsp;pakiety 500+. Wycena w&nbsp;24h — bezpłatnie."
+        />
+      </div>
+      <div class="prod-price__table reveal">
+        <div class="prod-price__header">
+          <span>Usługa</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="prod-price__row">
+            <span class="prod-price__item">{row.item}</span>
+            <span class="prod-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="prod-price__footer">
+          <p>Ceny netto. Pakiety 50+: rabat 15–30% od ceny jednostkowej. W&nbsp;cenie: research fraz, optymalizacja SEO (title, meta), kontrola unikalności. Rewrite taniej niż pisanie od zera.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="prod-faq" aria-labelledby="prod-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>opisy produktów</em>"
+          subtitle="Najczęstsze pytania o&nbsp;ceny, formaty, skalowanie i&nbsp;SEO opisów produktowych."
+        />
+      </div>
+      <div class="prod-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="prod-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="prod-faq__question">
+              <span>{faq.q}</span>
+              <svg class="prod-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="prod-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="prod-seo" aria-label="Opisy produktów — informacje">
+    <div class="container-narrow">
+      <article class="prod-seo__article">
+        <h2>Opisy produktów — dlaczego unikalne treści sprzedają więcej</h2>
+        <p>
+          <strong>Opisy produktów</strong> to jeden z&nbsp;najczęściej niedocenianych elementów
+          sklepu internetowego. Właściciele e-commerce inwestują w&nbsp;reklamy, logistykę
+          i&nbsp;obsługę klienta — a na karty produktów wklejają skopiowane opisy producenta.
+          Efekt? Setki sklepów z&nbsp;identyczną treścią, z&nbsp;których Google nie ma powodu
+          wyróżnić żadnego. Unikalne <strong>opisy produktów</strong> to najprostszy sposób
+          na wyróżnienie się w&nbsp;wynikach wyszukiwania i&nbsp;zwiększenie konwersji.
+        </p>
+
+        <h3>Opisy produktów a&nbsp;SEO — ukryty potencjał kart produktowych</h3>
+        <p>
+          Każda karta produktu w&nbsp;sklepie internetowym to osobna strona, która może
+          rankować w&nbsp;Google na frazę long-tail. Sklep z&nbsp;500 produktami ma 500
+          potencjalnych stron wejścia z&nbsp;wyszukiwarki. Ale tylko jeśli <strong>opisy
+          produktów</strong> są unikalne, zoptymalizowane i&nbsp;wartościowe. Skopiowane
+          karty producenta Google traktuje jako duplicate content — i&nbsp;degraduje
+          w&nbsp;wynikach. Unikalne <strong>opisy produktów SEO</strong> odblokowują ruch
+          organiczny, którego reklamy nie zastąpią.
+        </p>
+
+        <h3>Copywriter e-commerce — kiedy warto zatrudnić specjalistę?</h3>
+        <p>
+          <strong>Copywriter e-commerce</strong> opłaca się, gdy: masz 50+ produktów
+          z&nbsp;identycznymi opisami producenta, konwersja na kartach produktów jest niska,
+          ruch organiczny na kartach produktów jest bliski zeru, planujesz ekspansję na
+          marketplace (Allegro, Amazon) lub chcesz zbudować spójny tone of voice w&nbsp;całym
+          katalogu. Profesjonalne <strong>opisy produktów</strong> to inwestycja, która zwraca
+          się przez lata — w&nbsp;postaci wyższej konwersji, lepszego SEO i&nbsp;mniejszej
+          liczby zwrotów (bo klient wie, co kupuje).
+        </p>
+
+        <h3>Ile kosztują opisy produktów w&nbsp;sklepie internetowym?</h3>
+        <p>
+          Ceny <strong>opisów produktów</strong> zależą od długości, złożoności i&nbsp;skali.
+          Krótki opis (300–600 zzs): 30–60 zł netto. Rozszerzony (800–1500 zzs): 60–150 zł.
+          Przy pakietach 50–500+ ceny jednostkowe spadają o&nbsp;15–30%. Opis kategorii:
+          200–600 zł. Style guide z&nbsp;wzorcowymi opisami: 800–2000 zł. W&nbsp;porównaniu
+          z&nbsp;kosztem pozyskania klienta z&nbsp;reklam — unikalne <strong>opisy produktów
+          w&nbsp;sklepie internetowym</strong> to jedna z&nbsp;najtańszych form budowania
+          przewagi konkurencyjnej.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .prod-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .prod-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .prod-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 700px; }
+  .prod-intro__title strong { font-weight: var(--fw-bold); }
+  .prod-intro__title em { font-style: italic; color: var(--accent); }
+  .prod-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .prod-intro__columns { grid-template-columns: 1fr; } }
+  .prod-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .prod-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+
+  /* ── SCOPE ── */
+  .prod-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .prod-scope__list { display: flex; flex-direction: column; }
+  .prod-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .prod-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .prod-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .prod-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .prod-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .prod-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .prod-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── PRINCIPLES (dark) ── */
+  .prod-princ { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .prod-princ__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .prod-princ__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .prod-princ__grid { grid-template-columns: 1fr; } }
+  .prod-princ__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .prod-princ__card:hover { border-color: rgba(255,255,255,0.12); }
+  .prod-princ__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .prod-princ__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .prod-princ__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .prod-princ__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .prod-proc { padding: var(--space-24) 0; }
+  .prod-proc__timeline { display: flex; flex-direction: column; }
+  .prod-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .prod-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .prod-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .prod-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .prod-proc__step:last-child .prod-proc__step-line { display: none; }
+  .prod-proc__step-content { padding-bottom: var(--space-6); }
+  .prod-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .prod-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── INDUSTRIES ── */
+  .prod-ind { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .prod-ind__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  @media (max-width: 768px) { .prod-ind__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .prod-ind__grid { grid-template-columns: 1fr; } }
+  .prod-ind__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .prod-ind__card:hover { border-color: var(--accent); }
+  .prod-ind__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .prod-ind__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .prod-price { padding: var(--space-24) 0; }
+  .prod-price__table { max-width: 660px; }
+  .prod-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .prod-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .prod-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .prod-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .prod-price__footer { padding-top: var(--space-4); }
+  .prod-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .prod-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .prod-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .prod-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .prod-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .prod-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .prod-faq__question::-webkit-details-marker { display: none; }
+  .prod-faq__question::marker { display: none; content: ''; }
+  .prod-faq__question:hover { color: var(--accent); }
+  .prod-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .prod-faq__item[open] .prod-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .prod-faq__answer { padding: 0 0 var(--space-6); }
+  .prod-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .prod-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .prod-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .prod-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .prod-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .prod-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

@@ -1,0 +1,227 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const posts: CollectionEntry<'blog'>[] = (await getCollection('blog'))
+  .filter((post: CollectionEntry<'blog'>) => !post.data.draft)
+  .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const formatDate = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('pl-PL', { year: 'numeric', month: 'long', day: 'numeric' });
+};
+---
+
+<BaseLayout
+  title="Blog | iCopywriter.pl — artykuły o copywritingu i content marketingu"
+  description="Praktyczne artykuły o copywritingu, SEO, content marketingu i tworzeniu treści. Porady, cenniki, narzędzia."
+>
+
+  <!-- Hero -->
+  <section class="blog-hero" aria-labelledby="blog-title">
+    <div class="blog-hero__bg" aria-hidden="true">
+      <div class="blog-hero__grain"></div>
+      <div class="blog-hero__gradient"></div>
+    </div>
+    <div class="container">
+      <div class="blog-hero__inner reveal">
+        <div class="blog-hero__breadcrumb">
+          <a href="/">Strona główna</a>
+          <span aria-hidden="true">/</span>
+          <span>Blog</span>
+        </div>
+        <h1 id="blog-title" class="blog-hero__title">Blog</h1>
+        <p class="blog-hero__subtitle">
+          Praktyczna wiedza o&nbsp;copywritingu, SEO i&nbsp;tworzeniu treści, które sprzedają.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts grid -->
+  <section class="blog-posts" aria-label="Lista artykułów">
+    <div class="container">
+      <div class="blog-posts__grid">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}/`} class="post-card reveal">
+            <div class="post-card__content">
+              {post.data.category && (
+                <span class="post-card__category">{post.data.category}</span>
+              )}
+              <h2 class="post-card__title">{post.data.title}</h2>
+              {post.data.description && (
+                <p class="post-card__desc">{post.data.description}</p>
+              )}
+              <div class="post-card__meta">
+                <time datetime={post.data.date}>{formatDate(post.data.date)}</time>
+              </div>
+            </div>
+            <div class="post-card__arrow" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 10h12M12 6l4 4-4 4"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="blog-posts__empty">
+          <p>Brak artykułów. Wkrótce pojawią się nowe wpisy!</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ══════════════════════════════════════════
+     BLOG HERO
+     ══════════════════════════════════════════ */
+  .blog-hero {
+    position: relative;
+    padding: calc(72px + var(--space-16)) 0 var(--space-12);
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .blog-hero__bg { position: absolute; inset: 0; z-index: 0; }
+  .blog-hero__gradient {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,107,71,0.04) 0%, transparent 55%);
+  }
+  .blog-hero__grain {
+    position: absolute; inset: 0; opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .blog-hero__inner { position: relative; z-index: 1; max-width: 640px; }
+
+  .blog-hero__breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);
+    letter-spacing: 0.04em; margin-bottom: var(--space-5);
+  }
+  .blog-hero__breadcrumb a { transition: color var(--transition-fast); }
+  .blog-hero__breadcrumb a:hover { color: var(--accent); }
+  .blog-hero__breadcrumb span:last-child { color: var(--ink-muted); }
+
+  .blog-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--fw-bold);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--space-4);
+  }
+
+  .blog-hero__subtitle {
+    font-size: var(--fs-lg);
+    line-height: var(--lh-relaxed);
+    color: var(--ink-muted);
+  }
+
+  /* ══════════════════════════════════════════
+     POSTS GRID
+     ══════════════════════════════════════════ */
+  .blog-posts {
+    padding: var(--space-12) 0 var(--space-20);
+  }
+
+  .blog-posts__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .blog-posts__empty {
+    text-align: center;
+    padding: var(--space-16) 0;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  /* ══════════════════════════════════════════
+     POST CARD
+     ══════════════════════════════════════════ */
+  .post-card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: var(--space-7) 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    transition: all var(--transition-base);
+  }
+  .post-card:first-child {
+    border-top: 1px solid var(--rule-light);
+  }
+  .post-card:hover {
+    padding-left: var(--space-4);
+  }
+
+  .post-card__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .post-card__category {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .post-card__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+    transition: color var(--transition-fast);
+  }
+  .post-card:hover .post-card__title {
+    color: var(--accent);
+  }
+
+  .post-card__desc {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--ink-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: var(--space-2);
+  }
+
+  .post-card__meta {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  .post-card__arrow {
+    flex-shrink: 0;
+    color: var(--ink-faint);
+    padding-top: var(--space-4);
+    transition: all var(--transition-fast);
+  }
+  .post-card:hover .post-card__arrow {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 640px) {
+    .post-card__arrow { display: none; }
+    .post-card__desc { -webkit-line-clamp: 3; }
+  }
+</style>

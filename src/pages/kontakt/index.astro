@@ -1,0 +1,446 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "@id": "https://www.icopywriter.pl/kontakt/#page",
+      "name": "Kontakt — iCopywriter.pl",
+      "description": "Skontaktuj się z copywriterem Karolem Leszczyńskim. Bezpłatna wycena w 24 godz.",
+      "url": "https://www.icopywriter.pl/kontakt/",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.icopywriter.pl/#person",
+      "name": "Karol Leszczyński",
+      "jobTitle": "Copywriter",
+      "email": "kontakt@icopywriter.pl",
+      "url": "https://www.icopywriter.pl"
+    }
+  ]
+};
+
+const serviceOptions = [
+  'Copywriting sprzedażowy',
+  'SEO Copywriting / Artykuły blogowe',
+  'Content marketing / Strategia',
+  'Ebook / Lead magnet',
+  'White paper / Case study',
+  'Katalog / Broszura',
+  'Materiały szkoleniowe',
+  'Skład typograficzny (LaTeX/Quarto)',
+  'Redakcja i korekta',
+  'Dokumentacja techniczna',
+  'Teksty na stronę internetową',
+  'Landing page',
+  'Email marketing / Newsletter',
+  'Kompleksowa obsługa contentowa',
+  'Inne / Nie wiem jeszcze'
+];
+
+const budgetOptions = [
+  'Do 2 000 zł',
+  '2 000 – 5 000 zł',
+  '5 000 – 10 000 zł',
+  '10 000 – 20 000 zł',
+  'Powyżej 20 000 zł',
+  'Do ustalenia'
+];
+---
+
+<BaseLayout
+  title="Kontakt — Opisz swój projekt, wycenię go w 24h | iCopywriter.pl"
+  description="Skontaktuj się z copywriterem Karolem Leszczyńskim. Opisz swój projekt — wycenię go bezpłatnie w 24 godziny. Copywriting, SEO, content marketing, skład tekstu."
+  keywords="kontakt copywriter, wycena copywriting, copywriter freelancer kontakt, copywriting wycena"
+  schema={contactSchema}
+  canonical="https://www.icopywriter.pl/kontakt/"
+>
+
+  <section class="contact" aria-labelledby="contact-title">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="contact__breadcrumb" aria-label="Ścieżka nawigacji">
+        <a href="/">Strona główna</a> <span aria-hidden="true">›</span>
+        <span>Kontakt</span>
+      </nav>
+
+      <!-- Header -->
+      <div class="contact__header reveal">
+        <SectionHeading
+          label="Kontakt"
+          title="Opisz swój projekt — wycenię go w&nbsp;<em>24&nbsp;godziny</em>"
+          subtitle="Potrzebujesz jednego artykułu, kompletnej strategii contentowej, czy może ebooka ze&nbsp;składem typograficznym? Napisz — odpowiem z&nbsp;wyceną, propozycją podejścia i&nbsp;harmonogramem. Bezpłatnie i&nbsp;bez&nbsp;zobowiązań."
+          centered
+        />
+      </div>
+
+      <div class="contact__grid">
+
+        <!-- FORM -->
+        <div class="contact__form-wrap">
+          <form id="contact-form" class="form" novalidate>
+
+            <!-- Name -->
+            <div class="form__group">
+              <label for="field-name" class="form__label">Imię i nazwisko <span class="form__req">*</span></label>
+              <input type="text" id="field-name" name="name" class="form__input" required autocomplete="name" placeholder="Jan Kowalski">
+              <span class="form__error" id="error-name"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="form__group">
+              <label for="field-email" class="form__label">Adres email <span class="form__req">*</span></label>
+              <input type="email" id="field-email" name="email" class="form__input" required autocomplete="email" placeholder="jan@firma.pl">
+              <span class="form__error" id="error-email"></span>
+            </div>
+
+            <!-- Phone + Company row -->
+            <div class="form__row">
+              <div class="form__group">
+                <label for="field-phone" class="form__label">Telefon</label>
+                <input type="tel" id="field-phone" name="phone" class="form__input" autocomplete="tel" placeholder="123 456 789">
+              </div>
+              <div class="form__group">
+                <label for="field-company" class="form__label">Firma</label>
+                <input type="text" id="field-company" name="company" class="form__input" autocomplete="organization" placeholder="Nazwa firmy">
+              </div>
+            </div>
+
+            <!-- Service + Budget row -->
+            <div class="form__row">
+              <div class="form__group">
+                <label for="field-service" class="form__label">Rodzaj usługi</label>
+                <select id="field-service" name="service" class="form__input form__select">
+                  <option value="">— wybierz —</option>
+                  {serviceOptions.map((s) => (
+                    <option value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+              <div class="form__group">
+                <label for="field-budget" class="form__label">Budżet</label>
+                <select id="field-budget" name="budget" class="form__input form__select">
+                  <option value="">— wybierz —</option>
+                  {budgetOptions.map((b) => (
+                    <option value={b}>{b}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div class="form__group">
+              <label for="field-message" class="form__label">Opis projektu <span class="form__req">*</span></label>
+              <textarea id="field-message" name="message" class="form__input form__textarea" required rows="6" placeholder="Opisz, czego potrzebujesz — cel, grupa docelowa, zakres, termin, format docelowy..."></textarea>
+              <span class="form__error" id="error-message"></span>
+            </div>
+
+            <!-- File upload -->
+            <div class="form__group">
+              <label class="form__label">Załączniki <span class="form__optional">(opcjonalnie, maks. 10 MB / plik)</span></label>
+              <div class="upload" id="upload-zone">
+                <div class="upload__content">
+                  <div class="upload__icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+                  </div>
+                  <p class="upload__text">Przeciągnij pliki tutaj lub <button type="button" class="upload__browse" id="upload-browse">wybierz z&nbsp;dysku</button></p>
+                  <p class="upload__hint">Brief, brand book, przykłady, materiały źródłowe — .pdf .doc .docx .pptx .jpg .png .zip</p>
+                </div>
+                <input type="file" id="upload-input" multiple accept=".pdf,.doc,.docx,.txt,.rtf,.odt,.md,.jpg,.jpeg,.png,.gif,.webp,.svg,.pptx,.ppt,.xlsx,.xls,.csv,.zip,.rar,.7z,.ai,.eps,.indd" hidden>
+              </div>
+              <div class="upload__list" id="upload-list"></div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="form__submit" id="submit-btn">
+              <span class="form__submit-text">Wyślij zapytanie</span>
+              <span class="form__submit-arrow">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </span>
+              <span class="form__submit-loading" id="submit-loading" hidden>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/></circle></svg>
+              </span>
+            </button>
+          </form>
+
+          <!-- Success -->
+          <div class="form__success" id="form-success" hidden>
+            <div class="form__success-icon">✓</div>
+            <h3>Wiadomość wysłana</h3>
+            <p>Dziękuję za kontakt. Odpowiem w&nbsp;ciągu 24&nbsp;godzin z&nbsp;wyceną i&nbsp;propozycją współpracy.</p>
+          </div>
+
+          <!-- Error -->
+          <div class="form__global-error" id="form-error" hidden>
+            <p>Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub napisz bezpośrednio na <a href="mailto:kontakt@icopywriter.pl">kontakt@icopywriter.pl</a>.</p>
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="contact__sidebar">
+          <div class="contact__sidebar-block">
+            <span class="contact__sidebar-label">Email</span>
+            <a href="mailto:kontakt@icopywriter.pl" class="contact__sidebar-value contact__sidebar-value--link">kontakt@icopywriter.pl</a>
+          </div>
+          <div class="contact__sidebar-block">
+            <span class="contact__sidebar-label">Czas odpowiedzi</span>
+            <span class="contact__sidebar-value">do 24 godzin</span>
+          </div>
+          <div class="contact__sidebar-block">
+            <span class="contact__sidebar-label">Wycena</span>
+            <span class="contact__sidebar-value">bezpłatna i&nbsp;niezobowiązująca</span>
+          </div>
+          <div class="contact__sidebar-block">
+            <span class="contact__sidebar-label">Formy współpracy</span>
+            <div class="contact__sidebar-tags">
+              <span>Jednorazowy projekt</span><span>Stała współpraca</span><span>Retainer</span>
+            </div>
+          </div>
+          <div class="contact__sidebar-block">
+            <span class="contact__sidebar-label">Co możesz dołączyć</span>
+            <div class="contact__sidebar-tags">
+              <span>Brief</span><span>Brand book</span><span>Przykłady</span>
+              <span>Materiały źródłowe</span><span>Stary content</span>
+            </div>
+          </div>
+          <div class="contact__sidebar-note">
+            <p>Nie masz briefu? Nie problem — wystarczy krótki opis tego, co chcesz osiągnąć. Resztę doprecyzujemy wspólnie.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ═════ LAYOUT ═════ */
+  .contact { padding: calc(72px + var(--space-12)) 0 var(--space-20); }
+  .contact__breadcrumb { display: flex; gap: var(--space-2); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-faint); margin-bottom: var(--space-10); }
+  .contact__breadcrumb a { color: var(--ink-faint); text-decoration: none; transition: color var(--transition-fast); }
+  .contact__breadcrumb a:hover { color: var(--accent); }
+  .contact__header { max-width: 620px; margin: 0 auto var(--space-12); }
+  .contact__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
+  @media (min-width: 860px) { .contact__grid { grid-template-columns: 1fr 280px; } }
+
+  /* ═════ FORM ═════ */
+  .form__group { margin-bottom: var(--space-5); }
+  .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 600px) { .form__row { grid-template-columns: 1fr; } }
+
+  .form__label { display: block; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: var(--space-2); }
+  .form__req { color: var(--accent); }
+  .form__optional { text-transform: none; letter-spacing: 0; color: var(--ink-faint); font-size: 0.62rem; }
+
+  .form__input { width: 100%; padding: 0.75rem 1rem; font-family: var(--font-sans); font-size: var(--fs-base); color: var(--ink); background: var(--white); border: 1px solid var(--rule); border-radius: var(--radius-sm); outline: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); -webkit-appearance: none; appearance: none; }
+  .form__input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26, 107, 71, 0.1); }
+  .form__input::placeholder { color: var(--rule); }
+  .form__input.error { border-color: #c45a3c; box-shadow: 0 0 0 3px rgba(196, 90, 60, 0.12); }
+
+  .form__select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpolyline points='0,0 5,6 10,0' fill='none' stroke='%23999' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+  .form__textarea { resize: vertical; min-height: 140px; line-height: var(--lh-relaxed); }
+  .form__error { display: block; font-family: var(--font-mono); font-size: 0.62rem; color: #c45a3c; margin-top: var(--space-1); min-height: 1em; }
+
+  /* ═════ UPLOAD ═════ */
+  .upload { border: 1.5px dashed var(--rule); border-radius: var(--radius-md); padding: var(--space-6); text-align: center; transition: all var(--transition-fast); cursor: pointer; background: var(--paper); }
+  .upload:hover, .upload.dragover { border-color: var(--accent); background: var(--accent-muted); }
+  .upload__icon { color: var(--ink-faint); margin: 0 auto var(--space-2); width: 24px; }
+  .upload:hover .upload__icon, .upload.dragover .upload__icon { color: var(--accent); }
+  .upload__text { font-size: var(--fs-sm); color: var(--ink-muted); margin: 0; }
+  .upload__browse { background: none; border: none; font-size: var(--fs-sm); color: var(--accent); text-decoration: underline; cursor: pointer; padding: 0; }
+  .upload__browse:hover { color: var(--accent-hover); }
+  .upload__hint { font-family: var(--font-mono); font-size: 0.58rem; color: var(--ink-faint); margin: var(--space-2) 0 0; letter-spacing: 0.02em; }
+
+  .upload__list { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-3); }
+  .upload__file { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); background: var(--paper-warm); border: 1px solid var(--rule-light); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-muted); }
+  .upload__file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .upload__file-size { color: var(--ink-faint); font-size: 0.6rem; flex-shrink: 0; }
+  .upload__file-status { flex-shrink: 0; font-size: 0.6rem; }
+  .upload__file-status.uploading { color: var(--ink-light); }
+  .upload__file-status.done { color: var(--accent); }
+  .upload__file-status.failed { color: #c45a3c; }
+  .upload__file-remove { background: none; border: none; font-size: 0.85rem; color: var(--ink-faint); cursor: pointer; padding: 0 2px; line-height: 1; flex-shrink: 0; transition: color var(--transition-fast); }
+  .upload__file-remove:hover { color: #c45a3c; }
+
+  /* ═════ SUBMIT ═════ */
+  .form__submit { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--accent); color: #fff; font-size: var(--fs-base); font-weight: var(--fw-medium); border: none; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition-base); margin-top: var(--space-2); }
+  .form__submit:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26, 107, 71, 0.25); }
+  .form__submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .form__submit-arrow { transition: transform var(--transition-fast); display: flex; }
+  .form__submit:hover:not(:disabled) .form__submit-arrow { transform: translateX(3px); }
+
+  /* ═════ SUCCESS / ERROR ═════ */
+  .form__success { text-align: center; padding: var(--space-16) 0; }
+  .form__success-icon { width: 56px; height: 56px; border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-4); font-size: 1.4rem; color: var(--accent); }
+  .form__success h3 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-3); color: var(--ink); }
+  .form__success p { font-size: var(--fs-base); color: var(--ink-muted); line-height: var(--lh-relaxed); max-width: 420px; margin: 0 auto; }
+
+  .form__global-error { margin-top: var(--space-4); padding: var(--space-4); background: rgba(196, 90, 60, 0.06); border-left: 3px solid #c45a3c; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .form__global-error p { font-size: var(--fs-sm); color: var(--ink-muted); margin: 0; }
+  .form__global-error a { color: #c45a3c; }
+
+  /* ═════ SIDEBAR ═════ */
+  .contact__sidebar { display: flex; flex-direction: column; gap: var(--space-5); }
+  @media (min-width: 860px) { .contact__sidebar { position: sticky; top: calc(72px + var(--space-6)); align-self: start; } }
+  .contact__sidebar-block { padding-bottom: var(--space-4); border-bottom: 1px solid var(--rule-light); }
+  .contact__sidebar-label { display: block; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: var(--space-1); }
+  .contact__sidebar-value { font-size: var(--fs-sm); color: var(--ink); text-decoration: none; }
+  .contact__sidebar-value--link { color: var(--accent); transition: color var(--transition-fast); }
+  .contact__sidebar-value--link:hover { color: var(--accent-hover); }
+  .contact__sidebar-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: var(--space-1); }
+  .contact__sidebar-tags span { font-family: var(--font-mono); font-size: 0.58rem; padding: 0.2rem 0.5rem; background: var(--accent-muted); color: var(--accent); border-radius: var(--radius-sm); letter-spacing: 0.02em; }
+  .contact__sidebar-note { padding: var(--space-4); background: var(--paper-warm); border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .contact__sidebar-note p { font-size: var(--fs-sm); font-style: italic; color: var(--ink-muted); line-height: var(--lh-relaxed); margin: 0; }
+</style>
+
+<script define:vars={{ }}>
+  // ══════════════════════════════════════════════════
+  // CONTACT FORM — Client-side logic
+  // iCopywriter.pl
+  // ══════════════════════════════════════════════════
+  
+  // ⚠️ ZMIEŃ PO URUCHOMIENIU setup-aws.sh:
+  const API_URL = 'https://04eabvzr87.execute-api.eu-north-1.amazonaws.com';
+
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  const MAX_FILES = 5;
+  let uploadedFiles = [];
+
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = form?.querySelector('.form__submit-text');
+    const submitArrow = form?.querySelector('.form__submit-arrow');
+    const submitLoading = document.getElementById('submit-loading');
+    const successEl = document.getElementById('form-success');
+    const errorEl = document.getElementById('form-error');
+    const uploadZone = document.getElementById('upload-zone');
+    const uploadInput = document.getElementById('upload-input');
+    const uploadBrowse = document.getElementById('upload-browse');
+    const uploadList = document.getElementById('upload-list');
+    if (!form) return;
+
+    uploadBrowse?.addEventListener('click', (e) => { e.stopPropagation(); uploadInput?.click(); });
+    uploadZone?.addEventListener('click', (e) => {
+      if (e.target === uploadBrowse || e.target.closest('.upload__browse')) return;
+      uploadInput?.click();
+    });
+    uploadZone?.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+    uploadZone?.addEventListener('dragleave', () => { uploadZone.classList.remove('dragover'); });
+    uploadZone?.addEventListener('drop', (e) => {
+      e.preventDefault(); uploadZone.classList.remove('dragover');
+      if (e.dataTransfer?.files) handleFiles(Array.from(e.dataTransfer.files));
+    });
+    uploadInput?.addEventListener('change', () => {
+      if (uploadInput.files) { handleFiles(Array.from(uploadInput.files)); uploadInput.value = ''; }
+    });
+
+    function handleFiles(files) {
+      for (const file of files) {
+        if (uploadedFiles.length >= MAX_FILES) { alert(`Maksymalnie ${MAX_FILES} plików.`); break; }
+        if (file.size > MAX_FILE_SIZE) { alert(`Plik "${file.name}" jest za duży (maks. 10 MB).`); continue; }
+        uploadFile(file);
+      }
+    }
+
+    async function uploadFile(file) {
+      const fileEntry = { name: file.name, size: file.size, key: null, status: 'uploading' };
+      uploadedFiles.push(fileEntry);
+      renderFileList();
+      try {
+        const presignRes = await fetch(`${API_URL}/presign`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ filename: file.name, contentType: file.type || 'application/octet-stream', size: file.size })
+        });
+        if (!presignRes.ok) { const err = await presignRes.json().catch(() => ({})); throw new Error(err.error || 'Błąd presign'); }
+        const { uploadUrl, key } = await presignRes.json();
+        const uploadRes = await fetch(uploadUrl, { method: 'PUT', headers: { 'Content-Type': file.type || 'application/octet-stream' }, body: file });
+        if (!uploadRes.ok) throw new Error('Upload failed');
+        fileEntry.key = key; fileEntry.status = 'done';
+      } catch (err) { console.error('Upload error:', err); fileEntry.status = 'failed'; }
+      renderFileList();
+    }
+
+    function renderFileList() {
+      if (!uploadList) return;
+      uploadList.innerHTML = uploadedFiles.map((f, i) => `
+        <div class="upload__file">
+          <span class="upload__file-name">${escapeHtml(f.name)}</span>
+          <span class="upload__file-size">${formatSize(f.size)}</span>
+          <span class="upload__file-status ${f.status}">${f.status === 'uploading' ? '⏳' : f.status === 'done' ? '✓' : '✕'}</span>
+          <button type="button" class="upload__file-remove" data-index="${i}" aria-label="Usuń plik">×</button>
+        </div>`).join('');
+      uploadList.querySelectorAll('.upload__file-remove').forEach(btn => {
+        btn.addEventListener('click', () => { uploadedFiles.splice(parseInt(btn.dataset.index), 1); renderFileList(); });
+      });
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    function escapeHtml(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+
+    function validate() {
+      let valid = true;
+      const name = form.querySelector('#field-name');
+      const email = form.querySelector('#field-email');
+      const message = form.querySelector('#field-message');
+      [name, email, message].forEach(el => el?.classList.remove('error'));
+      form.querySelectorAll('.form__error').forEach(el => el.textContent = '');
+      if (!name?.value.trim()) { name?.classList.add('error'); document.getElementById('error-name').textContent = 'Pole wymagane'; valid = false; }
+      if (!email?.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { email?.classList.add('error'); document.getElementById('error-email').textContent = 'Podaj prawidłowy adres email'; valid = false; }
+      if (!message?.value.trim()) { message?.classList.add('error'); document.getElementById('error-message').textContent = 'Opisz swój projekt'; valid = false; }
+      return valid;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); errorEl.hidden = true;
+      if (!validate()) return;
+      if (uploadedFiles.some(f => f.status === 'uploading')) { alert('Poczekaj na zakończenie uploadu plików.'); return; }
+      submitBtn.disabled = true;
+      if (submitText) submitText.textContent = 'Wysyłanie...';
+      if (submitArrow) submitArrow.hidden = true;
+      if (submitLoading) submitLoading.hidden = false;
+      try {
+        const payload = {
+          name: form.querySelector('#field-name')?.value.trim(),
+          email: form.querySelector('#field-email')?.value.trim(),
+          phone: form.querySelector('#field-phone')?.value.trim() || undefined,
+          company: form.querySelector('#field-company')?.value.trim() || undefined,
+          service: form.querySelector('#field-service')?.value || undefined,
+          budget: form.querySelector('#field-budget')?.value || undefined,
+          message: form.querySelector('#field-message')?.value.trim(),
+          attachments: uploadedFiles.filter(f => f.status === 'done' && f.key).map(f => ({ name: f.name, key: f.key, size: f.size }))
+        };
+        const res = await fetch(`${API_URL}/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('Send failed');
+        form.hidden = true; successEl.hidden = false;
+      } catch (err) { console.error('Submit error:', err); errorEl.hidden = false; }
+      finally {
+        submitBtn.disabled = false;
+        if (submitText) submitText.textContent = 'Wyślij zapytanie';
+        if (submitArrow) submitArrow.hidden = false;
+        if (submitLoading) submitLoading.hidden = true;
+      }
+    });
+
+    form.querySelectorAll('.form__input').forEach(input => {
+      input.addEventListener('input', () => {
+        input.classList.remove('error');
+        const errorEl = document.getElementById(`error-${input.name}`);
+        if (errorEl) errorEl.textContent = '';
+      });
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:after-swap', initContactForm);
+</script>

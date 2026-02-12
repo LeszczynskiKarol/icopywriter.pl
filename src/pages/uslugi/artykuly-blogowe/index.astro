@@ -1,0 +1,527 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('artykuly-blogowe')!;
+
+// ── Types of articles ──
+const scope = [
+  {
+    title: 'Artykuły eksperckie',
+    desc: 'Pogłębione teksty 3000–8000 słów, które budują autorytet w branży. Research, wywiady z ekspertami, dane, case studies. Nie surface-level content, który powtarza to samo co 50 innych blogów — unikalna perspektywa, oryginalne wnioski, wartość, do której wraca się po miesiącach.',
+    tags: ['Deep-dive', 'Thought leadership', 'Oryginalne dane', 'Case studies', 'Wywiady']
+  },
+  {
+    title: 'Poradniki how-to',
+    desc: 'Artykuły krok-po-kroku, które rozwiązują konkretny problem czytelnika. Jasna struktura: problem → rozwiązanie → kroki → efekt. Screenshoty, przykłady, checklisty. Format, który generuje najwięcej ruchu organicznego, bo odpowiada na frazy „jak…", które ludzie wpisują w Google.',
+    tags: ['Krok po kroku', 'Screenshoty', 'Checklisty', 'HowTo schema', 'Frazy „jak…"']
+  },
+  {
+    title: 'Listicle i rankingi',
+    desc: '„10 najlepszych…", „7 błędów…", „5 narzędzi…" — format, który klika się najchętniej i najłatwiej skanuje. Ale robiony dobrze: nie lista linków z jednozdaniowym opisem, lecz pogłębiony przegląd z argumentacją, porównaniem i rekomendacją. Listicle z substancją.',
+    tags: ['Top X', 'Porównania', 'Rankingi', 'Rekomendacje', 'Skanowalna struktura']
+  },
+  {
+    title: 'Pillar pages i content clusters',
+    desc: 'Artykuły-filary (5000–10 000 słów), które pokrywają temat kompleksowo i linkują do cluster pages — krótszych artykułów pogłębiających podtematy. Architektura treści, która buduje topical authority i sygnalizuje Google: jesteśmy ekspertami w tym temacie.',
+    tags: ['Pillar page', 'Cluster pages', 'Topical authority', 'Linkowanie wewnętrzne', '5000–10 000 słów']
+  },
+  {
+    title: 'Artykuły do content marketingu B2B',
+    desc: 'Treści dla firm sprzedających firmom: bardziej merytoryczne, dłuższy cykl decyzji, wielu interesariuszy. Artykuły, które pomagają decydentom zrozumieć problem, porównać rozwiązania i uzasadnić wybór wewnętrznie. Tone of voice: ekspercki, konkretny, bez korporacyjnego żargonu.',
+    tags: ['B2B content', 'Decydenci', 'Porównania rozwiązań', 'ROI content', 'Lead nurturing']
+  },
+  {
+    title: 'Cykl artykułów / stała współpraca',
+    desc: 'Regularna publikacja: 2–8 artykułów miesięcznie z zachowaniem spójności, zgodnie ze strategią contentową. Kalendarz tematów, research fraz, priorytetyzacja, pisanie, redakcja, optymalizacja SEO, delivery w ustalonym rytmie. Content marketing to maraton, nie sprint.',
+    tags: ['Stała współpraca', 'Kalendarz tematów', 'Retainer', '2–8 art. / miesiąc', 'Spójny tone of voice']
+  }
+];
+
+// ── Why my articles work ──
+const whyWorks = [
+  {
+    title: 'Research-first, nie prompt-first',
+    desc: 'Nie otwieram edytora i nie zaczynam pisać. Otwieram Ahrefs, Semrush, Google, branżowe fora, raporty — i spędzam 30–50% czasu projektu na researchu. Sprawdzam, co już napisano, czego brakuje, jakie pytania ludzie zadają, jakie dane istnieją. Dopiero potem piszę — i piszę coś, czego jeszcze nie ma.'
+  },
+  {
+    title: 'Struktura, która trzyma uwagę',
+    desc: 'Przeciętny czytelnik spędza na artykule 37 sekund. Moje artykuły trzymają dłużej — bo mają czytelną strukturę: lead, który obiecuje wartość, nagłówki, które intrygują, akapity, które nie przekraczają 4 linii, wyróżnienia, które łapią wzrok. Skanowanie → czytanie → udostępnianie.'
+  },
+  {
+    title: 'Wartość, nie objętość',
+    desc: 'Nie piszę „artykułów na 3000 słów", bo Google lubi długie treści. Piszę artykuły, które wyczerpują temat — i jeśli temat wymaga 3000 słów, tyle piszę. Jeśli wymaga 1500, nie dopisuję wodolei do limitu. Google rankuje wartość, nie liczbę znaków. I czytelnicy też.'
+  },
+  {
+    title: 'SEO natywne, nie doczepione',
+    desc: 'Nie piszę artykułu a potem „dorzucam frazy". Frazy kluczowe, struktura nagłówków, linkowanie wewnętrzne, meta tagi, schema — to elementy wbudowane w proces pisania od pierwszego zdania. Artykuł rodzi się jako tekst SEO, nie staje się nim post factum.'
+  },
+  {
+    title: 'Redakcja, która boli (ale działa)',
+    desc: 'Pierwszy draft to 60% gotowego tekstu. Reszta to redakcja: wycinam zbędne akapity, upraszczam zdania, zaostrzam nagłówki, sprawdzam fakty, poprawiam flow. Każdy artykuł przechodzi minimum dwie rundy wewnętrznej redakcji. Czytelnik widzi efekt — nie widzi pracy.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Brief i research fraz', desc: 'Definiujemy temat, cel (ruch, leady, autorytet), grupę docelową. Research fraz: wolumen, trudność, intencja, sezonowość. Analiza SERP: co rankuje, jakie luki, jaki format dominuje. Brief z docelową frazą, frazami wspierającymi i wytycznymi.' },
+  { step: 'Outline i struktura', desc: 'Tworzę outline artykułu: nagłówki H2/H3, sekcje z opisem zawartości, flow informacji, sugerowana długość. Outline to mapa, nie inspiracja — akceptujesz strukturę zanim napiszę pierwsze zdanie. Dzięki temu zero niespodzianek.' },
+  { step: 'Pisanie', desc: 'Piszę artykuł zgodnie z outline: lead, body, wnioski. Naturalny dobór fraz, czytelne akapity, konkretne przykłady, dane i źródła. Ton ekspercki, ale przystępny — nie akademicki żargon, nie tabloidowy clickbait.' },
+  { step: 'Redakcja wewnętrzna', desc: 'Dwie rundy: redakcja stylistyczna (upraszczam, wycinam, zaostrzam) + korekta językowa (ortografia, interpunkcja, spójność). Sprawdzam fakty i źródła. Dostajesz dopracowany tekst, nie pierwszy draft.' },
+  { step: 'Optymalizacja SEO', desc: 'Title tag, meta description, nagłówki, URL slug, alt texty, schema markup (Article, FAQ, HowTo), anchor texty linków wewnętrznych. Kompletny pakiet — gotowy do wklejenia w CMS lub do publikacji.' },
+  { step: 'Delivery i monitoring', desc: 'Dostarczam w Google Docs, Markdown lub bezpośrednio do CMS-a. Po 4–8 tygodniach: sprawdzam pozycje (GSC), identyfikuję frazy na pozycjach 5–20. Po 2–3 miesiącach: content refresh — uzupełniam, optymalizuję, rozbudowuję.' }
+];
+
+// ── What you get ──
+const deliverables = [
+  { label: 'Tekst artykułu', desc: 'Gotowy artykuł w Google Docs / Markdown / bezpośrednio w CMS. Nagłówki, body, wyróżnienia, CTA wewnętrzne.' },
+  { label: 'Optymalizacja SEO', desc: 'Title tag, meta description, URL slug, alt texty, schema markup, sugestie linkowania wewnętrznego.' },
+  { label: 'Grafiki i media', desc: 'Sugestie grafik, tabel, infografik, embedów. Opcjonalnie: tworzę grafiki w Canva lub SVG.' },
+  { label: 'Raport fraz', desc: 'Docelowa fraza, frazy wspierające, wolumen, trudność, intencja. Mapa fraz dla artykułu.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Artykuł blogowy (1 500–3 000 słów)', price: '400–1 200 zł' },
+  { item: 'Artykuł ekspercki (3 000–5 000 słów)', price: '800–2 000 zł' },
+  { item: 'Pillar page (5 000–10 000 słów)', price: '1 500–4 000 zł' },
+  { item: 'Listicle / ranking (2 000–4 000 słów)', price: '500–1 500 zł' },
+  { item: 'Pakiet 4 artykuły / miesiąc (retainer)', price: 'od 2 000 zł/mies.' },
+  { item: 'Pakiet 8 artykułów / miesiąc (retainer)', price: 'od 3 500 zł/mies.' },
+  { item: 'Content refresh / optymalizacja istniejącego artykułu', price: '300–800 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Ile kosztuje napisanie artykułu blogowego?',
+    a: 'Artykuł 1500–3000 słów: 400–1200 zł netto. Artykuł ekspercki 3000–5000 słów: 800–2000 zł. Pillar page 5000–10 000 słów: 1500–4000 zł. Cena zależy od złożoności tematu, ilości researchu, wymaganej ekspertyzy i optymalizacji SEO. W cenie: research fraz, outline, pisanie, 2 rundy redakcji, optymalizacja on-page.'
+  },
+  {
+    q: 'Czy artykuły będą zoptymalizowane pod SEO?',
+    a: 'Tak — SEO jest wbudowane w każdy artykuł: research fraz przed pisaniem, naturalne umiejscowienie fraz w nagłówkach i treści, title tag, meta description, URL slug, alt texty, schema markup, sugestie linkowania wewnętrznego. Nie dopisuję SEO na koniec — optymalizuję od pierwszego nagłówka.'
+  },
+  {
+    q: 'Jak długo trwa napisanie artykułu?',
+    a: 'Artykuł standardowy (1500–3000 słów): 3–7 dni roboczych. Artykuł ekspercki / pillar page: 7–14 dni. Czas obejmuje research, outline, pisanie, 2 rundy redakcji i optymalizację SEO. Przy stałej współpracy (retainer): ustalony harmonogram z regularnymi dostawami.'
+  },
+  {
+    q: 'Czy piszesz artykuły z pomocą AI?',
+    a: 'AI (Claude, GPT) wykorzystuję jako narzędzie wspomagające: brainstorming tematów, wstępny research, draft struktury, korekta — ale nigdy jako źródło gotowego tekstu. Każdy artykuł jest pisany przeze mnie, z moim researchem, moimi wnioskami i moją redakcją. AI to narzędzie, nie autor.'
+  },
+  {
+    q: 'W jakim formacie dostarczasz artykuły?',
+    a: 'Standardowo: Google Docs z oznaczeniami nagłówków H2/H3, wyróżnieniami, sugestiami grafik i meta tagami w nagłówku. Na życzenie: Markdown, bezpośredni upload do CMS-a (WordPress, Ghost, Webflow, Notion). Format dopasowuję do Twojego workflow.'
+  },
+  {
+    q: 'Czy oferujesz stałą współpracę na artykuły?',
+    a: 'Tak — retainer to najskuteczniejsza forma. Ustalamy: liczbę artykułów miesięcznie (2–8), kalendarz tematów, harmonogram dostaw, priorytetyzację. Przy retainerze cena jednostkowa jest niższa o 15–20%, a ja lepiej rozumiem Twoją branżę z każdym miesiącem. Content marketing to maraton.'
+  },
+  {
+    q: 'Czy artykuły generują ruch od razu?',
+    a: 'Nie — SEO wymaga czasu. Typowo 2–6 miesięcy na pojawienie się w top 10 dla docelowej frazy. Frazy long-tail (niska konkurencja) mogą rankować w 2–4 tygodnie. Kluczowa jest regularność: jeden artykuł nie zmieni wyników, ale 20 artykułów budujących topical authority — zmieni.'
+  },
+  {
+    q: 'Piszesz o każdym temacie?',
+    a: 'Piszę o większości tematów biznesowych i technologicznych: SaaS, fintech, e-commerce, marketing, edukacja, HR, prawo, zdrowie (z wyłączeniem porad medycznych), nieruchomości, przemysł. Nie piszę o tematach, na których się nie znam — i nie udaję, że się znam. Jeśli temat wymaga deep expertise, opieram się na wywiadach z Twoimi ekspertami.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/artykuly-blogowe/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/artykuly-blogowe/",
+      "name": "Artykuły blogowe — teksty eksperckie, które budują widoczność | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/artykuly-blogowe/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/artykuly-blogowe/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Artykuły blogowe", "item": "https://www.icopywriter.pl/uslugi/artykuly-blogowe/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Artykuły blogowe",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Artykuły blogowe: eksperckie, SEO-first, research-first. Poradniki, listicle, pillar pages, content clusters.",
+      "serviceType": "Blog Article Writing",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="blog-intro" id="zakres" aria-labelledby="blog-intro-title">
+    <div class="container">
+      <div class="blog-intro__inner reveal">
+        <div class="blog-intro__eyebrow">Artykuły blogowe i eksperckie</div>
+        <h2 id="blog-intro-title" class="blog-intro__title">
+          <strong>Blog firmowy</strong> to nie koszt.<br>
+          To <em>compound interest</em> Twojego marketingu.
+        </h2>
+        <div class="blog-intro__columns">
+          <div class="blog-intro__col">
+            <p>
+              Reklama działa, dopóki płacisz. <strong>Artykuł blogowy</strong> generuje ruch
+              miesiącami — latami — po&nbsp;publikacji. Jeden dobrze napisany tekst może
+              przynosić 200–2000 wizyt miesięcznie przez lata, bez dodatkowych kosztów.
+              To dlatego <strong>blog firmowy</strong> jest jedną z&nbsp;najskuteczniejszych
+              inwestycji w&nbsp;digital marketingu: im&nbsp;więcej publikujesz, tym więcej
+              ruchu organicznego budujesz. Compound interest contentu.
+            </p>
+            <p>
+              Ale tylko jeśli <strong>artykuły</strong> są napisane dobrze. „Dobrze" znaczy:
+              na bazie researchu fraz, z&nbsp;unikalną wartością, optymalną strukturą, naturalnym
+              SEO i&nbsp;czytelnym stylem. Artykuł, który powtarza to samo co 50&nbsp;innych
+              blogów, nie rankuje. Artykuł wygenerowany przez AI bez redakcji — też nie.
+              Google nagradza treści, które <em>naprawdę pomagają</em>.
+            </p>
+          </div>
+          <div class="blog-intro__col">
+            <p>
+              Piszę <strong>artykuły blogowe</strong>, które łączą ekspercką wartość
+              z&nbsp;optymalizacją SEO. Zaczynam od researchu: sprawdzam, czego ludzie
+              szukają, co im odpowiada top&nbsp;10, czego brakuje. Potem piszę tekst,
+              który wypełnia tę lukę — lepiej, dokładniej, czytelniej niż konkurencja.
+              Z&nbsp;nagłówkami, które intrygują, akapitami, które nie nudzą, i&nbsp;CTA,
+              które konwertują czytelnika w&nbsp;leada.
+            </p>
+            <p>
+              Pracuję z&nbsp;pojedynczymi artykułami i&nbsp;w modelu <strong>stałej
+              współpracy</strong> (retainer: 2–8 artykułów miesięcznie). Przy retainerze
+              lepiej rozumiem Twoją branżę z&nbsp;każdym miesiącem — i&nbsp;artykuły są
+              coraz celniejsze. Bo <strong>pisanie artykułów</strong> to nie jednorazowa
+              czynność — to budowanie systemu treści, który wzmacnia się z&nbsp;czasem.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE
+       ════════════════════════════════════════ -->
+  <section class="blog-scope" aria-labelledby="blog-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Formaty"
+          title="Jakie <em>artykuły blogowe</em> tworzę?"
+          subtitle="Od poradników how-to po pillar pages na 10 000 słów. Każdy z&nbsp;researchem, SEO i&nbsp;redakcją."
+        />
+      </div>
+      <div class="blog-scope__list">
+        {scope.map((item, i) => (
+          <div class="blog-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="blog-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="blog-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="blog-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="blog-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       WHY IT WORKS (dark)
+       ════════════════════════════════════════ -->
+  <section class="blog-why" aria-labelledby="blog-why-title">
+    <div class="blog-why__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego to działa"
+          title="Moje artykuły rankują, bo mają <em>system</em>"
+          subtitle="Pięć zasad, które stoją za każdym tekstem. Research, struktura, wartość, SEO, redakcja."
+          inverted
+        />
+      </div>
+      <div class="blog-why__grid">
+        {whyWorks.map((item, i) => (
+          <div class="blog-why__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="blog-why__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="blog-proc" aria-labelledby="blog-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>artykuł blogowy</em>?"
+          subtitle="Sześć etapów od researchu po monitoring pozycji. Przejrzysty proces z&nbsp;akceptacją outline'u przed pisaniem."
+        />
+      </div>
+      <div class="blog-proc__timeline">
+        {process.map((item, i) => (
+          <div class="blog-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="blog-proc__step-marker">
+              <span class="blog-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="blog-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="blog-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       DELIVERABLES
+       ════════════════════════════════════════ -->
+  <section class="blog-del" aria-labelledby="blog-del-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Co dostajesz"
+          title="Co zawiera każdy <em>artykuł</em>?"
+          subtitle="Nie tylko tekst — kompletny pakiet gotowy do publikacji."
+        />
+      </div>
+      <div class="blog-del__grid">
+        {deliverables.map((item, i) => (
+          <div class="blog-del__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="blog-del__card-label">{item.label}</span>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="blog-price" aria-labelledby="blog-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztują <em>artykuły blogowe</em>?"
+          subtitle="Widełki cenowe od&nbsp;pojedynczego artykułu po&nbsp;retainer. Wycena w&nbsp;24h — bezpłatnie."
+        />
+      </div>
+      <div class="blog-price__table reveal">
+        <div class="blog-price__header">
+          <span>Usługa</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="blog-price__row">
+            <span class="blog-price__item">{row.item}</span>
+            <span class="blog-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="blog-price__footer">
+          <p>Ceny netto. W cenie każdego artykułu: research fraz, outline, pisanie, 2 rundy redakcji, optymalizacja on-page (title, meta, nagłówki, schema, linkowanie). Retainer: rabat 15–20% od ceny jednostkowej.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="blog-faq" aria-labelledby="blog-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>artykuły blogowe</em>"
+          subtitle="Najczęstsze pytania o&nbsp;pisanie artykułów, ceny, SEO, AI i&nbsp;stałą współpracę."
+        />
+      </div>
+      <div class="blog-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="blog-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="blog-faq__question">
+              <span>{faq.q}</span>
+              <svg class="blog-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="blog-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="blog-seo" aria-label="Artykuły blogowe — informacje">
+    <div class="container-narrow">
+      <article class="blog-seo__article">
+        <h2>Artykuły blogowe — dlaczego blog firmowy to najlepsza inwestycja w&nbsp;marketing</h2>
+        <p>
+          <strong>Artykuły blogowe</strong> to fundament content marketingu i&nbsp;jeden z&nbsp;najpotężniejszych
+          kanałów pozyskiwania ruchu organicznego. Firmy z&nbsp;aktywnym <strong>blogiem firmowym</strong>
+          generują średnio 67% więcej leadów miesięcznie niż firmy bez bloga (HubSpot). Każdy
+          artykuł to osobna strona, która może rankować w&nbsp;Google na dziesiątki fraz kluczowych —
+          i&nbsp;generować ruch bez stałych kosztów reklamowych.
+        </p>
+
+        <h3>Pisanie artykułów — co odróżnia profesjonalny tekst od amatorskiego?</h3>
+        <p>
+          Profesjonalne <strong>pisanie artykułów</strong> zaczyna się od researchu, nie od
+          pustej strony. Analiza fraz kluczowych, intencji wyszukiwania, konkurencji i&nbsp;content
+          gap — to fundament, na którym rośnie tekst. Amatorski artykuł powtarza to, co napisano
+          100 razy. Profesjonalny wypełnia lukę: odpowiada na pytanie lepiej, dokładniej
+          i&nbsp;z unikalną perspektywą.
+        </p>
+
+        <h3>Blog firmowy a&nbsp;SEO — jak artykuły budują widoczność w&nbsp;Google?</h3>
+        <p>
+          Każdy <strong>artykuł blogowy</strong> to szansa na rankowanie na nowe frazy kluczowe.
+          Regularna publikacja buduje topical authority — sygnalizuje Google, że jesteś ekspertem
+          w&nbsp;temacie. Content clusters (pillar page + cluster pages) wzmacniają ten efekt:
+          artykuły linkują do siebie, budując wewnętrzną sieć powiązań tematycznych. Efekt
+          kumuluje się z&nbsp;czasem — im więcej jakościowych <strong>artykułów eksperckich</strong>,
+          tym silniejsza pozycja w&nbsp;wynikach wyszukiwania.
+        </p>
+
+        <h3>Ile kosztuje copywriter do artykułów blogowych?</h3>
+        <p>
+          Ceny <strong>artykułów blogowych</strong> u&nbsp;profesjonalnego copywritera: artykuł
+          1500–3000 słów: 400–1200 zł, artykuł ekspercki 3000–5000 słów: 800–2000 zł, pillar
+          page: 1500–4000 zł. Przy stałej współpracy (retainer) ceny są niższe o&nbsp;15–20%.
+          W&nbsp;porównaniu z&nbsp;kosztem kliknięcia w&nbsp;Google Ads (2–15 zł/klik), artykuł
+          generujący 500 wizyt miesięcznie zwraca się w&nbsp;ciągu 1–3 miesięcy — i&nbsp;pracuje
+          latami.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .blog-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .blog-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .blog-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 680px; }
+  .blog-intro__title strong { font-weight: var(--fw-bold); }
+  .blog-intro__title em { font-style: italic; color: var(--accent); }
+  .blog-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .blog-intro__columns { grid-template-columns: 1fr; } }
+  .blog-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .blog-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .blog-intro__col em { font-style: italic; }
+
+  /* ── SCOPE ── */
+  .blog-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .blog-scope__list { display: flex; flex-direction: column; }
+  .blog-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .blog-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .blog-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .blog-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .blog-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .blog-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .blog-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── WHY (dark) ── */
+  .blog-why { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .blog-why__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .blog-why__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .blog-why__grid { grid-template-columns: 1fr; } }
+  .blog-why__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .blog-why__card:hover { border-color: rgba(255,255,255,0.12); }
+  .blog-why__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .blog-why__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .blog-why__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .blog-why__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── PROCESS ── */
+  .blog-proc { padding: var(--space-24) 0; }
+  .blog-proc__timeline { display: flex; flex-direction: column; }
+  .blog-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .blog-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .blog-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .blog-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .blog-proc__step:last-child .blog-proc__step-line { display: none; }
+  .blog-proc__step-content { padding-bottom: var(--space-6); }
+  .blog-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .blog-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── DELIVERABLES ── */
+  .blog-del { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .blog-del__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .blog-del__grid { grid-template-columns: 1fr; } }
+  .blog-del__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .blog-del__card:hover { border-color: var(--accent); }
+  .blog-del__card-label { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+  .blog-del__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PRICING ── */
+  .blog-price { padding: var(--space-24) 0; }
+  .blog-price__table { max-width: 660px; }
+  .blog-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .blog-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .blog-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .blog-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .blog-price__footer { padding-top: var(--space-4); }
+  .blog-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .blog-faq { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .blog-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .blog-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .blog-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .blog-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .blog-faq__question::-webkit-details-marker { display: none; }
+  .blog-faq__question::marker { display: none; content: ''; }
+  .blog-faq__question:hover { color: var(--accent); }
+  .blog-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .blog-faq__item[open] .blog-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .blog-faq__answer { padding: 0 0 var(--space-6); }
+  .blog-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .blog-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .blog-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .blog-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .blog-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .blog-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

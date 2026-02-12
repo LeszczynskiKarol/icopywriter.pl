@@ -1,0 +1,537 @@
+---
+import ServiceLayout from '../../../layouts/ServiceLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { getService } from '../../../data/services';
+
+const service = getService('landing-page')!;
+
+// ── Types of landing pages ──
+const scope = [
+  {
+    title: 'Landing page sprzedażowy',
+    desc: 'Strona lądowania z jednym celem: konwersja. Sprzedaż produktu, zapis na webinar, pobranie ebooka, umówienie konsultacji. Zero nawigacji, zero rozpraszaczy — jeden flow, jedno CTA, jedna decyzja. Piszę copy, które prowadzi czytelnika od „co to?" do „biorę" w logicznej sekwencji.',
+    tags: ['Sprzedaż produktu', 'Zapis na webinar', 'Pobranie lead magnetu', 'Umówienie konsultacji', 'Jedno CTA']
+  },
+  {
+    title: 'Landing page leadowy',
+    desc: 'Strona nastawiona na pozyskanie leada — email, telefon, formularz kontaktowy. Mniej agresywna niż sprzedażowy, ale równie precyzyjna w architekturze perswazji. Propozycja wartości, social proof, redukcja ryzyka, formularz z mikrocopy. Idealna do kampanii Google Ads i Meta Ads.',
+    tags: ['Formularz kontaktowy', 'Lead magnet', 'Google Ads', 'Meta Ads', 'Redukcja ryzyka']
+  },
+  {
+    title: 'Landing page produktowy / SaaS',
+    desc: 'Strona produktu technologicznego: feature tour, demo, pricing, FAQ, CTA trial/signup. Tłumaczę złożoną technologię na język korzyści użytkownika. Hero z value proposition, sekcje features-benefits, social proof (loga, testimoniale, case studies), pricing z porównaniem planów.',
+    tags: ['Feature tour', 'Demo / trial', 'Pricing table', 'Porównanie planów', 'Onboarding CTA']
+  },
+  {
+    title: 'Landing page eventowy',
+    desc: 'Strona wydarzenia: konferencja, szkolenie, warsztaty, launch. Agenda, prelegenci, lokalizacja, early bird, countdown, formularz rejestracji. Copy, które buduje FOMO bez taniego manipulowania — konkretne powody, dlaczego warto być, i jasne CTA z ceną.',
+    tags: ['Konferencja', 'Szkolenie', 'Warsztaty', 'Launch', 'Countdown + FOMO']
+  },
+  {
+    title: 'Landing page + kodowanie + wdrożenie',
+    desc: 'Pełny pakiet end-to-end: strategia, copywriting, design, kodowanie w Astro lub Next.js, wdrożenie na serwer, konfiguracja analityki i A/B testów. Jeden człowiek, zero pośredników. Nie musisz koordynować copywritera, grafika i developera — dostajesz gotową, działającą stronę.',
+    tags: ['Astro / Next.js', 'Responsywny design', 'Analityka GA4 + GTM', 'A/B testy', 'Wdrożenie']
+  }
+];
+
+// ── Anatomy of a converting LP ──
+const anatomy = [
+  {
+    title: 'Hero z propozycją wartości',
+    desc: 'Nagłówek, który w jednym zdaniu odpowiada: co dostajesz i dlaczego to ma znaczenie. Subtitle z rozwinięciem. CTA powyżej foldu. Zero wodolejstwa — czytelnik decyduje w 3 sekundy, czy scrolluje dalej.'
+  },
+  {
+    title: 'Problem → Agitacja → Rozwiązanie',
+    desc: 'Klasyczny framework PAS: nazywam problem, który klient odczuwa. Pokazuję konsekwencje bierności. Przedstawiam Twój produkt/usługę jako rozwiązanie. Nie straszę — buduję napięcie, które rozładowuje CTA.'
+  },
+  {
+    title: 'Korzyści, nie funkcje',
+    desc: 'Sekcja features-benefits: każda funkcja przetłumaczona na korzyść. Ikona, nagłówek, jedno zdanie. Skanowalna siatka 3×2 lub 2×3. Czytelnik w 5 sekund rozumie, co zyskuje — nawet jeśli nie przeczyta ani jednego akapitu.'
+  },
+  {
+    title: 'Social proof',
+    desc: 'Testimoniale, case studies, loga klientów, liczby (użytkowników, projektów, lat). Dowodom społecznym wierzy 92% ludzi bardziej niż reklamie. Wybieram format social proof dopasowany do branży — SaaS chce loga, usługi chcą historii.'
+  },
+  {
+    title: 'Obiekcje i FAQ',
+    desc: 'Sekcja, która odpowiada na „ale...": ale ile to kosztuje, ale czy to dla mnie, ale co jeśli nie zadziała, ale dlaczego was a nie ich. FAQ z schema — jednocześnie redukuje tarcie i buduje widoczność w Google.'
+  },
+  {
+    title: 'CTA finalne z redukcją ryzyka',
+    desc: 'Powtórzony przycisk na dole strony — tym razem z mikrocopy redukującym ryzyko: bezpłatna wycena, gwarancja zwrotu, bez zobowiązań, anuluj w każdej chwili. Klient, który dotarł do końca strony, jest gotowy. Nie każ mu scrollować na górę.'
+  }
+];
+
+// ── Why me for LP ──
+const advantages = [
+  {
+    title: 'Copy-first: tekst przed designem',
+    desc: 'Większość agencji zaczyna od layoutu, a potem „wpasowuje tekst". Ja zaczynam od tekstu — bo to treść sprzedaje, nie gradient. Wireframe tekstowy definiuje sekcje, flow i CTA. Design powstaje wokół kopii, nie odwrotnie. Efekt: strona, która wygląda dobrze I konwertuje.'
+  },
+  {
+    title: 'Jeden człowiek = zero friction',
+    desc: 'Typowy landing page wymaga: copywriter → grafik → developer → poprawki × 3. U mnie: strategia, copy, design, kodowanie w Astro/Next.js, wdrożenie, analityka — w jednych rękach. Zero gry w głuchy telefon, zero opóźnień na styku ról. Szybciej, spójniej, taniej.'
+  },
+  {
+    title: 'Mierzalność wbudowana',
+    desc: 'Nie oddaję „ładnej strony" i nie życzę powodzenia. Konfiguruję GA4, GTM, zdarzenia konwersji, heatmapy. Po 2–4 tygodniach analizuję dane i optymalizuję: nagłówek, CTA, układ, mikrocopy. Landing page to nie projekt — to żywy system, który się doskonali.'
+  },
+  {
+    title: 'Doświadczenie w lejkach',
+    desc: 'Landing page nie istnieje w próżni — jest elementem lejka: reklama → LP → follow-up → konwersja. Piszę copy spójne z reklamą (message match), konfiguruję sekwencje emailowe, dbam o continuity experience. Nie tworzę „strony" — tworzę element systemu sprzedaży.'
+  }
+];
+
+// ── Process ──
+const process = [
+  { step: 'Strategia i cel konwersji', desc: 'Definiujemy: co landing page ma osiągnąć (lead, sprzedaż, zapis), skąd przyjdzie ruch (Ads, email, social), kim jest odbiorca, jakie ma obiekcje, co go przekona. Strategia przed kopią — bo bez celu nie ma dobrego tekstu.' },
+  { step: 'Research i analiza konkurencji', desc: 'Analizuję landing page konkurencji: co komunikują, jaką strukturę mają, jakie social proof, jakie CTA. Identyfikuję luki — i projektuję stronę, która wypełnia te luki lepiej. Sprawdzam frazy, jeśli LP ma też rankować organicznie.' },
+  { step: 'Wireframe tekstowy', desc: 'Tworzę kompletny szkielet: hero (headline + subtitle + CTA), sekcje (problem, rozwiązanie, korzyści, social proof, obiekcje, FAQ, CTA finalne). Każda sekcja z oznaczonym celem i intencją. Akceptujesz strukturę przed pisaniem.' },
+  { step: 'Copywriting', desc: 'Piszę pełny tekst: nagłówki, body copy, bullet pointy, CTA, mikrocopy (formularza, przycisków, tooltipów), alt texty. Warianty A/B nagłówka i CTA, jeśli planujesz testy. Tekst z oznaczeniami H1/H2/H3 i komentarzami dla designera.' },
+  { step: 'Design i kodowanie', desc: 'Opcjonalnie: projektuję layout (Figma lub code-first) i koduję w Astro lub Next.js. Responsywny, szybki (Core Web Vitals), z animacjami, lazy loading, SEO. Wdrażam na serwer, konfiguruję domenę, SSL, analitykę.' },
+  { step: 'Launch, pomiar, optymalizacja', desc: 'Publikacja. Po 2–4 tygodniach: analiza konwersji, heatmapy, scroll depth, CTR. Optymalizacja: zmiana nagłówka, przebudowa CTA, dodanie social proof, test wariantu B. Cykl iteracji do osiągnięcia target CR.' }
+];
+
+// ── Pricing ──
+const pricing = [
+  { item: 'Copywriting landing page (sam tekst + wireframe)', price: '2 000–6 000 zł' },
+  { item: 'Landing page: copy + design (Figma)', price: '4 000–8 000 zł' },
+  { item: 'Landing page: copy + design + kodowanie (Astro/Next.js)', price: '6 000–15 000 zł' },
+  { item: 'Landing page + sekwencja emailowa (5–7 emaili)', price: '4 000–10 000 zł' },
+  { item: 'A/B test setup + optymalizacja (retainer)', price: 'od 1 000 zł/mies.' },
+  { item: 'Audyt i optymalizacja istniejącego LP', price: '1 500–4 000 zł' }
+];
+
+// ── FAQ ──
+const faqs = [
+  {
+    q: 'Co to jest landing page?',
+    a: 'Landing page (strona lądowania) to pojedyncza strona internetowa zaprojektowana pod jeden konkretny cel konwersji: sprzedaż, pozyskanie leada, zapis na event. W odróżnieniu od zwykłej strony www, landing page nie ma nawigacji, linków wychodzących ani rozpraszaczy — cały design i tekst prowadzą do jednego CTA. To najskuteczniejszy format konwersji w digital marketingu.'
+  },
+  {
+    q: 'Ile kosztuje stworzenie landing page?',
+    a: 'Sam tekst z wireframe: 2000–6000 zł. Copy + design w Figma: 4000–8000 zł. Pełny pakiet (copy + design + kodowanie + wdrożenie): 6000–15 000 zł. Cena zależy od złożoności produktu/usługi, ilości researchu i tego, czy dostarczam sam tekst czy gotową stronę. Wycena bezpłatna w 24h.'
+  },
+  {
+    q: 'Czym różni się landing page od strony internetowej?',
+    a: 'Strona internetowa ma wiele podstron, nawigację i różne cele (informacja, edukacja, kontakt). Landing page to jedna strona z jednym celem — konwersją. Nie ma menu, nie ma linków do bloga, nie ma strony „O nas". Całość jest skoncentrowana na przeprowadzeniu czytelnika od zainteresowania do działania.'
+  },
+  {
+    q: 'Czy landing page musi być osobną stroną?',
+    a: 'Nie koniecznie — może być podstroną Twojego serwisu (np. domena.pl/oferta-specjalna). Ale najlepiej konwertują strony bez nawigacji i elementów rozpraszających. Jeśli klient może kliknąć „Blog" zamiast „Kup teraz" — część klientów kliknie „Blog". Dlatego najskuteczniejsze LP minimalizują opcje do jednej: CTA.'
+  },
+  {
+    q: 'Ile czasu zajmuje stworzenie landing page?',
+    a: 'Sam copywriting: 5–10 dni roboczych (research + wireframe + tekst + 2 rundy redakcji). Copy + design + kodowanie: 2–4 tygodnie. Ekspres (+50%): czas skrócony o 40–50%. Przy kampaniach z deadline\'em (launch, event) — zawsze dotrzymuję terminu, bo planuję bufor.'
+  },
+  {
+    q: 'Czy tworzysz też reklamy do landing page?',
+    a: 'Tak — piszę teksty reklamowe (Google Ads, Meta Ads) z message match: nagłówek reklamy koresponduje z nagłówkiem LP, obietnica z reklamy jest spełniona na stronie. Spójność reklama-LP to klucz do niskiego CPC i wysokiego Quality Score.'
+  },
+  {
+    q: 'Jak mierzyć skuteczność landing page?',
+    a: 'Główny KPI to conversion rate (CR): procent odwiedzających, którzy wykonają docelowe działanie. Typowy CR landing page: 5–15% (zależy od branży i źródła ruchu). Dodatkowe metryki: bounce rate, scroll depth, czas na stronie, CTR CTA. Konfiguruję analitykę (GA4 + GTM) i dashboardy jako część usługi.'
+  },
+  {
+    q: 'Czy mogę potem sam edytować landing page?',
+    a: 'Jeśli koduję w Astro — dostarczam repozytorium z kodem, możesz edytować samodzielnie lub zlecić zmiany. Jeśli potrzebujesz CMS (np. WordPress, Webflow) — mogę wdrożyć na platformie z edytorem wizualnym. Elastyczny format — dopasowany do Twoich kompetencji technicznych.'
+  }
+];
+
+// ── Schema ──
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.icopywriter.pl/uslugi/landing-page/#webpage",
+      "url": "https://www.icopywriter.pl/uslugi/landing-page/",
+      "name": "Landing page — copywriting + design + wdrożenie | iCopywriter.pl",
+      "isPartOf": { "@id": "https://www.icopywriter.pl/#website" },
+      "description": service.metaDescription,
+      "breadcrumb": { "@id": "https://www.icopywriter.pl/uslugi/landing-page/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.icopywriter.pl/uslugi/landing-page/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.icopywriter.pl/" },
+        { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://www.icopywriter.pl/uslugi/" },
+        { "@type": "ListItem", "position": 3, "name": "Landing page", "item": "https://www.icopywriter.pl/uslugi/landing-page/" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Landing page",
+      "provider": { "@id": "https://www.icopywriter.pl/#person" },
+      "description": "Tworzenie landing page: strategia, copywriting, design, kodowanie, wdrożenie, A/B testy. Copy-first approach.",
+      "serviceType": "Landing Page Creation",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    }
+  ]
+};
+---
+
+<ServiceLayout service={service} schema={schema}>
+
+  <!-- ════════════════════════════════════════
+       INTRO
+       ════════════════════════════════════════ -->
+  <section class="lp-intro" id="zakres" aria-labelledby="lp-intro-title">
+    <div class="container">
+      <div class="lp-intro__inner reveal">
+        <div class="lp-intro__eyebrow">Landing page — copywriting + kodowanie</div>
+        <h2 id="lp-intro-title" class="lp-intro__title">
+          <strong>Landing page</strong> to nie „ładna strona".<br>
+          To <em>maszyna do konwersji</em> — albo strata budżetu.
+        </h2>
+        <div class="lp-intro__columns">
+          <div class="lp-intro__col">
+            <p>
+              Kierujesz ruch z reklam na stronę, która wygląda pięknie — ale nikt nie
+              kliknie, nie wypełni formularza, nie kupi. Problem? Strona nie jest
+              <strong>landing page</strong>. Jest „stroną internetową z przyciskiem".
+              Prawdziwy <strong>landing page</strong> to jedna strona, jeden cel, jeden
+              flow — od nagłówka po CTA, każdy element uzasadniony psychologią decyzji
+              i danymi.
+            </p>
+            <p>
+              Tworzę <strong>landing page</strong>, które konwertują, bo zaczynam od
+              strategii, nie od Figmy. <strong>Copy-first approach</strong>: tekst
+              determinuje design, research determinuje tekst. Najpierw wiem, co powiedzieć
+              i w jakiej kolejności — potem projektuję, jak to wygląda. Efekt: strony,
+              które nie tylko wyglądają profesjonalnie, ale przede wszystkim <em>działają</em>.
+            </p>
+          </div>
+          <div class="lp-intro__col">
+            <p>
+              Mogę dostarczyć sam tekst z wireframe w&nbsp;Google Docs — gotowy do
+              przekazania Twojemu designerowi i&nbsp;developerowi. Ale mogę też
+              zrobić <strong>wszystko sam</strong>: strategia → copywriting → design →
+              kodowanie w Astro lub Next.js → wdrożenie → konfiguracja analityki i A/B
+              testów. Jeden człowiek zamiast trzech freelancerów — szybciej, spójniej,
+              bez gry w głuchy telefon.
+            </p>
+            <p>
+              I nie kończę na publikacji. Po 2–4 tygodniach analizuję dane: conversion
+              rate, heatmapy, scroll depth, CTR przycisków. Optymalizuję nagłówek, CTA,
+              układ, mikrocopy. Bo <strong>landing page</strong> to nie „projekt" — to
+              żywy system, który się doskonali, aż osiągnie docelowy wskaźnik konwersji.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCOPE — Types of LPs
+       ════════════════════════════════════════ -->
+  <section class="lp-scope" aria-labelledby="lp-scope-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Rodzaje"
+          title="Jakie <em>landing page</em> tworzę?"
+          subtitle="Sprzedażowe, leadowe, produktowe, eventowe — i&nbsp;pełny pakiet z&nbsp;kodowaniem. Każdy z&nbsp;jasnym celem konwersji."
+        />
+      </div>
+      <div class="lp-scope__list">
+        {scope.map((item, i) => (
+          <div class="lp-scope__item reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="lp-scope__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="lp-scope__item-content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <div class="lp-scope__item-tags">
+                {item.tags.map((tag) => (
+                  <span class="lp-scope__tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       ANATOMY (dark)
+       ════════════════════════════════════════ -->
+  <section class="lp-anat" aria-labelledby="lp-anat-title">
+    <div class="lp-anat__grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Anatomia"
+          title="Z czego składa się <em>landing page</em>, który konwertuje?"
+          subtitle="Sześć elementów, które musi mieć każda skuteczna strona lądowania. Framework, nie szablón — bo każdy LP jest inny."
+          inverted
+        />
+      </div>
+      <div class="lp-anat__grid">
+        {anatomy.map((item, i) => (
+          <div class="lp-anat__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <span class="lp-anat__card-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       ADVANTAGES
+       ════════════════════════════════════════ -->
+  <section class="lp-adv" aria-labelledby="lp-adv-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Dlaczego ja"
+          title="Czym moje <em>landing page</em> się wyróżniają?"
+          subtitle="Copy-first, end-to-end, mierzalnie. Nie oddaję „ładnej strony” — oddaję system konwersji."
+        />
+      </div>
+      <div class="lp-adv__grid">
+        {advantages.map((item, i) => (
+          <div class="lp-adv__card reveal" style={`--delay: ${i * 0.07}s`}>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PROCESS
+       ════════════════════════════════════════ -->
+  <section class="lp-proc" aria-labelledby="lp-proc-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Proces"
+          title="Jak powstaje <em>landing page</em>?"
+          subtitle="Sześć etapów od strategii po optymalizację. Przejrzysty proces z&nbsp;akceptacją na każdym kroku."
+        />
+      </div>
+      <div class="lp-proc__timeline">
+        {process.map((item, i) => (
+          <div class="lp-proc__step reveal" style={`--delay: ${i * 0.06}s`}>
+            <div class="lp-proc__step-marker">
+              <span class="lp-proc__step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="lp-proc__step-line" aria-hidden="true"></div>
+            </div>
+            <div class="lp-proc__step-content">
+              <h3>{item.step}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PRICING
+       ════════════════════════════════════════ -->
+  <section class="lp-price" aria-labelledby="lp-price-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="Orientacyjny cennik"
+          title="Ile kosztuje <em>landing page</em>?"
+          subtitle="Od samego tekstu po pełny pakiet end-to-end. Wycena w&nbsp;24h — bezpłatnie."
+        />
+      </div>
+      <div class="lp-price__table reveal">
+        <div class="lp-price__header">
+          <span>Zakres</span>
+          <span>Cena netto</span>
+        </div>
+        {pricing.map((row) => (
+          <div class="lp-price__row">
+            <span class="lp-price__item">{row.item}</span>
+            <span class="lp-price__amount">{row.price}</span>
+          </div>
+        ))}
+        <div class="lp-price__footer">
+          <p>Ceny netto. W cenie copy: research, wireframe, 2 rundy redakcji, warianty A/B nagłówka. Kodowanie: responsywny design, Core Web Vitals, analityka, wdrożenie. Ekspres (+50%).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FAQ
+       ════════════════════════════════════════ -->
+  <section class="lp-faq" aria-labelledby="lp-faq-title">
+    <div class="container">
+      <div class="reveal">
+        <SectionHeading
+          label="FAQ"
+          title="Pytania o&nbsp;<em>landing page</em>"
+          subtitle="Najczęstsze pytania o&nbsp;tworzenie landing page, ceny, proces i&nbsp;mierzenie efektów."
+        />
+      </div>
+      <div class="lp-faq__list">
+        {faqs.map((faq, i) => (
+          <details class="lp-faq__item reveal" style={`--delay: ${i * 0.04}s`}>
+            <summary class="lp-faq__question">
+              <span>{faq.q}</span>
+              <svg class="lp-faq__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="lp-faq__answer"><p>{faq.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEO CONTENT
+       ════════════════════════════════════════ -->
+  <section class="lp-seo" aria-label="Landing page — informacje">
+    <div class="container-narrow">
+      <article class="lp-seo__article">
+        <h2>Landing page — co to jest i&nbsp;dlaczego konwertuje lepiej niż zwykła strona</h2>
+        <p>
+          <strong>Landing page</strong> (strona lądowania) to pojedyncza strona internetowa
+          zaprojektowana wokół jednego celu: konwersji. W&nbsp;odróżnieniu od tradycyjnej
+          strony www, <strong>landing page</strong> nie ma nawigacji, paska bocznego ani
+          linków do innych podstron. Cała architektura — tekst, design, układ — prowadzi
+          czytelnika do jednego działania: kliknięcia przycisku, wypełnienia formularza,
+          dokonania zakupu. To dlatego dobrze zaprojektowany <strong>landing page</strong>
+          konwertuje 3–5× lepiej niż zwykła podstrona.
+        </p>
+
+        <h3>Tworzenie landing page — od czego zacząć?</h3>
+        <p>
+          <strong>Tworzenie landing page</strong> powinno zaczynać się od strategii, nie od
+          designu. Kluczowe pytania: jaki jest cel konwersji? Skąd przyjdzie ruch? Kim jest
+          odbiorca? Jakie ma obiekcje? Co go przekona? Dopiero po odpowiedziach na te pytania
+          powstaje wireframe tekstowy — szkielet strony z&nbsp;nagłówkami, sekcjami, flow
+          argumentacji i&nbsp;rozmieszczeniem CTA. Design przychodzi na końcu, wokół tekstu.
+        </p>
+
+        <h3>Landing page na zamówienie a&nbsp;szablony — co wybrać?</h3>
+        <p>
+          Szablony (Unbounce, Leadpages, Carrd) są tańsze i&nbsp;szybsze — idealne do
+          prostych testów i&nbsp;kampanii z&nbsp;niskim budżetem. <strong>Landing page
+          na zamówienie</strong> daje pełną kontrolę nad przekazem, designem, wydajnością
+          i&nbsp;SEO — idealny, gdy konwersja bezpośrednio wpływa na przychód. Dla produktów
+          i&nbsp;usług z&nbsp;wyższym AOV zwrot z&nbsp;inwestycji w&nbsp;custom LP jest
+          wielokrotny.
+        </p>
+
+        <h3>Ile kosztuje landing page i&nbsp;od czego zależy cena?</h3>
+        <p>
+          Cena <strong>landing page</strong> zależy od zakresu: sam tekst (2000–6000 zł),
+          tekst + design (4000–8000 zł), pełny pakiet z&nbsp;kodowaniem i&nbsp;wdrożeniem
+          (6000–15 000 zł). Na cenę wpływa też złożoność produktu/usługi, ilość potrzebnego
+          researchu, liczba wariantów A/B i&nbsp;integracje (CRM, email automation).
+          <strong>Landing page</strong> to inwestycja z&nbsp;mierzalnym ROI — bo konwersja
+          przekłada się bezpośrednio na przychód.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  /* ── INTRO ── */
+  .lp-intro { padding: var(--space-24) 0; border-top: 1px solid var(--rule-light); }
+  .lp-intro__eyebrow { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4); }
+  .lp-intro__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--ink); margin-bottom: var(--space-8); max-width: 700px; }
+  .lp-intro__title strong { font-weight: var(--fw-bold); }
+  .lp-intro__title em { font-style: italic; color: var(--accent); }
+  .lp-intro__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  @media (max-width: 768px) { .lp-intro__columns { grid-template-columns: 1fr; } }
+  .lp-intro__col p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .lp-intro__col strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .lp-intro__col em { font-style: italic; }
+
+  /* ── SCOPE ── */
+  .lp-scope { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .lp-scope__list { display: flex; flex-direction: column; }
+  .lp-scope__item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .lp-scope__item:first-child { border-top: 1px solid var(--rule); }
+  .lp-scope__item-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: var(--fw-bold); color: var(--accent); text-align: right; padding-top: 3px; }
+  .lp-scope__item-content h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .lp-scope__item-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 640px; margin-bottom: var(--space-3); }
+  .lp-scope__item-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lp-scope__tag { font-family: var(--font-mono); font-size: 0.58rem; font-weight: var(--fw-medium); color: var(--ink-faint); background: var(--card-bg); border: 1px solid var(--rule-light); padding: 3px 8px; border-radius: var(--radius-sm); }
+
+  /* ── ANATOMY (dark) ── */
+  .lp-anat { padding: var(--space-24) 0; background: var(--navy); position: relative; overflow: hidden; }
+  .lp-anat__grain { position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .lp-anat__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); position: relative; }
+  @media (max-width: 768px) { .lp-anat__grid { grid-template-columns: 1fr; } }
+  .lp-anat__card { border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 0.3s ease; transition-delay: var(--delay, 0s); }
+  .lp-anat__card:hover { border-color: rgba(255,255,255,0.12); }
+  .lp-anat__card-num { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: var(--accent-light); margin-bottom: var(--space-2); letter-spacing: 0.04em; }
+  .lp-anat__card h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: #fff; margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .lp-anat__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.45); }
+
+  /* ── ADVANTAGES ── */
+  .lp-adv { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .lp-adv__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 640px) { .lp-adv__grid { grid-template-columns: 1fr; } }
+  .lp-adv__card { background: var(--card-bg); border: 1px solid var(--rule-light); border-radius: var(--radius-md); padding: var(--space-5); transition: border-color var(--transition-base); transition-delay: var(--delay, 0s); }
+  .lp-adv__card:hover { border-color: var(--accent); }
+  .lp-adv__card h3 { font-family: var(--font-display); font-size: var(--fs-base); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-2); line-height: var(--lh-snug); }
+  .lp-adv__card p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); }
+
+  /* ── PROCESS ── */
+  .lp-proc { padding: var(--space-24) 0; }
+  .lp-proc__timeline { display: flex; flex-direction: column; }
+  .lp-proc__step { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5); transition-delay: var(--delay, 0s); }
+  .lp-proc__step-marker { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .lp-proc__step-num { font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); color: #fff; background: var(--accent); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; z-index: 1; }
+  .lp-proc__step-line { width: 2px; flex: 1; background: var(--rule-light); min-height: 24px; }
+  .lp-proc__step:last-child .lp-proc__step-line { display: none; }
+  .lp-proc__step-content { padding-bottom: var(--space-6); }
+  .lp-proc__step-content h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); margin-bottom: var(--space-1); line-height: var(--lh-snug); }
+  .lp-proc__step-content p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 560px; }
+
+  /* ── PRICING ── */
+  .lp-price { padding: var(--space-24) 0; background: var(--paper-warm); border-top: 1px solid var(--rule-light); }
+  .lp-price__table { max-width: 660px; }
+  .lp-price__header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.62rem; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  .lp-price__row { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--rule-light); gap: var(--space-4); }
+  .lp-price__item { font-size: var(--fs-sm); color: var(--ink-muted); line-height: var(--lh-snug); }
+  .lp-price__amount { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .lp-price__footer { padding-top: var(--space-4); }
+  .lp-price__footer p { font-size: var(--fs-xs); color: var(--ink-faint); line-height: var(--lh-relaxed); }
+
+  /* ── FAQ ── */
+  .lp-faq { padding: var(--space-24) 0; }
+  .lp-faq__list { max-width: 740px; display: flex; flex-direction: column; }
+  .lp-faq__item { border-bottom: 1px solid var(--rule-light); transition-delay: var(--delay, 0s); }
+  .lp-faq__item:first-child { border-top: 1px solid var(--rule); }
+  .lp-faq__question { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) 0; cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--ink); line-height: var(--lh-snug); list-style: none; transition: color var(--transition-fast); }
+  .lp-faq__question::-webkit-details-marker { display: none; }
+  .lp-faq__question::marker { display: none; content: ''; }
+  .lp-faq__question:hover { color: var(--accent); }
+  .lp-faq__chevron { flex-shrink: 0; color: var(--ink-faint); transition: transform 0.3s ease, color 0.3s ease; }
+  .lp-faq__item[open] .lp-faq__chevron { transform: rotate(180deg); color: var(--accent); }
+  .lp-faq__answer { padding: 0 0 var(--space-6); }
+  .lp-faq__answer p { font-size: var(--fs-sm); line-height: var(--lh-relaxed); color: var(--ink-muted); max-width: 620px; }
+
+  /* ── SEO CONTENT ── */
+  .lp-seo { padding: var(--space-20) 0; border-top: 1px solid var(--rule-light); }
+  .lp-seo__article h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: var(--fw-semibold); margin-bottom: var(--space-6); color: var(--ink); }
+  .lp-seo__article h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); margin-top: var(--space-10); margin-bottom: var(--space-3); color: var(--ink); }
+  .lp-seo__article p { font-size: 0.92rem; line-height: var(--lh-relaxed); color: var(--ink-muted); margin-bottom: var(--space-4); }
+  .lp-seo__article strong { color: var(--ink-soft); font-weight: var(--fw-medium); }
+</style>

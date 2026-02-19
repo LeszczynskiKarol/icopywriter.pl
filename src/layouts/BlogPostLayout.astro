@@ -54,7 +54,7 @@ const schema = {
       <div class="post-hero__gradient"></div>
     </div>
     <div class="container">
-      <div class="post-hero__inner reveal">
+      <div class="post-hero__inner">
         <div class="post-hero__breadcrumb">
           <a href="/">Strona główna</a>
           <span aria-hidden="true">/</span>
@@ -84,12 +84,12 @@ const schema = {
   <!-- Article content -->
   <article class="post-content">
     <div class="container-narrow">
-      <div class="post-content__body reveal">
+      <div class="post-content__body">
         <slot />
       </div>
 
       {frontmatter.tags && frontmatter.tags.length > 0 && (
-        <div class="post-content__tags reveal">
+        <div class="post-content__tags">
           <span class="post-content__tags-label">Tagi:</span>
           {frontmatter.tags.map((tag: string) => (
             <span class="post-content__tag">{tag}</span>
@@ -102,7 +102,7 @@ const schema = {
   <!-- CTA after article -->
   <section class="post-cta">
     <div class="container-narrow">
-      <div class="post-cta__inner reveal">
+      <div class="post-cta__inner">
         <h2 class="post-cta__title">Potrzebujesz tekstów?</h2>
         <p class="post-cta__desc">
           Opisz swój projekt — odpowiem z&nbsp;wyceną i&nbsp;propozycją podejścia w&nbsp;ciągu 24&nbsp;godzin.

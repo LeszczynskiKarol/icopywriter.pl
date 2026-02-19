@@ -16,7 +16,7 @@ tags:
 
 ## Umiejętności twórcze copywritera
 
-Kreatywność to podstawa, bez której nie istnieje [praca copywritera](icopywriter.pl/blog/praca-copywritera-na-czym-polega-czym-sie-zajmuje-copywriter). Bez pomysłowości i zdolności do generowania oryginalnych pomysłów trudno o sukces w tym zawodzie. Copywriter musi **dysponować bujną wyobraźnią** i umiejętnością łączenia wątków w intrygującą, angażującą całość. Ważne jest też myślenie obrazowe – copywriter opowiada historie, które poruszają odbiorcę i skłaniają do działania. Nie wolno mu ograniczać się do suchych faktów.
+Kreatywność to podstawa, bez której nie istnieje [praca copywritera](https://www.icopywriter.pl/blog/praca-copywritera-na-czym-polega-czym-sie-zajmuje-copywriter). Bez pomysłowości i zdolności do generowania oryginalnych pomysłów trudno o sukces w tym zawodzie. Copywriter musi **dysponować bujną wyobraźnią** i umiejętnością łączenia wątków w intrygującą, angażującą całość. Ważne jest też myślenie obrazowe – copywriter opowiada historie, które poruszają odbiorcę i skłaniają do działania. Nie wolno mu ograniczać się do suchych faktów.
 
 Kreatywny copywriter:
 

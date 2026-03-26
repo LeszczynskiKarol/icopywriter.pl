@@ -14,6 +14,17 @@ echo "════════════════════════�
 echo "  🚀 Deploying icopywriter.pl"
 echo "═══════════════════════════════════════════════════════════════"
 
+echo "📦 Pushing to GitHub..."
+git add .
+git commit -m "git push from local"
+git push origin main
+
+if [ $? -ne 0 ]; then
+  echo "❌ Git push failed!"
+  exit 1
+fi
+
+
 # Build
 echo ""
 echo "📦 Building..."

@@ -1,10 +1,12 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: 'https://www.icopywriter.pl',
+  site: "https://www.icopywriter.pl",
+  integrations: [sitemap()],
   compressHTML: true,
-  build: { format: 'directory' },
+  build: { format: "directory" },
   vite: {
-    build: { cssMinify: true }
-  }
+    build: { cssMinify: true },
+  },
 });

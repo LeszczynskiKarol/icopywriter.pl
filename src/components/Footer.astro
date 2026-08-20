@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
     <div class="footer__bottom">
-      <span class="footer__copy">&copy; {year} Karol Leszczyński · iCopywriter.pl</span>
+      <span class="footer__copy">&copy; {year} Karol Leszczyński · iCopywriter.pl · Wykonanie strony: <a href="https://www.torweb.pl/">TorWeb.pl</a></span>
       <span class="footer__legal">
         <a href="/polityka-prywatnosci/">Polityka prywatności</a>
         <a href="#" onclick="openCookieSettings(); return false;">Ustawienia cookies</a>
@@ -62,6 +62,8 @@ const year = new Date().getFullYear();
     gap: var(--space-4); flex-wrap: wrap; padding-top: var(--space-6);
   }
   .footer__copy { font-size: var(--fs-xs); color: var(--ink-faint); }
+  .footer__copy a { color: var(--ink-faint); transition: color var(--transition-fast); }
+  .footer__copy a:hover { color: var(--accent); }
   .footer__legal a { font-size: var(--fs-xs); color: var(--ink-faint); transition: color var(--transition-fast); }
   .footer__legal a:hover { color: var(--accent); }
 </style>
